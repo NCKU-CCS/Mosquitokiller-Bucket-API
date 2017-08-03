@@ -1,18 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const mccs = require('../models/mcc.js')
+const sequelize = require('../models/mcc.js')
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  mccs.findAll({
-    attributes: ['index', 'created_at', 'mcc_keys', 'mcc_lists', 'distance', 'timeline', 'point_counts', 'up_limit'],
-    where: {
-      distance: 1000
-    }
-  })
-  .then(mccs => {
-    res.json({'mccs': mccs})
-  })
+router.get('/mcc', function (req, res, next) {
+  sequelize.query('SELECT * FROM mccs WHERE date(created_at) >= ? AND date(created_at) <= ?',
+    {
+      replacements: [req.query.start, req.query.end], type: sequelize.QueryTypes.SELECT 
+    }).then((mccs) => {
+      res.json({'mccs': mccs})
+    })
 })
 
 module.exports = router

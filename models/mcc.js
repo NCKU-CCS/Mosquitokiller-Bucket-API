@@ -21,11 +21,4 @@ sequelize
       console.error('Unable to connect to the database:', err)
     })
 
-const mccs = sequelize.define('mccs', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true
-  }
-})
-
-module.exports = mccs
+module.exports = sequelize
