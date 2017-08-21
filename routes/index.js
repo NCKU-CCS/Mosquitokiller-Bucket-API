@@ -5,7 +5,11 @@ const moment = require('moment')
 const sequelize = require('../models/mcc.js')
 
 // CONST STRING Config
-const TABLE_LIST = ['mccs', 'lamps', 'lamp_mccs']
+const TABLE_LIST = {
+  'mccs': 'mccs',
+  'lamps': 'lamps',
+  'lampMccs': 'lamp_mccs'
+}
 
 const QUERY_STRING = {
   'range': (req) => `SELECT ${req.db.item} FROM ${req.params.tableName} WHERE date(created_at) >= ? AND date(created_at) <= ? ${req.db.rule}`,
@@ -15,7 +19,7 @@ const QUERY_STRING = {
 }
 
 const FORMAT_STRING = {
-  'none': {item: '*', rule: ''},
+  'none': {item: '*', rule: ' '},
   'format': {item: 'SUM(counts), id,  date(created_at) ', rule: 'GROUP BY lamps.id, date(lamps.created_at) ORDER BY date(created_at)'}
 }
 
@@ -28,7 +32,8 @@ const RATE_PERCENT = {
 
 // HANDLE GET API
 router.get('/:tableName', (req, res, next) => {
-  if (TABLE_LIST.includes(req.params.tableName)) {
+  if (Object.keys(TABLE_LIST).includes(req.params.tableName)) {
+    req.params.tableName = TABLE_LIST[req.params.tableName]
     const isLampFormat = (req.query.format === 'true' & req.params.tableName === 'lamps')
     req.db = isLampFormat
       ? FORMAT_STRING.format
@@ -48,7 +53,7 @@ router.get('/:tableName', (req, res, next) => {
 function query (req, next) {
   let query
   let queryValue = {type: sequelize.QueryTypes.SELECT}
-  if (req.query.start & req.query.end) {
+  if (req.query.start && req.query.end) {
     query = QUERY_STRING.range(req)
     queryValue.replacements = [req.query.start, req.query.end]
   } else if (req.query.start) {
@@ -60,6 +65,7 @@ function query (req, next) {
   } else {
     query = QUERY_STRING.all(req)
   }
+  console.log(query)
   sequelize.query(query, queryValue).then((queryData) => {
     next(queryData)
   })
