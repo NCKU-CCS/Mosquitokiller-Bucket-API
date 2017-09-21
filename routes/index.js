@@ -8,7 +8,8 @@ const sequelize = require('../models/mcc.js')
 const TABLE_LIST = {
   'mccs': 'mccs',
   'lamps': 'lamps',
-  'lampMccs': 'lamp_mccs'
+  'lampMccs': 'lamp_mccs',
+  'lampsAlive': 'lamps_alive'
 }
 
 const QUERY_STRING = {
