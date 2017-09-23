@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
-const CONFIG = require('../config/lampConfig.js')
+// const CONFIG = require('../config/lampDevConfig.js')
+const CONFIG = require('../config/lampProdConfig.js')
 
 // Setup Sequelize
 const sequelize = new Sequelize(CONFIG['database'], CONFIG['user'], CONFIG['password'], {

@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const CONFIG = require('../config/config.js')
+const CONFIG = require('../config/bucketConfig.js')
 
 // Setup Sequelize
 const sequelize = new Sequelize(CONFIG['database'], CONFIG['user'], CONFIG['password'], {
