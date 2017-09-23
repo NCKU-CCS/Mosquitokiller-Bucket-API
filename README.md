@@ -4,17 +4,17 @@ Dengue Lamps & Minimal covering circle API
 
 ## Outline
 
-- [API Document]()
-- [Database Diagram]()
-- [Table Overview]()
-- [Table Details]()
-	- [lamps]()
-	- [lamp_places]()
-	- [lamp_counts]()
-	- [lamp_states]()
-	- [lamp_mcc]()
-	- [lamp_mcc\_rules]()
-	- [lamp_comments]()
+- [API Document](https://github.com/Sirius207/Bucket-API#api-document)
+- [Database Diagram](https://github.com/Sirius207/Bucket-API#database-diagram)
+- [Table Overview](https://github.com/Sirius207/Bucket-API#table-overview)
+- [Table Details](https://github.com/Sirius207/Bucket-API#table-details)
+	- [lamps](https://github.com/Sirius207/Bucket-API#table-lamps)
+	- [lamp_places](https://github.com/Sirius207/Bucket-API#table-lamp_places)
+	- [lamp_counts](https://github.com/Sirius207/Bucket-API#table-lamp_counts)
+	- [lamp_states](https://github.com/Sirius207/Bucket-API#table-lamp_states)
+	- [lamp_mcc](https://github.com/Sirius207/Bucket-API#table-lamp_mcc)
+	- [lamp_mcc\_rules](https://github.com/Sirius207/Bucket-API#table-lamp_mcc_rules)
+	- [lamp_comments](https://github.com/Sirius207/Bucket-API#table-lamp_comments)
 
 ## API Document
 
@@ -90,10 +90,10 @@ Dengue Lamps & Minimal covering circle API
 
 | Field      | Type        | Null | Key | Default | Extra          | Remarks |
 | ---------- | ----------- | ---- | --- | ------- | -------------- | ------- |
-| count_id   | integer        |      | PRI |         | auto_increment |         |
+| count_id   | integer     |      | PRI |         | auto_increment |         |
 | lamp_id    | varchar(25) |      | IND |         |                |         |
-| counts     | integer        |      |     |         |                |         |
-| created_at | timestamp   |      |     |         |                |         |
+| counts     | integer     |      |     |         |                |         |
+| created_at | timestamp   |      | IND |         |                |         |
 
 
 ### Index
@@ -113,9 +113,9 @@ Dengue Lamps & Minimal covering circle API
 
 | Field             | Type        | Null | Key | Default | Extra          | Remarks                       |
 | ----------------- | ----------- | ---- | --- | ------- | -------------- | ----------------------------- |
-| state_id          | integer        |      | PRI |         | auto_increment |                               |
+| state_id          | integer     |      | PRI |         | auto_increment |                               |
 | lamp_id           | varchar(25) |      | IND |         |                |                               |
-| lamp_state        | integer       |      | IND |         |                | 捕蚊燈狀態: 2: 檢查中, 1: 異常待查, 0: 正常 |
+| lamp_state        | integer     |      | IND |         |                | 捕蚊燈狀態: 2: 檢查中, 1: 異常待查, 0: 正常 |
 | lamp_check_date   | date        | YES  |     | NULL    |                | 檢查日期                          |
 | lamp_check_person | varchar(10) | YES  |     | NULL    |                | 檢查者                           |
 | state_description | text        | YES  |     | NULL    |                | 異常狀況                          |
@@ -140,11 +140,11 @@ Dengue Lamps & Minimal covering circle API
 
 | Field      | Type          | Null | Key | Default | Extra          | Remarks |
 | ---------- | ------------- | ---- | --- | ------- | -------------- | ------- |
-| mcc_id     | integer         |      | PRI |         | auto_increment |         |
+| mcc_id     | integer       |      | PRI |         | auto_increment |         |
 | mcc_keys   | varchar(25)[] |      |     |         |                | 包含圓邊界點  |
 | mcc_points | varchar(25)[] |      |     |         |                | 包含圓包含點  |
 | mcc_center | double[]      |      |     |         |                | 包含圓中心座標 |
-| rule_id    | integer          |      |     |         |                |         |
+| rule_id    | integer       |      |     |         |                |         |
 | created_at | timestamp     |      | IND |         |                |         |
 
 
@@ -160,15 +160,15 @@ Dengue Lamps & Minimal covering circle API
 
 ### Table: lamp_mcc\_rules
 
-| Field                | Type      | Null | Key | Default | Extra          | Remarks   |
-| -------------------- | --------- | ---- | --- | ------- | -------------- | --------- |
-| rule_id              | integer      |      | PRI |         | auto_increment |           |
-| timeline_upper\_limit | integer      |      |     |         |                | 幾天內       |
-| distance_lower\_limit | integer     |      |     |         |                | 圓半徑       |
-| points_lower\_limit   | integer      |      |     |         |                | 最少點數目     |
-| counts_lower\_limit   | integer      |      |     |         |                | 單一點最少捕獲數目 |
-| created_at           | timestamp |      |     |         |                |           |
-| updated_at           | timestamp |      |     |         |                |           |
+| Field                 | Type      | Null | Key | Default | Extra          | Remarks   |
+| --------------------  | --------- | ---- | --- | ------- | -------------- | --------- |
+| rule_id               | integer   |      | PRI |         | auto_increment |           |
+| timeline_upper\_limit | integer   |      |     |         |                | 幾天內       |
+| distance_lower\_limit | integer   |      |     |         |                | 圓半徑       |
+| points_lower\_limit   | integer   |      |     |         |                | 最少點數目     |
+| counts_lower\_limit   | integer   |      |     |         |                | 單一點最少捕獲數目 |
+| created_at            | timestamp |      |     |         |                |           |
+| updated_at            | timestamp |      |     |         |                |           |
 
 
 ### Index
@@ -184,7 +184,7 @@ Dengue Lamps & Minimal covering circle API
 
 | Field           | Type        | Null | Key | Default | Extra          | Remarks |
 | --------------- | ----------- | ---- | --- | ------- | -------------- | ------- |
-| comment_id      | integer        |      | PRI |         | auto_increment |         |
+| comment_id      | integer     |      | PRI |         | auto_increment |         |
 | lamp_id         | varchar(25) |      | IND |         |                |         |
 | comment_content | text        |      |     |         |                |         |
 | created_at      | timestamp   |      |     |         |                | 留言日期    |
