@@ -18,9 +18,9 @@ Dengue Lamps & Minimal covering circle API
 
 ## API Document
 
-
 ## Database Diagram
 
+![Database diagram](./diagram.png)
 
 ## Table Overview
 
