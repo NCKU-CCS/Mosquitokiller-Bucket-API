@@ -20,8 +20,7 @@ const Counts = sequelize.define('lamp_counts', {
   },
   counts: {
     type: Sequelize.INTEGER,
-    allowNull: true,
-    defaultValue: null
+    allowNull: false
   }
 }, {
   indexes: [

@@ -19,8 +19,7 @@ const Mcc = sequelize.define('lamp_mcc', {
   },
   mcc_center: {
     type: Sequelize.DOUBLE,
-    allowNull: true,
-    defaultValue: null
+    allowNull: false
   },
   rule_id: {
     type: Sequelize.INTEGER,

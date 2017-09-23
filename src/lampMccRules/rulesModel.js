@@ -10,23 +10,19 @@ const Rules = sequelize.define('lamp_mcc_rules', {
   },
   timeline_upper_limit: {
     type: Sequelize.INTEGER,
-    allowNull: true,
-    defaultValue: null
+    allowNull: false
   },
   distance_lower_limit: {
     type: Sequelize.INTEGER,
-    allowNull: true,
-    defaultValue: null
+    allowNull: false
   },
   points_lower_limit: {
     type: Sequelize.INTEGER,
-    allowNull: true,
-    defaultValue: null
+    allowNull: false
   },
   counts_lower_limit: {
     type: Sequelize.INTEGER,
-    allowNull: true,
-    defaultValue: null
+    allowNull: false
   }
 }, {
   timestamps: true,
