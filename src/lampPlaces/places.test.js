@@ -2,9 +2,8 @@ process.env.NODE_ENV = 'test'
 
 let chai = require('chai')
 let chaiHttp = require('chai-http')
+let should = chai.should()
 let server = require('../../app')
-
-const Places = require('./placesModel.js')
 
 chai.use(chaiHttp)
 const agent = chai.request.agent(server)
@@ -24,12 +23,13 @@ const loginAuth = (agent, next) => {
 }
 
 describe('Places -- ', () => {
-  beforeEach((done) => {
-    loginAuth(agent, () => {
-      done()
-    })
-  })
+  // beforeEach((done) => {
+  //   loginAuth(agent, () => {
+  //     done()
+  //   })
+  // })
 
+  let ID = 0
   // =========================
   // Create New Place
   // =========================
@@ -44,10 +44,11 @@ describe('Places -- ', () => {
         .post('/apis/places')
         .send(place)
         .end((err, res) => {
-          if (err) done(err)
+          if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
           res.body.should.have.property('place')
+          ID = res.body.place.place_id
           done()
         })
     })
@@ -61,7 +62,6 @@ describe('Places -- ', () => {
         .post('/apis/places')
         .send(place)
         .end((err, res) => {
-          if (err) done(err)
           res.should.have.status(400)
           res.should.be.json
           res.body.should.have.property('errors')
@@ -78,7 +78,7 @@ describe('Places -- ', () => {
       agent
         .get('/apis/places')
         .end((err, res) => {
-          if (err) done(err)
+          if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
           res.body.should.have.property('places')
@@ -92,11 +92,10 @@ describe('Places -- ', () => {
   // =========================
   describe('/Get Place By ID -- ', () => {
     it('should return single place With Correct ID', (done) => {
-      const ID = '1'
       agent
-        .get(`/apis/place/${ID}`)
+        .get(`/apis/places/${ID}`)
         .end((err, res) => {
-          if (err) done(err)
+          if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
           res.body.should.have.property('place')
@@ -104,11 +103,20 @@ describe('Places -- ', () => {
         })
     })
     it('should Not return single place With Wrong ID', (done) => {
-      const ID = '0'
+      const ID = 0
       agent
-        .get(`/apis/place/${ID}`)
+        .get(`/apis/places/${ID}`)
         .end((err, res) => {
-          if (err) done(err)
+          res.should.have.status(404)
+          res.should.be.json
+          done()
+      })
+    })
+    it('should Not return single place With NaN ID', (done) => {
+      const ID = 'e'
+      agent
+        .get(`/apis/places/${ID}`)
+        .end((err, res) => {
           res.should.have.status(404)
           res.should.be.json
           done()
@@ -121,7 +129,6 @@ describe('Places -- ', () => {
   // =========================
   describe('/Put Place -- ', () => {
     it('place data should be update', (done) => {
-      const ID = '1'
       const place = {
         place_name: 'NETDB_2',
         place_address: '70102',
@@ -131,10 +138,10 @@ describe('Places -- ', () => {
         .put(`/apis/places/${ID}`)
         .send(place)
         .end((err, res) => {
-          if (err) done(err)
+          if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('place')
+          res.body.should.have.property('place_id')
           done()
         })
     })
@@ -145,11 +152,10 @@ describe('Places -- ', () => {
   // =========================
   describe('/Delete Place -- ', () => {
     it('place data should be delete', (done) => {
-      const ID = '1'
       agent
         .delete(`/apis/places/${ID}`)
         .end((err, res) => {
-          if (err) done(err)
+          if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
           done()
