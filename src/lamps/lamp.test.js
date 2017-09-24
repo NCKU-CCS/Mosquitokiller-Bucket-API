@@ -29,16 +29,16 @@ describe('Places -- ', () => {
   //   })
   // })
 
-  let ID
+  let ID = Math.random().toString()
   // =========================
   // Create New Lamp
   // =========================
   describe('/POST Lamp -- ', () => {
     it('new lamp data should be create', (done) => {
       const lamp = {
-        lamp_id: 'TEST04',
-        lamp_location: [],
-        place_id: 1
+        lamp_id: ID,
+        lamp_location: [120, 22],
+        place_id: 2
       }
       agent
         .post('/apis/lamps')
@@ -47,8 +47,8 @@ describe('Places -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('lamp')
-          ID = res.body.lamp.lamp_id
+          res.body.should.have.property('lamp_id')
+          ID = res.body.lamp_id.lamp_id
           done()
         })
     })

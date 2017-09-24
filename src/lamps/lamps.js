@@ -1,68 +1,42 @@
-const LampsModel = require('./lampsModel')
+const { body } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter')
+const { BaseController } = require('../baseController')
 
-class LampsController {
-  async getAll (req, res) {
-    try {
-      const Lamps = await LampsModel.findAll({where: req.query})
-      if (Lamps.length) {
-        res.json({lamps: Lamps})
-      } else {
-        res.status(404).json(Lamps)
-      }
-    } catch (err) {
-      res.status(500).json({error: err})
-    }
+const Lamps = require('./lampsModel')
+
+class LampsController extends BaseController {
+  constructor (Model, modelName) {
+    super(Model, modelName)
+    // block ID
+    this.ValidateIdParams = []
+    // block illegal or null request
+    this.ValidateCreateKeys = [
+      body('lamp_id', 'lamp_id should not be null').exists(),
+      body('lamp_location', 'lamp_location should not be null').exists(),
+      body('place_id', 'place_id should not be null').exists(),
+      sanitizeBody('place_id').toInt()
+    ]
+    this.create = this.create.bind(this)
   }
-  async getById (req, res) {
-    try {
-      const singleLamps = await LampsModel.findById(req.params.id)
-      if (singleLamps) {
-        res.json({place: singleLamps})
-      } else {
-        res.status(404).json({error: 'not found'})
-      }
-    } catch (err) {
-      res.status(500).json({error: err})
-    }
-  }
+
   async create (req, res) {
-    // post should have name & address key
-    if (!req.body.place_name || !req.body.place_address) {
-      res.status(400).json({errors: 'place_name & place_address cannot be null'})
-    }
-
     try {
-      const newLamps = await LampsModel.create(req.body)
-      res.json({place: newLamps})
-    } catch (err) {
-      res.status(500).json({error: err})
-    }
-  }
-  async update (req, res) {
-    try {
-      const updateLamps = await LampsModel.update(req.body, {where: {place_id: req.params.id}})
-      if (updateLamps) {
-        res.json({place_id: updateLamps})
-      } else {
-        res.status(404).json({error: 'not found'})
-      }
-    } catch (err) {
-      res.status(500).json({error: err})
-    }
-  }
-  async delete (req, res) {
-    try {
-      const deleteLamps = await LampsModel.destroy({where: {place_id: req.params.id}})
-      if (deleteLamps) {
-        res.json(deleteLamps)
-      } else {
-        res.status(404).json(deleteLamps)
-      }
+      await this._validateRequest(req, res)
+      // To Use Hash
+      req.body.lamp_hash_id = Math.random().toString()
+      const newItem = await this.Model.create(req.body)
+      this._returnResponse(newItem, 'id', res)
     } catch (err) {
       res.status(500).json({error: err})
     }
   }
 }
 
-const controller = new LampsController()
+const modelName = {
+  singular: 'lamp',
+  plural: 'lamps',
+  id: 'lamp_id'
+}
+
+const controller = new LampsController(Lamps, modelName)
 module.exports = controller

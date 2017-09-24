@@ -1,27 +1,39 @@
-
-class BaseController {
+const { validationResult } = require('express-validator/check')
+//
+// API BASE CLASS
+//
+exports.BaseController = class {
   constructor (Model, modelName) {
     // table model
     this.Model = Model
     // with key: singular, plural, id
     this.modelName = modelName
+
+    this.ValidateIdParams = []
+
+    this.ValidateCreateKeys = []
+    // Bind Main Function
+    this.getAll = this.getAll.bind(this)
+    this.getById = this.getById.bind(this)
+    this.create = this.create.bind(this)
+    this.update = this.update.bind(this)
+    this.delete = this.delete.bind(this)
   }
 
-  // block NaN id params
-  _validateIdParams (req, res) {
-    if (!Number.isInteger(Number(req.params.id))) {
-      res.status(404).json({errors: 'not found'})
-    }
+  _validateRequest (req, res) {
+    return new Promise((resolve, reject) => {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        res.status(400).json({ errors: errors.mapped() })
+      }
+      resolve()
+    })
   }
 
   _returnResponse (data, type, res) {
     const jsonData = {}
     jsonData[this.modelName[type]] = data
     res.json(jsonData)
-  }
-
-  _validateCreateKeys (res) {
-    console.log('suit by child resources')
   }
 
   // use in update & delete request
@@ -34,7 +46,7 @@ class BaseController {
 
   async getAll (req, res) {
     try {
-      const Items = await this.Model.findAll({where: req.query})
+      const Items = await this.Model.findAll({where: req.query})  
       if (Items.length) {
         this._returnResponse(Items, 'plural', res)
       } else {
@@ -47,8 +59,6 @@ class BaseController {
 
   async getById (req, res) {
     try {
-      // block NaN id
-      this._validateIdParams(req, res)
       const singleItem = await this.Model.findById(req.params.id)
       if (singleItem) {
         this._returnResponse(singleItem, 'singular', res)
@@ -62,8 +72,7 @@ class BaseController {
 
   async create (req, res) {
     try {
-      // block illegal keys
-      this._validateCreateKeys(res)
+      await this._validateRequest(req, res)
       const newItem = await this.Model.create(req.body)
       this._returnResponse(newItem, 'id', res)
     } catch (err) {
@@ -98,6 +107,3 @@ class BaseController {
     }
   }
 }
-
-const controller = new BaseController()
-module.exports = controller

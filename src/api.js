@@ -10,9 +10,9 @@ const router = express.Router()
 //
 router.get('/places', Places.getAll)
 router.get('/places/:id', Places.getById)
-// router.post('/places', Places.create)
-// router.put('/places/:id', Places.update)
-// router.delete('/places/:id', Places.delete)
+router.post('/places', Places.create)
+router.put('/places/:id', Places.update)
+router.delete('/places/:id', Places.delete)
 
 //
 // Lamps API
@@ -20,9 +20,9 @@ router.get('/places/:id', Places.getById)
 
 router.get('/lamps', Lamps.getAll)
 router.get('/lamps/:id', Lamps.getById)
-// router.post('/lamps', Lamps.create)
-// router.put('/lamps/:id', Lamps.update)
-// router.delete('/lamps/:id', Lamps.delete)
+router.post('/lamps', Lamps.ValidateCreateKeys, Lamps.create)
+router.put('/lamps/:id', Lamps.update)
+router.delete('/lamps/:id', Lamps.delete)
 
 // //
 // // Counts API
