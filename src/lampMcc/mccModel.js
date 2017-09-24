@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const sequelize = require('../../models/lamp.js')
+const sequelize = require('../../connection/lampsConnect.js')
 const Rules = require('../lampMccRules/rulesModel.js')
 
 const Mcc = sequelize.define('lamp_mcc', {
@@ -18,7 +18,7 @@ const Mcc = sequelize.define('lamp_mcc', {
     allowNull: false
   },
   mcc_center: {
-    type: Sequelize.DOUBLE,
+    type: Sequelize.ARRAY(Sequelize.DOUBLE),
     allowNull: false
   },
   rule_id: {

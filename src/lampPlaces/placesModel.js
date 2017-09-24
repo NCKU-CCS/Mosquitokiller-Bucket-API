@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 // DB Connection
-const sequelize = require('../../models/lamp.js')
+const sequelize = require('../../connection/lampsConnect.js')
 
 const Places = sequelize.define('lamp_places', {
   place_id: {

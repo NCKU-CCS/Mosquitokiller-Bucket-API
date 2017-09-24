@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 // DB Connection
-const sequelize = require('../../models/lamp.js')
+const sequelize = require('../../connection/lampsConnect.js')
 // import place_id foreign key
 const Places = require('../lampPlaces/placesModel.js')
 

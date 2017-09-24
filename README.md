@@ -71,7 +71,7 @@ Dengue Lamps & Minimal covering circle API
 | place_id             | integer       |      | PRI |         | auto_increment |         |
 | place_name           | varchar(25) |      |     |         |                |         |
 | place_address        | varchar(50) |      |     |         |                |         |
-| place_contact\_person | varchar(10) | YES  |     | NULL    |                | 聯絡人     |
+| place_contact\_person| varchar(10) | YES  |     | NULL    |                | 聯絡人     |
 | place_phone          | varchar(25) | YES  |     | NULL    |                |         |
 | created_at           | timestamp   |      |     |         |                |         |
 | updated_at           | timestamp   |      |     |         |                |         |
@@ -141,9 +141,9 @@ Dengue Lamps & Minimal covering circle API
 | Field      | Type          | Null | Key | Default | Extra          | Remarks |
 | ---------- | ------------- | ---- | --- | ------- | -------------- | ------- |
 | mcc_id     | integer       |      | PRI |         | auto_increment |         |
-| mcc_keys   | varchar(25)[] |      |     |         |                | 包含圓邊界點  |
-| mcc_points | varchar(25)[] |      |     |         |                | 包含圓包含點  |
-| mcc_center | double[]      |      |     |         |                | 包含圓中心座標 |
+| mcc_keys   | [varchar(25)] |      |     |         |                | 包含圓邊界點  |
+| mcc_points | [varchar(25)] |      |     |         |                | 包含圓包含點  |
+| mcc_center | [double]      |      |     |         |                | 包含圓中心座標 |
 | rule_id    | integer       |      |     |         |                |         |
 | created_at | timestamp     |      | IND |         |                |         |
 

@@ -2,7 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const moment = require('moment')
-const sequelize = require('../models/mcc.js')
+const sequelize = require('../connection/mcc.js')
 
 // CONST STRING Config
 const TABLE_LIST = {
