@@ -1,5 +1,7 @@
 const Places = require('./lampPlaces/places')
 const Lamps = require('./lamps/lamps')
+const Counts = require('./lampCounts/counts')
+
 const Rules = require('./lampMccRules/rules')
 const Mcc = require('./lampMcc/mcc')
 const express = require('express')
@@ -24,14 +26,14 @@ router.post('/lamps', Lamps.ValidateCreateKeys, Lamps.create)
 router.put('/lamps/:id', Lamps.update)
 router.delete('/lamps/:id', Lamps.delete)
 
-// //
-// // Counts API
-// //
-// router.get('/places', Places.getAll)
-// router.get('/places/:id', Places.getById)
-// router.post('/places', Places.create)
-// router.put('/places/:id', Places.update)
-// router.delete('/places/:id', Places.delete)
+//
+// Counts API
+//
+router.get('/counts', Counts.getAll)
+router.get('/counts/:id', Counts.ValidateIdParams, Counts.getById)
+router.post('/counts', Counts.ValidateCreateKeys, Counts.create)
+router.put('/counts/:id', Counts.update)
+router.delete('/counts/:id', Counts.delete)
 
 //
 // States API
