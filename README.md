@@ -3,7 +3,7 @@ Dengue Lamps & Minimal covering circle API
 
 
 ## Outline
-
+- [Setup](https://github.com/Sirius207/Bucket-API#setup)
 - [API Document](https://github.com/Sirius207/Bucket-API#api-document)
 - [Database Diagram](https://github.com/Sirius207/Bucket-API#database-diagram)
 - [Table Overview](https://github.com/Sirius207/Bucket-API#table-overview)
@@ -16,7 +16,60 @@ Dengue Lamps & Minimal covering circle API
 	- [lamp_mcc\_rules](https://github.com/Sirius207/Bucket-API#table-lamp_mcc_rules)
 	- [lamp_comments](https://github.com/Sirius207/Bucket-API#table-lamp_comments)
 
+## Setup
+
+### Prerequisite
+- Node.js: '^7.6.0'
+- PostgreSQL: '^9.3'
+
+
+### 1. Install Dependency
+
+```
+$ yarn install // or npm install
+```
+
+### 2. Setup Secret Data
+
+Setup Your ```DATABASE```, ```USER```, ```PASSWORD``` in config/lampDevConfig.js & config/lampProdConfig.js
+
+### 3. Initialize Tables
+***It will Drop  Dev tables if these already exist***
+
+```
+$ cd config
+$ node dbInitialize.js
+```
+
+
+### 4. Run Locally (Dev)
+Use dev database
+
+```
+$ npm start
+```
+
+### 5. Run Test
+Test Each RESTful API
+
+```
+$ npm test
+```
+
+---
+
+### Run Locally (Prod)
+Use Production Database
+
+```
+$ npm prod
+```
+
+
+
 ## API Document
+
+### [Apiary Link]()
 
 ## Database Diagram
 
