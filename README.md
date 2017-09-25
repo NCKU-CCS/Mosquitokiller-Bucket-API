@@ -62,10 +62,9 @@ $ npm test
 Use Production Database
 
 ```
-$ npm prod
+$ export NODE_ENV=production
+$ npm run prod
 ```
-
-
 
 ## API Document
 

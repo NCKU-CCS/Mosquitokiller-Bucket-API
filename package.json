@@ -6,8 +6,9 @@
     "node": ">=7.6.0"
   },
   "scripts": {
-    "start": "SET NODE_ENV=dev && node ./bin/www",
-    "test": "mocha src/**/*.test.js --timeout 3000 --recursive"
+    "start": "NODE_ENV=dev && node ./bin/www",
+    "test": "mocha src/**/*.test.js --timeout 3000 --recursive",
+    "prod": "NODE_ENV=production && node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
