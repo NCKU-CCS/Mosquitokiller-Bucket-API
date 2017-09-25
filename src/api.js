@@ -53,12 +53,12 @@ router.delete('/mcc/:id', Mcc.delete)
 
 //
 // Rules API
-// //
+//
 router.get('/rules', Rules.getAll)
-router.get('/rules/:id', Rules.getById)
-// router.post('/rules', Rules.create)
-// router.put('/rules/:id', Rules.update)
-// router.delete('/rules/:id', Rules.delete)
+router.get('/rules/:id', Rules.ValidateIdParams, Rules.getById)
+router.post('/rules', Rules.ValidateCreateKeys, Rules.create)
+router.put('/rules/:id', Rules.update)
+router.delete('/rules/:id', Rules.delete)
 
 //
 // Comments API

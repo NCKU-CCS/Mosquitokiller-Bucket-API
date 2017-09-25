@@ -1,73 +1,36 @@
+const { body, param } = require('express-validator/check')
+const { sanitize } = require('express-validator/filter')
+
+const { BaseController } = require('../baseController')
 const RulesModel = require('./rulesModel')
 
-class RulesController {
-  async getAll (req, res) {
-    try {
-      const Rules = await RulesModel.findAll({where: req.query})
-      if (Rules.length) {
-        res.json({rules: Rules})
-      } else {
-        res.status(404).json(Rules)
-      }
-    } catch (err) {
-      res.status(500).json({error: err})
-    }
-  }
-  async getById (req, res) {
-    // block NaN id
-    if (!Number.isInteger(Number(req.params.id))) {
-      res.status(404).json({errors: 'not found'})
-    }
+class RulesController extends BaseController {
+  constructor (Model, modelName) {
+    super(Model, modelName)
 
-    try {
-      const singleRules = await RulesModel.findById(req.params.id)
-      if (singleRules) {
-        res.json({place: singleRules})
-      } else {
-        res.status(404).json({error: 'not found'})
-      }
-    } catch (err) {
-      res.status(500).json({error: err})
-    }
-  }
-  async create (req, res) {
-    // post should have these keys
-    if (!req.body.timeline_upper_limit || !req.body.distance_lower_limit || !req.body.points_lower_limit || !req.body.counts_lower_limit) {
-      res.status(400).json({errors: 'place_name & place_address cannot be null'})
-    }
+    this.ValidateIdParams = [
+      param('id', 'id should be a int').custom(id => {
+        if (!Number.isInteger(Number(id))) {
+          throw new Error('id format illegal')
+        }
+        return id
+      }),
+      sanitize('id').toInt()
+    ]
 
-    try {
-      const newRules = await RulesModel.create(req.body)
-      res.json({place: newRules})
-    } catch (err) {
-      res.status(500).json({error: err})
-    }
-  }
-  async update (req, res) {
-    try {
-      const updateRules = await RulesModel.update(req.body, {where: {place_id: req.params.id}})
-      if (updateRules) {
-        res.json({place_id: updateRules})
-      } else {
-        res.status(404).json({error: 'not found'})
-      }
-    } catch (err) {
-      res.status(500).json({error: err})
-    }
-  }
-  async delete (req, res) {
-    try {
-      const deleteRules = await RulesModel.destroy({where: {place_id: req.params.id}})
-      if (deleteRules) {
-        res.json(deleteRules)
-      } else {
-        res.status(404).json(deleteRules)
-      }
-    } catch (err) {
-      res.status(500).json({error: err})
-    }
+    this.ValidateCreateKeys = [
+      body('timeline_upper_limit', 'timeline_upper_limit illegal').exists(),
+      body('distance_lower_limit', 'distance_lower_limit illegal').exists(),
+      body('points_lower_limit', 'points_lower_limit').exists(),
+      body('counts_lower_limit', 'counts_lower_limit illegal').exists()
+    ]
   }
 }
 
-const controller = new RulesController()
-module.exports = controller
+const modelName = {
+  singular: 'rule',
+  plural: 'rules',
+  id: 'rule_id'
+}
+
+module.exports = new RulesController(RulesModel, modelName)
