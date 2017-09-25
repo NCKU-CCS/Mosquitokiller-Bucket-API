@@ -1,4 +1,4 @@
-const { body, param } = require('express-validator/check');
+const { body } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter')
 const { BaseController } = require('../baseController')
 

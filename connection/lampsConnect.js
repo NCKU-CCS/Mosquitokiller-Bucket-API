@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
-const CONFIG = require('../config/lampDevConfig.js')
-// const CONFIG = require('../config/lampProdConfig.js')
+
+const CONFIG = (process.env.NODE_ENV === 'production')
+  ? require('../config/lampProdConfig.js')
+  : require('../config/lampDevConfig.js')
 
 // Setup Sequelize
 const sequelize = new Sequelize(CONFIG['database'], CONFIG['user'], CONFIG['password'], {
@@ -14,12 +16,12 @@ const sequelize = new Sequelize(CONFIG['database'], CONFIG['user'], CONFIG['pass
 })
 
 sequelize
-    .authenticate()
-    .then(() => {
-      console.log(`${CONFIG['database']} Connection has been established successfully.`)
-    })
-    .catch(err => {
-      console.error('Unable to connect to the database:', err)
-    })
+  .authenticate()
+  .then(() => {
+    console.log(`${CONFIG['database']} Connection has been established successfully.`)
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err)
+  })
 
 module.exports = sequelize
