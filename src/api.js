@@ -15,8 +15,8 @@ const router = express.Router()
 // Places API
 //
 router.get('/places', Places.getAll)
-router.get('/places/:id', Places.getById)
-router.post('/places', Places.create)
+router.get('/places/:id', Places.ValidateIdParams, Places.getById)
+router.post('/places', Places.ValidateCreateKeys, Places.create)
 router.put('/places/:id', Places.update)
 router.delete('/places/:id', Places.delete)
 
