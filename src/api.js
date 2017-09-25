@@ -5,6 +5,9 @@ const States = require('./lampStates/states')
 
 const Rules = require('./lampMccRules/rules')
 const Mcc = require('./lampMcc/mcc')
+
+const Comments = require('./lampComments/comments')
+
 const express = require('express')
 const router = express.Router()
 
@@ -66,10 +69,10 @@ router.delete('/rules/:id', Rules.delete)
 //
 // Comments API
 //
-// router.get('/places', Places.getAll)
-// router.get('/places/:id', Places.getById)
-// router.post('/places', Places.create)
-// router.put('/places/:id', Places.update)
-// router.delete('/places/:id', Places.delete)
+router.get('/comments', Comments.getAll)
+router.get('/comments/:id', Comments.ValidateIdParams, Comments.getById)
+router.post('/comments', Comments.ValidateCreateKeys, Comments.create)
+router.put('/comments/:id', Comments.update)
+router.delete('/comments/:id', Comments.delete)
 
 module.exports = router
