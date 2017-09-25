@@ -1,5 +1,5 @@
 const { param, validationResult } = require('express-validator/check')
-const { matchedData } = require('express-validator/filter')
+const { matchedData, sanitize } = require('express-validator/filter')
 //
 // API BASE CLASS
 //
@@ -11,7 +11,13 @@ exports.BaseController = class {
     this.modelName = modelName
 
     this.ValidateIdParams = [
-      param('id', 'not exist').exists()
+      param('id', 'id should be a int').custom(id => {
+        if (!Number.isInteger(Number(id))) {
+          throw new Error('id format illegal')
+        }
+        return id
+      }),
+      sanitize('id').toInt()
     ]
 
     this.ValidateCreateKeys = []

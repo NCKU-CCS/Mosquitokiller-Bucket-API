@@ -1,13 +1,17 @@
-const { body } = require('express-validator/check')
+const { body, param } = require('express-validator/check')
 const { sanitizeBody } = require('express-validator/filter')
-const { BaseController } = require('../baseController')
 
+const { BaseController } = require('../baseController')
 const Lamps = require('./lampsModel')
 
 class LampsController extends BaseController {
   constructor (Model, modelName) {
     super(Model, modelName)
     // block illegal or null request
+    this.ValidateIdParams = [
+      param('id', 'not exist').exists()
+    ]
+
     this.ValidateCreateKeys = [
       body('lamp_id', 'lamp_id should not be null').exists(),
       body('lamp_location', 'lamp_location should not be null').exists(),
