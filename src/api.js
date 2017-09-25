@@ -1,6 +1,7 @@
 const Places = require('./lampPlaces/places')
 const Lamps = require('./lamps/lamps')
 const Counts = require('./lampCounts/counts')
+const States = require('./lampStates/states')
 
 const Rules = require('./lampMccRules/rules')
 const Mcc = require('./lampMcc/mcc')
@@ -29,20 +30,20 @@ router.delete('/lamps/:id', Lamps.delete)
 //
 // Counts API
 //
-router.get('/counts', Counts.getAll)
-router.get('/counts/:id', Counts.ValidateIdParams, Counts.getById)
-router.post('/counts', Counts.ValidateCreateKeys, Counts.create)
-router.put('/counts/:id', Counts.update)
-router.delete('/counts/:id', Counts.delete)
+router.get('/states', States.getAll)
+router.get('/states/:id', States.ValidateIdParams, States.getById)
+router.post('/states', States.ValidateCreateKeys, States.create)
+router.put('/states/:id', States.update)
+router.delete('/states/:id', States.delete)
 
 //
 // States API
 //
-// router.get('/places', Places.getAll)
-// router.get('/places/:id', Places.getById)
-// router.post('/places', Places.create)
-// router.put('/places/:id', Places.update)
-// router.delete('/places/:id', Places.delete)
+router.get('/places', Places.getAll)
+router.get('/places/:id', Places.getById)
+router.post('/places', Places.create)
+router.put('/places/:id', Places.update)
+router.delete('/places/:id', Places.delete)
 
 //
 // Mcc API

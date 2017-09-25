@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "SET NODE_ENV=dev && node ./bin/www",
-    "test": "mocha src/lampCounts/*.test.js --timeout 3000 --recursive"
+    "test": "mocha src/lampStates/*.test.js --timeout 3000 --recursive"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
