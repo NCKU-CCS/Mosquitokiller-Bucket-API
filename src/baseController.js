@@ -60,7 +60,7 @@ exports.BaseController = class {
 
   async getAll (req, res) {
     try {
-      const Items = await this.Model.findAll({where: req.query})  
+      const Items = await this.Model.findAll({where: req.query})
       if (Items.length) {
         this._returnResponse(Items, 'plural', res)
       } else {

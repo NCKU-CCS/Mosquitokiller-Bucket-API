@@ -14,8 +14,8 @@ const cors = require('cors')
 const app = express()
 
 const CONFIG = (process.env.NODE_ENV === 'production')
-? require('../config/lampProdConfig.js')
-: require('../config/lampDevConfig.js')
+? require('./config/lampProdConfig.js')
+: require('./config/lampDevConfig.js')
 
 // set up cors config
 const corsOptions = {
