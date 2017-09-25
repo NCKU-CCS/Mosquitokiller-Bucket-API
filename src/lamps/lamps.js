@@ -1,4 +1,4 @@
-const { body } = require('express-validator/check');
+const { body } = require('express-validator/check')
 const { sanitizeBody } = require('express-validator/filter')
 const { BaseController } = require('../baseController')
 
@@ -23,7 +23,7 @@ class LampsController extends BaseController {
       // To Use Hash
       req.body.lamp_hash_id = Math.random().toString()
       const newItem = await this.Model.create(req.body)
-      this._returnResponse(newItem, 'id', res)
+      this._returnResponse(newItem, 'singular', res)
     } catch (err) {
       res.status(500).json({error: err})
     }
@@ -36,5 +36,4 @@ const modelName = {
   id: 'lamp_id'
 }
 
-const controller = new LampsController(Lamps, modelName)
-module.exports = controller
+module.exports = new LampsController(Lamps, modelName)

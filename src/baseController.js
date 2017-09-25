@@ -1,4 +1,5 @@
-const { validationResult } = require('express-validator/check')
+const { param, validationResult } = require('express-validator/check')
+const { matchedData } = require('express-validator/filter')
 //
 // API BASE CLASS
 //
@@ -9,7 +10,9 @@ exports.BaseController = class {
     // with key: singular, plural, id
     this.modelName = modelName
 
-    this.ValidateIdParams = []
+    this.ValidateIdParams = [
+      param('id', 'not exist').exists()
+    ]
 
     this.ValidateCreateKeys = []
     // Bind Main Function
@@ -23,10 +26,15 @@ exports.BaseController = class {
   _validateRequest (req, res) {
     return new Promise((resolve, reject) => {
       const errors = validationResult(req)
-      if (!errors.isEmpty()) {
+      // check id param valid
+      if (errors.mapped().id) {
+        res.status(404).json({ errors: 'not found' })
+        resolve('4xx')
+      } else if (!errors.isEmpty()) {
         res.status(400).json({ errors: errors.mapped() })
+        resolve('4xx')
       }
-      resolve()
+      resolve('200')
     })
   }
 
@@ -59,7 +67,11 @@ exports.BaseController = class {
 
   async getById (req, res) {
     try {
-      const singleItem = await this.Model.findById(req.params.id)
+      const status = await this._validateRequest(req, res)
+      if (status === '4xx') return
+
+      const params = await matchedData(req)
+      const singleItem = await this.Model.findById(params.id)
       if (singleItem) {
         this._returnResponse(singleItem, 'singular', res)
       } else {
@@ -72,9 +84,11 @@ exports.BaseController = class {
 
   async create (req, res) {
     try {
-      await this._validateRequest(req, res)
+      const status = await this._validateRequest(req, res)
+      if (status === '4xx') return
+
       const newItem = await this.Model.create(req.body)
-      this._returnResponse(newItem, 'id', res)
+      this._returnResponse(newItem, 'singular', res)
     } catch (err) {
       res.status(500).json({error: err})
     }

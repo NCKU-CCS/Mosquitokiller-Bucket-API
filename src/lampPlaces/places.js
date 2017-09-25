@@ -69,5 +69,4 @@ class PlaceController {
   }
 }
 
-const controller = new PlaceController()
-module.exports = controller
+module.exports = new PlaceController()

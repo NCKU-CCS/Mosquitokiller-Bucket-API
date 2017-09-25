@@ -19,7 +19,7 @@ router.delete('/places/:id', Places.delete)
 //
 
 router.get('/lamps', Lamps.getAll)
-router.get('/lamps/:id', Lamps.getById)
+router.get('/lamps/:id', Lamps.ValidateIdParams, Lamps.getById)
 router.post('/lamps', Lamps.ValidateCreateKeys, Lamps.create)
 router.put('/lamps/:id', Lamps.update)
 router.delete('/lamps/:id', Lamps.delete)
@@ -43,13 +43,13 @@ router.delete('/lamps/:id', Lamps.delete)
 // router.delete('/places/:id', Places.delete)
 
 //
-// Mccs API
+// Mcc API
 //
 router.get('/mcc', Mcc.getAll)
-router.get('/mcc/:id', Mcc.getById)
-// router.post('/mcc', Mcc.create)
-// router.put('/mcc/:id', Mcc.update)
-// router.delete('/mcc/:id', Mcc.delete)
+router.get('/mcc/:id', Mcc.ValidateIdParams, Mcc.getById)
+router.post('/mcc', Mcc.ValidateCreateKeys, Mcc.create)
+router.put('/mcc/:id', Mcc.update)
+router.delete('/mcc/:id', Mcc.delete)
 
 //
 // Rules API
