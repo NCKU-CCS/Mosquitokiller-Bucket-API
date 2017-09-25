@@ -47,8 +47,8 @@ describe('Places -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('lamp_id')
-          ID = res.body.lamp_id.lamp_id
+          res.body.should.have.property('lamp')
+          ID = res.body.lamp.lamp_id
           done()
         })
     })

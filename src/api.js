@@ -42,11 +42,11 @@ router.delete('/counts/:id', Counts.delete)
 //
 // States API
 //
-router.get('/places', Places.getAll)
-router.get('/places/:id', Places.getById)
-router.post('/places', Places.create)
-router.put('/places/:id', Places.update)
-router.delete('/places/:id', Places.delete)
+router.get('/states', States.getAll)
+router.get('/states/:id', States.ValidateIdParams, States.getById)
+router.post('/states', States.ValidateCreateKeys, States.create)
+router.put('/states/:id', States.update)
+router.delete('/states/:id', States.delete)
 
 //
 // Mcc API
