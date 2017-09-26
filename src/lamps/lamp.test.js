@@ -22,7 +22,7 @@ const loginAuth = (agent, next) => {
     })
 }
 
-describe('Places -- ', () => {
+describe('Lamps -- ', () => {
   // beforeEach((done) => {
   //   loginAuth(agent, () => {
   //     done()
@@ -37,8 +37,8 @@ describe('Places -- ', () => {
     it('new lamp data should be create', (done) => {
       const lamp = {
         lamp_id: ID,
-        lamp_location: [120, 22],
-        place_id: 2
+        lamp_location: [120.203778825737, 22.985508992788],
+        place_id: 1
       }
       agent
         .post('/apis/lamps')
@@ -120,8 +120,9 @@ describe('Places -- ', () => {
   describe('/Put Lamp -- ', () => {
     it('lamp data should be update', (done) => {
       const lamp = {
-        lamp_name: 'NETDB_2',
-        lamp_address: '70102',
+        lamp_deployed_date: '2017-09-26',
+        lamp_wifi_ssid: '70102',
+        lamp_wifi_password: 'new password',
         lamp_contact_person: 'MR. Yang'
       }
       agent

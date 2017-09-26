@@ -1,16 +1,21 @@
-const { body, param } = require('express-validator/check')
-const { sanitizeBody } = require('express-validator/filter')
-
-const { BaseController } = require('../baseController')
+const {body, param} = require('express-validator/check')
+const {sanitizeBody} = require('express-validator/filter')
+//
+// Generate Sha-1
+//
+const crypto = require('crypto')
+const SECRET = global.CONFIG['sha256Secret']
+//
+// Controller Model
+//
+const {BaseController} = require('../baseController')
 const Lamps = require('./lampsModel')
 
 class LampsController extends BaseController {
   constructor (Model, modelName) {
     super(Model, modelName)
     // block illegal or null request
-    this.ValidateIdParams = [
-      param('id', 'not exist').exists()
-    ]
+    this.ValidateIdParams = [param('id', 'not exist').exists()]
 
     this.ValidateCreateKeys = [
       body('lamp_id', 'lamp_id should not be null').exists(),
@@ -25,7 +30,9 @@ class LampsController extends BaseController {
     try {
       await this._validateRequest(req, res)
       // To Use Hash
-      req.body.lamp_hash_id = Math.random().toString()
+      req.body.lamp_hash_id = crypto.createHmac('sha256', SECRET)
+        .update(req.body.lamp_id)
+        .digest('hex')
       const newItem = await this.Model.create(req.body)
       this._returnResponse(newItem, 'singular', res)
     } catch (err) {

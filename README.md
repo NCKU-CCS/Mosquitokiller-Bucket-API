@@ -95,7 +95,7 @@ $ npm run prod
 | Field              | Type               | Null | Key | Default | Remarks |
 | ------------------ | ------------------ | ---- | --- | ------- | ------- |
 | lamp_id            | varchar(25)        |      | PRI |         |         |
-| lamp_hash\_id       | varchar(50)        |      |     |         |         |
+| lamp_hash\_id      | varchar(64)        |      |     |         | SHA-256 with secret |
 | lamp_location      | [double precision] |      |     |         |         |
 | lamp_deployed\_date | date               | YES  |     | NULL    | 捕蚊燈部署日期 |
 | lamp_wifi\_ssid     | varchar(25)        | YES  |     | NULL    |         |
