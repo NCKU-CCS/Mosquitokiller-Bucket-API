@@ -44,7 +44,7 @@ Represents Lamp Details
 
 + Response 200 (application/json)
 
-        lamps: [
+        [
               {
                 "lamp_id": "TEST01",
                 "lamp_hash_id": "1234",
@@ -121,7 +121,7 @@ A single Lamp object with all its details
 
 + Response 200 (application/json)
 
-        lamp: 
+        
               {
                 "lamp_id": "TEST01",
                 "lamp_hash_id": "1234",
@@ -156,18 +156,12 @@ A single Lamp object with all its details
             "place_id": 1,
          }
 
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "updated_at": "2017-09-24T11:14:56.073Z",
-            }
++ Response 204
 
 
 ### Delete a Lamp [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
 
 # Group Place
 Represents Place Details
@@ -189,7 +183,7 @@ Represents Place Details
 
 + Response 200 (application/json)
 
-        places: [
+        [
               {
                 "place_id": 1,
                 "place_name": "成大幼兒園",
@@ -258,7 +252,7 @@ A single Place object with all its details
 
 + Response 200 (application/json)
 
-        place: {
+        {
                 "place_id": 1,
                 "place_name": "成大幼兒園",
                 "place_address": "台南市東區大學路1號",
@@ -288,18 +282,14 @@ A single Place object with all its details
             "place_phone": "09xx-xxxxxx",
          }
 
-+ Response 200 (application/json)
++ Response 204
 
-    + Body
 
-            {
-                "updated_at": "2017-09-24T11:14:56.073Z",
-            }
 
 
 ### Delete a Place [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
 
 # Group Count
 Represents Count Details
@@ -323,7 +313,7 @@ Represents Count Details
 
 + Response 200 (application/json)
 
-        counts: [
+        [
               {
                 "count_id": 1,
                 "lamp_id": "TEST01",
@@ -397,7 +387,7 @@ A single Count object with all its details
 
 ### Delete a Count [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
 
 
 # Group State
@@ -422,7 +412,7 @@ Represents State Details
 
 + Response 200 (application/json)
 
-        states: [
+        [
               {
                 "state_id": 1,
                 "lamp_id": "TEST01",
@@ -487,7 +477,7 @@ A single State object with all its details
 
 + Response 200 (application/json)
 
-        state: {
+        {
                 "state_id": 1,
                 "lamp_id": "TEST01",
                 "lamp_state": 2,
@@ -521,18 +511,12 @@ A single State object with all its details
             "state_description": "09xx-xxxxxx",
          }
 
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "updated_at": "2017-09-24T11:14:56.073Z",
-            }
++ Response 204
 
 
 ### Delete a State [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
 
 
 # Group Mcc
@@ -554,7 +538,7 @@ Represents Mcc Details
 
 + Response 200 (application/json)
 
-        "mcc": [{
+        [{
             "mcc_id": 1,
             "mcc_keys": ["TEST01", "TEST02"],
             "mcc_points": ["TEST01", "TEST02"],
@@ -611,7 +595,7 @@ A single Mcc object with all its details
 
 + Response 200 (application/json)
 
-        mcc: {
+        {
                 "mcc_id": 1,
                 "mcc_keys": ["TEST01", "TEST02"],
                 "mcc_points": ["TEST01", "TEST02"],
@@ -630,7 +614,7 @@ A single Mcc object with all its details
 
 ### Delete a Mcc [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
 
 
 # Group Rules
@@ -653,7 +637,7 @@ Represents Rules Details
 
 + Response 200 (application/json)
 
-        "rules": [{
+        [{
             "rule_id": 1,
             "timeline_upper_limit": 3,
             "distance_lower_limit": 500,
@@ -712,7 +696,7 @@ A single Rules object with all its details
 
 + Response 200 (application/json)
 
-        rule: {
+        {
                 "rule_id": 1,
                 "timeline_upper_limit": 3,
                 "distance_lower_limit": 500,
@@ -742,18 +726,11 @@ A single Rules object with all its details
             "updated_at": "2017-09-24T11:14:56.066Z"
          }
 
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "updated_at": "2017-09-24T11:14:56.073Z",
-            }
-
++ Response 204
 
 ### Delete a Rules [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
 
 
 # Group Comments
@@ -773,7 +750,7 @@ Represents Comments Details
 
 + Response 200 (application/json)
 
-        "comments": [{
+        [{
             "comments_id": 1,
             "lamp_id": "TEST01",
             "comment_content": "我不會用",
@@ -824,7 +801,7 @@ A single Comments object with all its details
 
 + Response 200 (application/json)
 
-        comments: {
+        {
                 "comments_id": 1,
                 "lamp_id": "TEST01",
                 "comment_content": "我不會用",
@@ -848,16 +825,12 @@ A single Comments object with all its details
             "comment_content": "我還是不會用",
          }
 
-+ Response 200 (application/json)
++ Response 204
 
-    + Body
 
-            {
-                "updated_at": "2017-09-24T11:14:56.073Z",
-            }
 
 
 ### Delete a Comments [DELETE]
 
-+ Response 204 (application/json)
++ Response 204
 
