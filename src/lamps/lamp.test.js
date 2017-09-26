@@ -45,10 +45,11 @@ describe('Lamps -- ', () => {
         .send(lamp)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
+          res.should.have.status(201)
           res.should.be.json
-          res.body.should.have.property('lamp')
-          ID = res.body.lamp.lamp_id
+          res.headers.should.have.property('location')
+          res.body.should.have.property('lamp_id')
+          ID = res.body.lamp_id
           done()
         })
     })
@@ -81,7 +82,7 @@ describe('Lamps -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('lamps')
+          res.body.should.be.an('array')
           done()
         })
     })
@@ -98,7 +99,7 @@ describe('Lamps -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('lamp')
+          res.body.should.have.property('lamp_id')
           done()
         })
     })
@@ -130,9 +131,7 @@ describe('Lamps -- ', () => {
         .send(lamp)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('lamp_id')
+          res.should.have.status(204)
           done()
         })
     })
@@ -147,8 +146,7 @@ describe('Lamps -- ', () => {
         .delete(`/apis/lamps/${ID}`)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
+          res.should.have.status(204)
           done()
         })
     })

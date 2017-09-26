@@ -44,10 +44,11 @@ describe('States -- ', () => {
         .send(state)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
+          res.should.have.status(201)
           res.should.be.json
-          res.body.should.have.property('state')
-          ID = res.body.state.state_id
+          res.headers.should.have.property('location')
+          res.body.should.have.property('state_id')
+          ID = res.body.state_id
           done()
         })
     })
@@ -78,8 +79,7 @@ describe('States -- ', () => {
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('states')
+          res.body.should.be.an('array')
           done()
         })
     })
@@ -96,7 +96,7 @@ describe('States -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('state')
+          res.body.should.have.property('state_id')
           done()
         })
     })
@@ -137,9 +137,7 @@ describe('States -- ', () => {
         .send(state)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('state_id')
+          res.should.have.status(204)
           done()
         })
     })
@@ -154,8 +152,7 @@ describe('States -- ', () => {
         .delete(`/apis/states/${ID}`)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
+          res.should.have.status(204)
           done()
         })
     })

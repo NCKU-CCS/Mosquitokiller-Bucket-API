@@ -46,10 +46,11 @@ describe('Mcc -- ', () => {
         .send(mcc)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
+          res.should.have.status(201)
           res.should.be.json
-          res.body.should.have.property('mcc')
-          ID = res.body.mcc.mcc_id
+          res.headers.should.have.property('location')
+          res.body.should.have.property('mcc_id')
+          ID = res.body.mcc_id
           done()
         })
     })
@@ -82,8 +83,7 @@ describe('Mcc -- ', () => {
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('mcc')
+          res.body.should.be.an('array')
           done()
         })
     })
@@ -100,7 +100,7 @@ describe('Mcc -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('mcc')
+          res.body.should.have.property('mcc_id')
           done()
         })
     })
@@ -141,9 +141,7 @@ describe('Mcc -- ', () => {
         .send(mcc)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('mcc_id')
+          res.should.have.status(204)
           done()
         })
     })
@@ -158,8 +156,7 @@ describe('Mcc -- ', () => {
         .delete(`/apis/mcc/${ID}`)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
+          res.should.have.status(204)
           done()
         })
     })

@@ -44,10 +44,11 @@ describe('Counts -- ', () => {
         .send(count)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
+          res.should.have.status(201)
           res.should.be.json
-          res.body.should.have.property('count')
-          ID = res.body.count.count_id
+          res.headers.should.have.property('location')
+          res.body.should.have.property('count_id')
+          ID = res.body.count_id
           done()
         })
     })
@@ -78,8 +79,7 @@ describe('Counts -- ', () => {
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('counts')
+          res.body.should.be.an('array')
           done()
         })
     })
@@ -96,7 +96,7 @@ describe('Counts -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('count')
+          res.body.should.have.property('count_id')
           done()
         })
     })
@@ -136,9 +136,7 @@ describe('Counts -- ', () => {
         .send(count)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('count_id')
+          res.should.have.status(204)
           done()
         })
     })
@@ -153,8 +151,7 @@ describe('Counts -- ', () => {
         .delete(`/apis/counts/${ID}`)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
+          res.should.have.status(204)
           done()
         })
     })

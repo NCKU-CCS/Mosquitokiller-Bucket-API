@@ -46,10 +46,10 @@ describe('Rules -- ', () => {
         .send(rule)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
+          res.should.have.status(201)
           res.should.be.json
-          res.body.should.have.property('rule')
-          ID = res.body.rule.rule_id
+          res.body.should.have.property('rule_id')
+          ID = res.body.rule_id
           done()
         })
     })
@@ -82,8 +82,7 @@ describe('Rules -- ', () => {
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('rules')
+          res.body.should.be.an('array')
           done()
         })
     })
@@ -100,7 +99,7 @@ describe('Rules -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('rule')
+          res.body.should.have.property('rule_id')
           done()
         })
     })
@@ -142,9 +141,7 @@ describe('Rules -- ', () => {
         .send(rule)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('rule_id')
+          res.should.have.status(204)
           done()
         })
     })
@@ -159,8 +156,7 @@ describe('Rules -- ', () => {
         .delete(`/apis/rules/${ID}`)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
+          res.should.have.status(204)
           done()
         })
     })

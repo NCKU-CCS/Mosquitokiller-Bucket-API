@@ -44,10 +44,10 @@ describe('Comments -- ', () => {
         .send(comment)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
+          res.should.have.status(201)
           res.should.be.json
-          res.body.should.have.property('comment')
-          ID = res.body.comment.comment_id
+          res.body.should.have.property('comment_id')
+          ID = res.body.comment_id
           done()
         })
     })
@@ -78,8 +78,7 @@ describe('Comments -- ', () => {
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('comments')
+          res.body.should.be.an('array')
           done()
         })
     })
@@ -96,7 +95,7 @@ describe('Comments -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('comment')
+          res.body.should.have.property('comment_id')
           done()
         })
     })
@@ -136,9 +135,7 @@ describe('Comments -- ', () => {
         .send(comment)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('comment_id')
+          res.should.have.status(204)
           done()
         })
     })
@@ -153,8 +150,7 @@ describe('Comments -- ', () => {
         .delete(`/apis/comments/${ID}`)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
+          res.should.have.status(204)
           done()
         })
     })
