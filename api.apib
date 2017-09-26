@@ -1,0 +1,863 @@
+FORMAT: 1A
+HOST: http://140.116.249.228:3000/
+
+# Lamps API Documentation
+
+Lamps is a API allowing administrators to view counts and mcc in them.
+
+# Allowed HTTPs requests:
+<pre>
+PUT     : To create resource 
+POST    : Update resource
+GET     : Get a resource or list of resources
+DELETE  : To delete resource
+</pre>
+
+# Description Of Usual Server Responses:
+- 200 `OK` - the request was successful (some API calls may return 201 instead).
+- 201 `Created` - the request was successful and a resource was created.
+- 204 `No Content` - the request was successful but there is no representation to return (i.e. the response is empty).
+- 400 `Bad Request` - the request could not be understood or was missing required parameters.
+- 401 `Unauthorized` - authentication failed or user doesn't have permissions for requested operation.
+- 403 `Forbidden` - access denied.
+- 404 `Not Found` - resource was not found.
+
+# Group Lamp
+Represents Lamp Details
+
+---
+**Lamp attributes:**
+
+- lamp_id `(String)` : unique identifier. 
+- lamp_hash_id `(String)` : Hash identifier.
+- lamp_location `([Number])` : Lamp location.
+- lamp_deployed_date `(Date)` : optional.
+- lamp_wifi_ssid `(String)` : optional .
+- lamp_wifi_password `(String)` : optional .
+- place_id `(Number)` : deploy place id .
+- created_at `(Timestamps)` : -- .
+- updated_at `(Timestamps)` : -- .
+
+---
+## Lamp Collection [/lamps]
+### List all lamps [GET]
+
++ Response 200 (application/json)
+
+        lamps: [
+              {
+                "lamp_id": "TEST01",
+                "lamp_hash_id": "1234",
+                "lamp_location": [120.19151248216, 22.9997144678771],
+                "lamp_deployed_date": null,
+                "lamp_wifi_ssid": null,
+                "lamp_wifi_password": null,
+                "place_id": 1,
+                "created_at": "2017-09-24T11:14:56.035Z",
+                "updated_at": "2017-09-24T11:14:56.035Z"
+              }, {
+                "lamp_id": "TEST02",
+                "lamp_hash_id": "2345",
+                "lamp_location": [120.193272644465, 22.9963046536379],
+                "lamp_deployed_date": null,
+                "lamp_wifi_ssid": null,
+                "lamp_wifi_password": null,
+                "place_id": 1,
+                "created_at": "2017-09-24T11:14:56.044Z",
+                "updated_at": "2017-09-24T11:14:56.044Z"
+              }
+        ]
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+### Create a Lamp [POST]
+
+
++ Request (application/json)
+
+        {
+            "lamp_id": "TEST02",
+            "lamp_location": [120,22],
+            "lamp_deployed_date": "2017-09-26",
+            "lamp_wifi_ssid": "ssid",
+            "lamp_wifi_password": "sspw",
+            "place_id": 1,
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /lamps/TEST02
+
+    + Body
+
+            {
+                "lamp_id": "TEST02",
+                "lamp_hash_id": "74b60799f9579f4c9ec3ee5bf620d6a7d75a069c",
+                "lamp_location": [120,22],
+                "lamp_deployed_date": "2017-09-26",
+                "lamp_wifi_ssid": "ssid",
+                "lamp_wifi_password": "sspw",
+                "place_id": 1,
+                "created_at": "2017-09-24T11:14:56.073Z",
+                "updated_at": "2017-09-24T11:14:56.073Z",
+            }
+
+## Lamp [/lamps/{id}]
+A single Lamp object with all its details
+
++ Parameters
+    + id (required, String, `TEST01`) ... `id` of the Lamp to perform action with.          
+
+
+### Retrieve a Lamp [GET]
+
++ Response 200 (application/json)
+
+        lamp: 
+              {
+                "lamp_id": "TEST01",
+                "lamp_hash_id": "1234",
+                "lamp_location": [120.19151248216, 22.9997144678771],
+                "lamp_deployed_date": null,
+                "lamp_wifi_ssid": null,
+                "lamp_wifi_password": null,
+                "place_id": 1,
+                "created_at": "2017-09-24T11:14:56.035Z",
+                "updated_at": "2017-09-24T11:14:56.035Z"
+              }
+        
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+
+### Update a Lamp [PUT]
+
++ Request (application/json)
+
+         {
+            "lamp_location": [120,22],
+            "lamp_deployed_date": "2017-09-26",
+            "lamp_wifi_ssid": "ssid",
+            "lamp_wifi_password": "sspw",
+            "place_id": 1,
+         }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "updated_at": "2017-09-24T11:14:56.073Z",
+            }
+
+
+### Delete a Lamp [DELETE]
+
++ Response 204 (application/json)
+
+# Group Place
+Represents Place Details
+
+---
+**Place attributes:**
+
+- place_id `(Number)` : unique identifier. 
+- place_name `(String(25))` : Require.
+- place_address `(String(50))` : Require.
+- place_contact_person `(String(10))` : optional.
+- place_phone `(String(25))` : optional .
+- created_at `(Timestamps)` : -- .
+- updated_at `(Timestamps)` : -- .
+
+---
+## Place Collection [/places]
+### List all places [GET]
+
++ Response 200 (application/json)
+
+        places: [
+              {
+                "place_id": 1,
+                "place_name": "成大幼兒園",
+                "place_address": "台南市東區大學路1號",
+                "place_contact_person": "張先生",
+                "place_phone": "09xx-xxxxxx",
+                "created_at": "2017-09-24T11:14:56.035Z",
+                "updated_at": "2017-09-24T11:14:56.035Z"
+              }, {
+                "place_id": 2,
+                "place_name": "NETDB",
+                "place_address": "台南市東區大學路1號",
+                "place_contact_person": "楊先生",
+                "place_phone": "09xx-xxxxxx",
+                "created_at": "2017-09-24T11:14:56.044Z",
+                "updated_at": "2017-09-24T11:14:56.044Z"
+              }
+        ]
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+### Create a Place [POST]
+
+
++ Request (application/json)
+
+        {
+            "place_name": "資訊系館一樓",
+            "place_address": "台南市東區大學路1號",
+            "place_contact_person": "楊先生",
+            "place_phone": "09xx-xxxxxx",
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /places/3
+
+    + Body
+
+            {
+                "place_id": 3,
+                "place_name": "資訊系館一樓",
+                "place_address": "台南市東區大學路1號",
+                "place_contact_person": "楊先生",
+                "place_phone": "09xx-xxxxxx",
+                "created_at": "2017-09-24T11:14:56.073Z",
+                "updated_at": "2017-09-24T11:14:56.073Z",
+            }
+
+## Place [/places/{id}]
+A single Place object with all its details
+
++ Parameters
+    + id (required, Number, `1`) ... Numeric `id` of the User to perform action with.
+
+
+### Retrieve a Place [GET]
+
++ Response 200 (application/json)
+
+        place: {
+                "place_id": 1,
+                "place_name": "成大幼兒園",
+                "place_address": "台南市東區大學路1號",
+                "place_contact_person": "張先生",
+                "place_phone": "09xx-xxxxxx",
+                "created_at": "2017-09-24T11:14:56.035Z",
+                "updated_at": "2017-09-24T11:14:56.035Z"
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+
+### Update a Place [PUT]
+
++ Request (application/json)
+
+         {
+            "place_name": "成大商家",
+            "place_address": "台南市東區大學路1號",
+            "place_contact_person": "林先生",
+            "place_phone": "09xx-xxxxxx",
+         }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "updated_at": "2017-09-24T11:14:56.073Z",
+            }
+
+
+### Delete a Place [DELETE]
+
++ Response 204 (application/json)
+
+# Group Count
+Represents Count Details
+
+---
+**Count attributes:**
+
+- count_id `(Number)` : unique identifier. 
+- lamp_id `(String(25))` : Require.
+- counts `(Number)` : Require.
+- created_at `(Timestamps)` : -- .
+
+---
+## Count Collection [/counts{?formatBy}]
+
+### List all counts [GET]
+
++ Parameters
+    + formatBy (optional, String) ... use 'Date' <=  Group By date & lamp_id
+
+
++ Response 200 (application/json)
+
+        counts: [
+              {
+                "count_id": 1,
+                "lamp_id": "TEST01",
+                "counts": 1,
+                "created_at": "2017-09-24T11:14:56.035Z",
+              }, {
+                "count_id": 2,
+                "lamp_id": "TEST01",
+                "counts": 2,
+                "created_at": "2017-09-24T11:14:56.044Z",
+              }
+        ]
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+### Create a Count [POST]
+
+
++ Request (application/json)
+
+        {
+                "lamp_id": "TEST01",
+                "counts": 1,
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /counts/3
+
+    + Body
+
+            {
+                "count_id": 3,
+                "lamp_id": "TEST01",
+                "counts": "1",
+                "created_at": "2017-09-24T11:14:56.073Z",
+            }
+
+## Count [/counts/{id}]
+A single Count object with all its details
+
++ Parameters
+    + id (required, Number, `1`) ... Numeric `id` of the User to perform action with.
+
+
+### Retrieve a Count [GET]
+
++ Response 200 (application/json)
+
+        {
+                "count_id": 1,
+                "lamp_id": "TEST01",
+                "counts": "1",
+                "created_at": "2017-09-24T11:14:56.073Z",
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+### Delete a Count [DELETE]
+
++ Response 204 (application/json)
+
+
+# Group State
+Represents State Details
+
+---
+**State attributes:**
+
+- state_id `(Number)` : unique identifier. 
+- lamp_id `(String(25))` : Require.
+- lamp_state `(Number)` : Require, 0~2.
+- lamp_check_date `(Date)` : optional.
+- lamp_check_person `(String(10))` : optional.
+- state_description `(TEXT)` : optional .
+- state_reason `TEXT)` : optional .
+- created_at `(Timestamps)` : -- .
+- updated_at `(Timestamps)` : -- .
+
+---
+## State Collection [/states]
+### List all states [GET]
+
++ Response 200 (application/json)
+
+        states: [
+              {
+                "state_id": 1,
+                "lamp_id": "TEST01",
+                "lamp_state": 2,
+                "lamp_check_date": "2017-09-26",
+                "lamp_check_person": "張同學",
+                "state_description": "無法傳送訊息",
+                "state_reason": "推測是晶片故障",
+                "created_at": "2017-09-24T11:14:56.035Z",
+                "updated_at": "2017-09-24T11:14:56.035Z"
+              }, {
+                "state_id": 2,
+                "lamp_id": "TEST02",
+                "lamp_state": 1,
+                "created_at": "2017-09-24T11:14:56.044Z",
+                "updated_at": "2017-09-24T11:14:56.044Z"
+              }
+        ]
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+### Create a State [POST]
+
+
++ Request (application/json)
+
+        {
+            "lamp_id": "TEST01",
+            "lamp_state": 1,
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /states/3
+
+    + Body
+
+            {
+                "state_id": 3,
+                "lamp_id": "TEST01",
+                "lamp_state": 1,
+                "created_at": "2017-09-24T11:14:56.073Z",
+                "updated_at": "2017-09-24T11:14:56.073Z",
+            }
+
+## State [/states/{id}]
+A single State object with all its details
+
++ Parameters
+    + id (required, Number, `1`) ... Numeric `id` of the User to perform action with.
+
+
+### Retrieve a State [GET]
+
++ Response 200 (application/json)
+
+        state: {
+                "state_id": 1,
+                "lamp_id": "TEST01",
+                "lamp_state": 2,
+                "lamp_check_date": "2017-09-26",
+                "lamp_check_person": "張同學",
+                "state_description": "無法傳送訊息",
+                "state_reason": "推測是晶片故障",
+                "created_at": "2017-09-24T11:14:56.035Z",
+                "updated_at": "2017-09-24T11:14:56.035Z"
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+
+### Update a State [PUT]
+
++ Request (application/json)
+
+         {
+            "lamp_state": 2,
+            "lamp_check_date": "2017-09-27",
+            "lamp_check_person": "張同學",
+            "state_description": "燈不會亮",
+            "state_reason": "捕蚊燈故障，更換捕蚊燈",
+            "state_description": "09xx-xxxxxx",
+         }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "updated_at": "2017-09-24T11:14:56.073Z",
+            }
+
+
+### Delete a State [DELETE]
+
++ Response 204 (application/json)
+
+
+# Group Mcc
+Represents Mcc Details
+
+---
+**Mcc attributes:**
+
+- mcc_id `(Number)` : unique identifier. 
+- mcc_keys `([String(25)])` : Require.
+- mcc_points `([String(25)])` : Require.
+- mcc_center `(Double)` : Require.
+- rule_id `(Number)` : Require.
+- created_at `(Timestamps)` : -- .
+
+---
+## Mcc Collection [/mcc]
+### List all mcc [GET]
+
++ Response 200 (application/json)
+
+        "mcc": [{
+            "mcc_id": 1,
+            "mcc_keys": ["TEST01", "TEST02"],
+            "mcc_points": ["TEST01", "TEST02"],
+            "mcc_center": [120.192393, 22.9980096],
+            "rule_id": 1,
+            "created_at": "2017-09-24T11:14:56.073Z"
+        }]
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+### Create a Mcc [POST]
+
+
++ Request (application/json)
+
+        {
+            "mcc_keys": ["TEST01", "TEST02"],
+            "mcc_points": ["TEST01", "TEST02", "TEST03"],
+            "mcc_center": [120.192393, 22.9980096],
+            "rule_id": 1,
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /mcc/2
+
+    + Body
+
+            {
+                "mcc_id": 2,
+                "mcc_keys": ["TEST01", "TEST02"],
+                "mcc_points": ["TEST01", "TEST02", "TEST03"],
+                "mcc_center": [120.192393, 22.9980096],
+                "rule_id": 1,
+                "created_at": "2017-09-24T11:14:56.073Z",
+            }
+
+## Mcc [/mcc/{id}]
+A single Mcc object with all its details
+
++ Parameters
+    + id (required, Number, `1`) ... Numeric `id` of the User to perform action with.
+
+
+### Retrieve a Mcc [GET]
+
++ Response 200 (application/json)
+
+        mcc: {
+                "mcc_id": 1,
+                "mcc_keys": ["TEST01", "TEST02"],
+                "mcc_points": ["TEST01", "TEST02"],
+                "mcc_center": [120.192393, 22.9980096],
+                "rule_id": 1,
+                "created_at": "2017-09-24T11:14:56.035Z",
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+### Delete a Mcc [DELETE]
+
++ Response 204 (application/json)
+
+
+# Group Rules
+Represents Rules Details
+
+---
+**Rules attributes:**
+
+- rule_id `(Number)` : unique identifier. 
+- timeline_upper_limit `(Number)` : Require.
+- distance_lower_limit `(Number)` : Require.
+- points_lower_limit `(Number)` : Require.
+- counts_lower_limit `(Number)` : Require.
+- created_at `(Timestamps)` : -- .
+- updated_at `(Timestamps)` : -- .
+
+---
+## Rules Collection [/rules]
+### List all rules [GET]
+
++ Response 200 (application/json)
+
+        "rules": [{
+            "rule_id": 1,
+            "timeline_upper_limit": 3,
+            "distance_lower_limit": 500,
+            "points_lower_limit": 5,
+            "counts_lower_limit": 20,
+            "created_at": "2017-09-24T11:14:56.066Z",
+            "updated_at": "2017-09-24T11:14:56.066Z"
+        }]
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+### Create a Rules [POST]
+
+
++ Request (application/json)
+
+        {
+            "timeline_upper_limit": 3,
+            "distance_lower_limit": 500,
+            "points_lower_limit": 5,
+            "counts_lower_limit": 20,
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /rules/3
+
+    + Body
+
+            {
+                "rule_id": 3,
+                "timeline_upper_limit": 3,
+                "distance_lower_limit": 500,
+                "points_lower_limit": 5,
+                "counts_lower_limit": 20,
+                "created_at": "2017-09-24T11:14:56.066Z",
+                "updated_at": "2017-09-24T11:14:56.066Z"
+            }
+
+## Rules [/rules/{id}]
+A single Rules object with all its details
+
++ Parameters
+    + id (required, Number, `1`) ... Numeric `id` of the User to perform action with.
+
+
+### Retrieve a Rules [GET]
+
++ Response 200 (application/json)
+
+        rule: {
+                "rule_id": 1,
+                "timeline_upper_limit": 3,
+                "distance_lower_limit": 500,
+                "points_lower_limit": 5,
+                "counts_lower_limit": 20,
+                "created_at": "2017-09-24T11:14:56.066Z",
+                "updated_at": "2017-09-24T11:14:56.066Z"
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+
+### Update a Rules [PUT]
+
++ Request (application/json)
+
+         {
+            "timeline_upper_limit": 3,
+            "distance_lower_limit": 500,
+            "points_lower_limit": 10,
+            "updated_at": "2017-09-24T11:14:56.066Z"
+         }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "updated_at": "2017-09-24T11:14:56.073Z",
+            }
+
+
+### Delete a Rules [DELETE]
+
++ Response 204 (application/json)
+
+
+# Group Comments
+Represents Comments Details
+
+---
+**Comments attributes:**
+
+- comments_id `(Number)` : unique identifier. 
+- lamp_id `(Number)` : Require.
+- comment_content `(Text)` : Require.
+- created_at `(Timestamps)` : -- .
+
+---
+## Comments Collection [/comments]
+### List all comments [GET]
+
++ Response 200 (application/json)
+
+        "comments": [{
+            "comments_id": 1,
+            "lamp_id": "TEST01",
+            "comment_content": "我不會用",
+            "created_at": "2017-09-24T11:14:56.066Z",
+        }]
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+### Create a Comments [POST]
+
+
++ Request (application/json)
+
+        {
+            "lamp_id": "TEST01",
+            "comment_content": "我不會用",
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /comments/3
+
+    + Body
+
+            {
+                "comments_id": 3,
+                "lamp_id": "TEST01",
+                "comment_content": "我不會用",
+                "created_at": "2017-09-24T11:14:56.066Z",
+            }
+
+## Comments [/comments/{id}]
+A single Comments object with all its details
+
++ Parameters
+    + id (required, Number, `1`) ... Numeric `id` of the User to perform action with.
+
+
+### Retrieve a Comments [GET]
+
++ Response 200 (application/json)
+
+        comments: {
+                "comments_id": 1,
+                "lamp_id": "TEST01",
+                "comment_content": "我不會用",
+                "created_at": "2017-09-24T11:14:56.066Z",
+        }
+
+
++ Response 404 (application/json)
+
+        {
+            "error": "not found"
+        }
+
+
+
+### Update a Comments [PUT]
+
++ Request (application/json)
+
+         {
+            "comment_content": "我還是不會用",
+         }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "updated_at": "2017-09-24T11:14:56.073Z",
+            }
+
+
+### Delete a Comments [DELETE]
+
++ Response 204 (application/json)
+

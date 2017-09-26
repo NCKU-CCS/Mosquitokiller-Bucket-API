@@ -33,7 +33,7 @@ $ yarn install // or npm install
 
 Setup Your ```DATABASE```, ```USER```, ```PASSWORD``` in config/lampDevConfig.js & config/lampProdConfig.js
 
-### 3. Initialize Tables
+### 3. Initialize Dev Tables
 ***It will Drop  Dev tables if these already exist***
 
 ```

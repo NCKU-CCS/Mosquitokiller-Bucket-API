@@ -113,12 +113,13 @@ exports.BaseController = class {
       res.status(500).json({error: err})
     }
   }
+
   async delete (req, res) {
     try {
       const filterRules = this._setIdFilter(req)
       const deleteResult = await this.Model.destroy({where: filterRules})
       if (deleteResult) {
-        res.json(deleteResult)
+        res.status(204).json(deleteResult)
       } else {
         res.status(404).json(deleteResult)
       }
