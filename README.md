@@ -68,7 +68,16 @@ $ npm run prod
 
 ## API Document
 
-### [Apiary Link]()
+### Check [API Document Site](https://sirius207.github.io/Bucket-API/index.html)
+
+### Modify API Document Site
+
+Modify api.apib
+
+```
+$ npm install -g aglio
+$ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.html
+```
 
 ## Database Diagram
 
