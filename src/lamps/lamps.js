@@ -34,7 +34,8 @@ class LampsController extends BaseController {
         .update(req.body.lamp_id)
         .digest('hex')
       const newItem = await this.Model.create(req.body)
-      this._returnResponse(newItem, 'singular', res)
+      res.set('location', `${req.path}/${newItem[this.modelName['id']]}`)
+      res.status(201).json(newItem)
     } catch (err) {
       res.status(500).json({error: err})
     }

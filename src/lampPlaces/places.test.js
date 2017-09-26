@@ -45,10 +45,11 @@ describe('Places -- ', () => {
         .send(place)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
+          res.should.have.status(201)
           res.should.be.json
-          res.body.should.have.property('place')
-          ID = res.body.place.place_id
+          res.headers.should.have.property('location')
+          res.body.should.have.property('place_id')
+          ID = res.body.place_id
           done()
         })
     })
@@ -81,7 +82,7 @@ describe('Places -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('places')
+          res.body.should.be.an('array')
           done()
         })
     })
@@ -98,7 +99,7 @@ describe('Places -- ', () => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
-          res.body.should.have.property('place')
+          res.body.should.have.property('place_id')
           done()
         })
     })
@@ -139,9 +140,7 @@ describe('Places -- ', () => {
         .send(place)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('place_id')
+          res.should.have.status(204)
           done()
         })
     })
@@ -156,8 +155,7 @@ describe('Places -- ', () => {
         .delete(`/apis/places/${ID}`)
         .end((err, res) => {
           if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
+          res.should.have.status(204)
           done()
         })
     })

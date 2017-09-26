@@ -44,12 +44,6 @@ exports.BaseController = class {
     })
   }
 
-  _returnResponse (data, type, res) {
-    const jsonData = {}
-    jsonData[this.modelName[type]] = data
-    res.json(jsonData)
-  }
-
   // use in update & delete request
   // generate different {'item_id': req.params.id}
   _setIdFilter (req) {
@@ -62,7 +56,7 @@ exports.BaseController = class {
     try {
       const Items = await this.Model.findAll({where: req.query})
       if (Items.length) {
-        this._returnResponse(Items, 'plural', res)
+        res.json(Items)
       } else {
         res.status(404).json({error: 'not found'})
       }
@@ -79,7 +73,7 @@ exports.BaseController = class {
       const params = await matchedData(req)
       const singleItem = await this.Model.findById(params.id)
       if (singleItem) {
-        this._returnResponse(singleItem, 'singular', res)
+        res.json(singleItem)
       } else {
         res.status(404).json({error: 'not found'})
       }
@@ -94,7 +88,8 @@ exports.BaseController = class {
       if (status === '4xx') return
 
       const newItem = await this.Model.create(req.body)
-      this._returnResponse(newItem, 'singular', res)
+      res.set('location', `${req.path}/${newItem[this.modelName['id']]}`)
+      res.status(201).json(newItem)
     } catch (err) {
       res.status(500).json({error: err})
     }
@@ -105,7 +100,7 @@ exports.BaseController = class {
       const filterRules = this._setIdFilter(req)
       const updateItem = await this.Model.update(req.body, {where: filterRules})
       if (updateItem) {
-        this._returnResponse(updateItem, 'id', res)
+        res.status(204).json(updateItem)
       } else {
         res.status(404).json({error: 'not found'})
       }

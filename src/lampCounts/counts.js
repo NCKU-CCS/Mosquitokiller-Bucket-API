@@ -89,7 +89,7 @@ class CountsController extends BaseController {
       let Items = await this.Model.findAll(Rule)
       if (Items.length) {
         Items = (formatByDate) ? this._formatItemsByDate(Items) : Items
-        this._returnResponse(Items, 'plural', res)
+        res.json(Items)
       } else {
         res.status(404).json({error: 'not found'})
       }
