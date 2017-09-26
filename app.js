@@ -13,14 +13,14 @@ const cors = require('cors')
 
 const app = express()
 
-const CONFIG = (process.env.NODE_ENV === 'production')
+global.CONFIG = (process.env.NODE_ENV === 'production')
 ? require('./config/lampProdConfig.js')
 : require('./config/lampDevConfig.js')
 
 // set up cors config
 const corsOptions = {
-  origin: CONFIG.cors.url,
-  optionsSucccessCode: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204 
+  origin: global.CONFIG.cors.url,
+  optionsSuccessCode: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204 
   credentials: true
 }
 

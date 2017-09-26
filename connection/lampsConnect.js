@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize')
 
-const CONFIG = (process.env.NODE_ENV === 'production')
-  ? require('../config/lampProdConfig.js')
-  : require('../config/lampDevConfig.js')
+const CONFIG = global.CONFIG
 
 // Setup Sequelize
 const sequelize = new Sequelize(CONFIG['database'], CONFIG['user'], CONFIG['password'], {
