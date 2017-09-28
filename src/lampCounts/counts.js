@@ -78,7 +78,8 @@ class CountsController extends BaseController {
             [Sequelize.fn('count', Sequelize.col('counts')), 'sum'],
             [Sequelize.fn('date', Sequelize.col('created_at')), 'date']
           ],
-          group: ['lamp_id', [Sequelize.fn('date', Sequelize.col('created_at'))]]
+          group: ['lamp_id', [Sequelize.fn('date', Sequelize.col('created_at'))]],
+          order: [Sequelize.fn('date', Sequelize.col('created_at'))]
         }
       } else {
         Rule = {where: req.query}
