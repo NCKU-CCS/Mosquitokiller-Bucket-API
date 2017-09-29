@@ -165,6 +165,7 @@ def on_message(client, userdata, msg):
     if msg.topic == 'ncku/netdb/test':
         print(str(msg.payload))
     elif msg.topic == TOPIC:
+        print('\n------\n')
         print(str(msg.payload))
         #####################################################
         # Initialization
@@ -205,7 +206,6 @@ def on_message(client, userdata, msg):
         # Plus Lamp Count
         #####################################################
         NewActiveLamp = False
-        print('\n------\n')
         if lampId not in LampDict:
             LampDict[lampId] = dict()
             LampDict[lampId]["Lon"] = Lon
@@ -234,7 +234,7 @@ def on_message(client, userdata, msg):
         #####################################################
         PopList = list()
 
-        for oldLampId in LampDict:       
+        for oldLampId in LampDict:
             if oldLampId == lampId:
                 continue
 
