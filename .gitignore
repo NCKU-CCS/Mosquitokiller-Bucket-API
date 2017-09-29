@@ -59,6 +59,10 @@ typings/
 
 # configuration
 config/
+mqttSub/config.py
+
+# python
+*.pyc
 
 # data
 fake/
