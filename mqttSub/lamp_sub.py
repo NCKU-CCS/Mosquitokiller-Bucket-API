@@ -249,7 +249,7 @@ def on_message(client, userdata, msg):
                     PopList.append(oldLampId)
                     continue
 
-            elif NewActiveLamp and LampDict[oldLampId]["Active"] \
+            if NewActiveLamp and LampDict[oldLampId]["Active"] \
                 and (oldLampId, lampId) not in DistanceDict:
 
                 DistanceTmp = distance(Lon, Lat, LampDict[oldLampId]["Lon"], LampDict[oldLampId]["Lat"])
