@@ -31,8 +31,8 @@ $ yarn install // or npm install
 
 ### 2. Setup Secret Data
 
-Create Dev DB & user. Check[here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
-Setup Your ```DATABASE```, ```USER```, ```PASSWORD``` in config/lampDevConfig.js & config/lampProdConfig.js
+- Create Dev DB & user. Check[here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
+- Setup Your ```DATABASE```, ```USER```, ```PASSWORD``` in config/lampDevConfig.js & config/lampProdConfig.js
 
 ### 3. Initialize Dev Tables
 ***It will Drop  Dev tables if these already exist***
@@ -44,14 +44,14 @@ $ node dbInitialize.js
 
 
 ### 4. Run Locally (Dev)
-Use dev database
+- Use dev database
 
 ```
 $ npm start
 ```
 
 ### 5. Run Test
-Test Each RESTful API
+- Test Each RESTful API
 
 ```
 $ npm test
@@ -73,6 +73,10 @@ $ npm run prod
 $ npm install -g pm2
 $ cd mqttSub
 $ pm2 start   ecosystem.config.js --only Lamp_Sub
+```
+- check Mqtt Log
+```
+$ pm2 logs Lamp_Sub
 ```
 
 
