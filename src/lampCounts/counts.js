@@ -82,7 +82,7 @@ class CountsController extends BaseController {
           order: [Sequelize.fn('date', Sequelize.col('created_at'))]
         }
       } else {
-        Rule = {where: req.query}
+        Rule = {where: req.query, order: [['created_at', 'DESC']]}
       }
       //
       // SELECT DATA
