@@ -31,6 +31,7 @@ $ yarn install // or npm install
 
 ### 2. Setup Secret Data
 
+Create Dev DB & user. Check[here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
 Setup Your ```DATABASE```, ```USER```, ```PASSWORD``` in config/lampDevConfig.js & config/lampProdConfig.js
 
 ### 3. Initialize Dev Tables
@@ -65,6 +66,15 @@ Use Production Database
 $ export NODE_ENV=production
 $ npm run prod
 ```
+
+### Run Lamp Mqtt Subscribe
+
+```
+$ npm install -g pm2
+$ cd mqttSub
+$ pm2 start   ecosystem.config.js --only Lamp_Sub
+```
+
 
 ## API Document
 
