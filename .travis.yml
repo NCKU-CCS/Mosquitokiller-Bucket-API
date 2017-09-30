@@ -9,6 +9,11 @@ cache:
 services:
   - postgresql
 
+before_install:
+  - npm install mocha -g
+  - npm install coveralls -g
+  - npm install mocha-lcov-reporter -g
+
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - export LAMPS_DB_DEV=travis_ci_test
@@ -17,6 +22,7 @@ before_script:
   - export LAMPS_SECRET_DEV=Dev
   - node config/dbInitialize.js
 
+script: npm run-script coveralls
 
 addons:
   postgresql: "9.4"

@@ -4,7 +4,7 @@ Dengue Lamps & Minimal covering circle API
 ![Build Status](https://travis-ci.org/Sirius207/Bucket-API.svg?branch=master)
 
 ## Outline
-- [ChangeLog]((https://github.com/Sirius207/Bucket-API#changelog)
+- [ChangeLog](https://github.com/Sirius207/Bucket-API#changelog)
 - [Setup](https://github.com/Sirius207/Bucket-API#setup)
 - [API Document](https://github.com/Sirius207/Bucket-API#api-document)
 - [Database Diagram](https://github.com/Sirius207/Bucket-API#database-diagram)
@@ -46,15 +46,14 @@ $ yarn install // or npm install
 
 ### 2. Setup Secret Data
 
-- Create Dev DB & user. Check[here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
-- Setup Your ```DATABASE```, ```USER```, ```PASSWORD``` in config/lampDevConfig.js & config/lampProdConfig.js
+- Create Dev DB & user. Check [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
+- Setup your environment variables ```DATABASE```, ```USER```, ```PASSWORD``` in config/lampDevConfig.js & config/lampProdConfig.js
 
 ### 3. Initialize Dev Tables
 ***It will Drop  Dev tables if these already exist***
 
 ```
-$ cd config
-$ node dbInitialize.js
+$ node config/dbInitialize.js
 ```
 
 
