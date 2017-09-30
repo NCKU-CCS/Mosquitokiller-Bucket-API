@@ -58,7 +58,7 @@ typings/
 .env
 
 # configuration
-config/
+config/import
 mqttSub/config.py
 
 # python

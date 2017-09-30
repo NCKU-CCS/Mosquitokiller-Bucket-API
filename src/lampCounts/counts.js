@@ -99,7 +99,6 @@ class CountsController extends BaseController {
       res.status(500).json({error: err})
     }
   }
-
 }
 
 const modelName = {

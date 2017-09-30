@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - "iojs"
+  - "7"
+
+before_install:
+  - npm i -g npm@version-number
+
+cache:
+  directories:
+    - "node_modules"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - export LAMPS_DB_DEV=travis_ci_test
+  - export LAMPS_USER_DEV=postgres
+  - export LAMPS_PW_DEV=""
+  - export LAMPS_SECRET_DEV=Dev
+  - node config/dbInitialize.js
+
+
+addons:
+  postgresql: "9.4"
