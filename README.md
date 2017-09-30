@@ -3,6 +3,7 @@ Dengue Lamps & Minimal covering circle API
 
 
 ## Outline
+- [ChangeLog]((https://github.com/Sirius207/Bucket-API#changelog)
 - [Setup](https://github.com/Sirius207/Bucket-API#setup)
 - [API Document](https://github.com/Sirius207/Bucket-API#api-document)
 - [Database Diagram](https://github.com/Sirius207/Bucket-API#database-diagram)
@@ -15,6 +16,19 @@ Dengue Lamps & Minimal covering circle API
 	- [lamp_mcc](https://github.com/Sirius207/Bucket-API#table-lamp_mcc)
 	- [lamp_mcc\_rules](https://github.com/Sirius207/Bucket-API#table-lamp_mcc_rules)
 	- [lamp_comments](https://github.com/Sirius207/Bucket-API#table-lamp_comments)
+
+
+## ChangeLog
+
+- v0.9.2 (Dev Branch)
+	- Add Tables: lamps_meta, user, notification
+	- Add JWT of post, put, delete request
+
+- v0.9.1 (Master Branch)
+	- With RESTful API of Lamps, Places, Counts, States, Mcc, Rules, Comments
+	- With Lamp MQTT message Subscribe
+
+
 
 ## Setup
 

@@ -40,19 +40,19 @@ const DataInitialize = async () => {
       place_address: '701台南市東區大學路1號 資訊系館 6樓 101房'
     })
 
-    // await Lamps.create({
-    //   lamp_id: 'TEST01',
-    //   lamp_hash_id: '2346',
-    //   lamp_location: [120.19151248216, 22.9997144678771],
-    //   place_id: 1
-    // })
+    await Lamps.create({
+      lamp_id: 'TEST01',
+      lamp_hash_id: '2346',
+      lamp_location: [120.19151248216, 22.9997144678771],
+      place_id: 1
+    })
 
-    // await Lamps.create({
-    //   lamp_id: 'TEST02',
-    //   lamp_hash_id: '2345',
-    //   lamp_location: [120.193272644465, 22.9963046536379],
-    //   place_id: 1
-    // })
+    await Lamps.create({
+      lamp_id: 'TEST02',
+      lamp_hash_id: '2345',
+      lamp_location: [120.193272644465, 22.9963046536379],
+      place_id: 1
+    })
 
     await Counts.create({
       lamp_id: 'TEST01',
@@ -78,6 +78,7 @@ const DataInitialize = async () => {
       rule_id: 1
     })
     console.log(`\n\n ${CONFIG['database']} Initialize Data success \n\n`)
+    process.exit()
   } catch (error) {
     console.log('DATA: ', error)
   }
@@ -86,7 +87,6 @@ const DataInitialize = async () => {
 const initialize = async () => {
   await DBInitialize()
   await DataInitialize()
-  process.exit()
 }
 
 initialize()
