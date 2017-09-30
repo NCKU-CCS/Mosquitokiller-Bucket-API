@@ -78,7 +78,6 @@ const DataInitialize = async () => {
       rule_id: 1
     })
     console.log(`\n\n ${CONFIG['database']} Initialize Data success \n\n`)
-    process.exit()
   } catch (error) {
     console.log('DATA: ', error)
   }
@@ -87,6 +86,7 @@ const DataInitialize = async () => {
 const initialize = async () => {
   await DBInitialize()
   await DataInitialize()
+  process.exit()
 }
 
 initialize()

@@ -1,6 +1,7 @@
 # Bucket-API
 Dengue Lamps & Minimal covering circle API
 
+![Build Status](https://travis-ci.org/Sirius207/Bucket-API.svg?branch=master)
 
 ## Outline
 - [ChangeLog]((https://github.com/Sirius207/Bucket-API#changelog)
