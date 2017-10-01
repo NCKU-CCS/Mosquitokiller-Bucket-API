@@ -1,9 +1,8 @@
 const { BaseController } = require('../baseController')
-const PlacesModel = require('./placesModel')
 
 class PlacesController extends BaseController {
-  constructor (Model, modelName) {
-    super(Model, modelName)
+  constructor (Model) {
+    super(Model)
 
     this.ValidateCreateKeys = [
       this.check.body('place_name', 'place_name illegal').exists(),
@@ -12,10 +11,9 @@ class PlacesController extends BaseController {
   }
 }
 
-const modelName = {
-  singular: 'place',
-  plural: 'places',
-  id: 'place_id'
+const Model = {
+  id: 'place_id',
+  orm: require('./placesModel')
 }
 
-module.exports = new PlacesController(PlacesModel, modelName)
+module.exports = new PlacesController(Model)

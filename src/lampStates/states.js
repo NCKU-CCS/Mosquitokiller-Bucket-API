@@ -1,9 +1,8 @@
 const { BaseController } = require('../baseController')
-const StatesModel = require('./statesModel')
 
 class StatesController extends BaseController {
-  constructor (Model, modelName) {
-    super(Model, modelName)
+  constructor (Model) {
+    super(Model)
 
     this.ValidateCreateKeys = [
       this.check.body('lamp_id', 'lamp_id illegal').exists(),
@@ -12,10 +11,9 @@ class StatesController extends BaseController {
   }
 }
 
-const modelName = {
-  singular: 'state',
-  plural: 'states',
-  id: 'state_id'
+const Model = {
+  id: 'state_id',
+  orm: require('./statesModel')
 }
 
-module.exports = new StatesController(StatesModel, modelName)
+module.exports = new StatesController(Model)

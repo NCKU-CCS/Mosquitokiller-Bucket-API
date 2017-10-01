@@ -1,12 +1,11 @@
 const { BaseController } = require('../baseController')
-const CountsModel = require('./countsModel')
 
 const moment = require('moment')
 const Sequelize = require('sequelize')
 
 class CountsController extends BaseController {
-  constructor (Model, modelName) {
-    super(Model, modelName)
+  constructor (Model) {
+    super(Model)
 
     this.ValidateCreateKeys = [
       this.check.body('lamp_id', 'lamp_id illegal').exists(),
@@ -30,7 +29,7 @@ class CountsController extends BaseController {
     })
     return itemsFormatData
   }
-  _setupDateItem (item, itemsFormatData) {    
+  _setupDateItem (item, itemsFormatData) {
     if (!itemsFormatData[item.dataValues.date]) {
       itemsFormatData[item.dataValues.date] = {}
     }
@@ -38,7 +37,7 @@ class CountsController extends BaseController {
 
     // calculate Point Size
     const lastDate = moment(item.dataValues.date, 'YYYY-MM-DD').subtract(1, 'day').format('YYYY-MM-DD')
-    if (itemsFormatData[lastDate] && itemsFormatData[lastDate][item.dataValues[this.modelName['id']]]) {
+    if (itemsFormatData[lastDate] && itemsFormatData[lastDate][item.dataValues[this.modelId]]) {
       const rate = itemsFormatData[item.dataValues.date][item.dataValues['lamp_id']]['sum'] / itemsFormatData[lastDate][item.dataValues['lamp_id']]['sum']
       itemsFormatData[item.dataValues.date][item.dataValues['lamp_id']]['dataValues']['size'] = this._setupSizeRate(rate)
     } else {
@@ -99,10 +98,9 @@ class CountsController extends BaseController {
   }
 }
 
-const modelName = {
-  singular: 'count',
-  plural: 'counts',
-  id: 'count_id'
+const Model = {
+  id: 'count_id',
+  orm: require('./countsModel')
 }
 
-module.exports = new CountsController(CountsModel, modelName)
+module.exports = new CountsController(Model)

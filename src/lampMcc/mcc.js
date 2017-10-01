@@ -1,9 +1,8 @@
 const { BaseController } = require('../baseController')
-const MccModel = require('./mccModel')
 
 class MccController extends BaseController {
-  constructor (Model, modelName) {
-    super(Model, modelName)
+  constructor (Model) {
+    super(Model)
 
     this.ValidateCreateKeys = [
       this.check.body('mcc_keys', 'mcc_key illegal').exists(),
@@ -14,10 +13,9 @@ class MccController extends BaseController {
   }
 }
 
-const modelName = {
-  singular: 'mcc',
-  plural: 'mcc',
-  id: 'mcc_id'
+const Model = {
+  id: 'mcc_id',
+  orm: require('./mccModel')
 }
 
-module.exports = new MccController(MccModel, modelName)
+module.exports = new MccController(Model)

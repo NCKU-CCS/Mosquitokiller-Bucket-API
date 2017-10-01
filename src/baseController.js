@@ -4,14 +4,13 @@ const { matchedData, sanitize } = require('express-validator/filter')
 // API BASE CLASS
 //
 exports.BaseController = class {
-  constructor (Model, modelName) {
+  constructor (Model) {
     // table model
-    this.Model = Model
-    // with key: singular, plural, id
-    this.modelName = modelName
+    this.Model = Model.orm
+    this.modelId = Model.id
     // check method
     this.check = {body, param}
-    //
+
     this.ValidateIdParams = [
       param('id', 'id should be a int').custom(id => {
         if (!Number.isInteger(Number(id))) {
@@ -50,7 +49,7 @@ exports.BaseController = class {
   // generate different {'item_id': req.params.id}
   _setIdFilter (req) {
     const filterRules = {}
-    filterRules[this.modelName['id']] = req.params.id
+    filterRules[this.modelId] = req.params.id
     return filterRules
   }
 
@@ -90,7 +89,7 @@ exports.BaseController = class {
       if (status === '4xx') return
 
       const newItem = await this.Model.create(req.body)
-      res.set('location', `${req.path}/${newItem[this.modelName['id']]}`)
+      res.set('location', `${req.path}/${newItem[this.modelId]}`)
       res.status(201).json(newItem)
     } catch (err) {
       res.status(500).json({error: err})
@@ -107,6 +106,7 @@ exports.BaseController = class {
         res.status(404).json({error: 'not found'})
       }
     } catch (err) {
+      console.log(err)
       res.status(500).json({error: err})
     }
   }

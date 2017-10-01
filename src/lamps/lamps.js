@@ -8,11 +8,10 @@ const SECRET = global.CONFIG['sha256Secret']
 // Controller Model
 //
 const {BaseController} = require('../baseController')
-const Lamps = require('./lampsModel')
 
 class LampsController extends BaseController {
-  constructor (Model, modelName) {
-    super(Model, modelName)
+  constructor (Model) {
+    super(Model)
     // block illegal or null request
     this.ValidateIdParams = [this.check.param('id', 'not exist').exists()]
 
@@ -34,7 +33,7 @@ class LampsController extends BaseController {
         .update(req.body.lamp_id)
         .digest('hex')
       const newItem = await this.Model.create(req.body)
-      res.set('location', `${req.path}/${newItem[this.modelName['id']]}`)
+      res.set('location', `${req.path}/${newItem[this.modelId]}`)
       res.status(201).json(newItem)
     } catch (err) {
       res.status(500).json({error: err})
@@ -42,10 +41,9 @@ class LampsController extends BaseController {
   }
 }
 
-const modelName = {
-  singular: 'lamp',
-  plural: 'lamps',
-  id: 'lamp_id'
+const Model = {
+  id: 'lamp_id',
+  orm: require('./lampsModel')
 }
 
-module.exports = new LampsController(Lamps, modelName)
+module.exports = new LampsController(Model)
