@@ -20,7 +20,7 @@ global.CONFIG = (process.env.NODE_ENV === 'production')
 // set up cors config
 const corsOptions = {
   origin: global.CONFIG.cors.url,
-  optionsSuccessCode: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204 
+  optionsSuccessCode: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true
 }
 

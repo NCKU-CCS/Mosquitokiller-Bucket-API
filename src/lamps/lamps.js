@@ -28,7 +28,8 @@ class LampsController extends BaseController {
 
   async create (req, res) {
     try {
-      await this._validateRequest(req, res)
+      const status = await this._validateRequest(req, res)
+      if (status === '4xx') return
       // To Use Hash
       req.body.lamp_hash_id = crypto.createHmac('sha256', SECRET)
         .update(req.body.lamp_id)
