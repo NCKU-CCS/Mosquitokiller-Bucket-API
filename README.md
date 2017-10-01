@@ -288,6 +288,8 @@ $ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.h
 | comment_id | PRIMARY | comment_id |
 | lamp_id    | INDEX   | lamp_id    |
 
+## License
 
+MIT © [Pochun](./LICENSE)
 
-
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
