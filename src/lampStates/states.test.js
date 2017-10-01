@@ -1,160 +1,22 @@
-process.env.NODE_ENV = 'test'
+const TEST = require('../baseTest')
 
-let chai = require('chai')
-let chaiHttp = require('chai-http')
-let should = chai.should()
-let server = require('../../app')
-
-chai.use(chaiHttp)
-const agent = chai.request.agent(server)
-
-const loginAuth = (agent, next) => {
-  return agent
-    .post('/login')
-    .set('content-type', 'application/x-www-form-urlencoded')
-    .send({'email': 'sirius@ccns.ncku.edu.tw', 'password': 'sample1234'})
-    .end((err, res) => {
-      if (err) next(err)
-      agent.get('/login').then((res) => {
-        res.should.have.status(200)
-        next()
-      })
-    })
+const createDataCorrect = {
+  lamp_id: 'TEST01',
+  lamp_state: 1
 }
 
-describe('States -- ', () => {
-  // beforeEach((done) => {
-  //   loginAuth(agent, () => {
-  //     done()
-  //   })
-  // })
+const createDataWrong = {
+  lamp_id: 'TEST01'
+}
 
-  let ID = 0
-  // =========================
-  // Create New State
-  // =========================
-  describe('/POST States -- ', () => {
-    it('new state data should be create', (done) => {
-      const state = {
-        lamp_id: 'TEST01',
-        lamp_state: 1
-      }
-      agent
-        .post('/apis/states')
-        .send(state)
-        .end((err, res) => {
-          if (err) return done(err)
-          res.should.have.status(201)
-          res.should.be.json
-          res.headers.should.have.property('location')
-          res.body.should.have.property('state_id')
-          ID = res.body.state_id
-          done()
-        })
-    })
+const updateData = {
+  lamp_id: 'TEST01',
+  lamp_state: 2,
+  state_description: '不會亮'
+}
 
-    it('new state without lamp_state should NOT be create', (done) => {
-      const state = {
-        lamp_id: 'TEST01'
-      }
-      agent
-        .post('/apis/states')
-        .send(state)
-        .end((err, res) => {
-          res.should.have.status(400)
-          res.should.be.json
-          res.body.should.have.property('errors')
-          done()
-        })
-    })
-  })
+const Data = {createDataCorrect, createDataWrong, updateData}
 
-  // =========================
-  // Get All States
-  // =========================
-  describe('/Get All States -- ', () => {
-    it('should return all state', (done) => {
-      agent
-        .get('/apis/states')
-        .end((err, res) => {
-          if (err) return done(err)
-          res.should.have.status(200)
-          res.body.should.be.an('array')
-          done()
-        })
-    })
-  })
+const Item = {name: 'states', id: 'state_id'}
 
-  // =========================
-  // Get State By ID
-  // =========================
-  describe('/Get State By ID -- ', () => {
-    it('should return single state With Correct ID', (done) => {
-      agent
-        .get(`/apis/states/${ID}`)
-        .end((err, res) => {
-          if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property('state_id')
-          done()
-        })
-    })
-    it('should Not return single state With Wrong ID', (done) => {
-      const ID = 0
-      agent
-        .get(`/apis/states/${ID}`)
-        .end((err, res) => {
-          res.should.have.status(404)
-          res.should.be.json
-          done()
-      })
-    })
-    it('should Not return single state With NaN ID', (done) => {
-      const ID = 'e'
-      agent
-        .get(`/apis/states/${ID}`)
-        .end((err, res) => {
-          res.should.have.status(404)
-          res.should.be.json
-          done()
-      })
-    })
-  })
-
-  // =========================
-  // Update A State
-  // =========================
-  describe('/Put State -- ', () => {
-    it('state data should be update', (done) => {
-      const state = {
-        lamp_id: 'TEST01',
-        lamp_state: 2,
-        state_description: '不會亮'
-      }
-      agent
-        .put(`/apis/states/${ID}`)
-        .send(state)
-        .end((err, res) => {
-          if (err) return done(err)
-          res.should.have.status(204)
-          done()
-        })
-    })
-  })
-
-  // =========================
-  // Remove A State
-  // =========================
-  describe('/Delete State -- ', () => {
-    it('state data should be delete', (done) => {
-      agent
-        .delete(`/apis/states/${ID}`)
-        .end((err, res) => {
-          if (err) return done(err)
-          res.should.have.status(204)
-          done()
-        })
-    })
-  })
-})
+TEST(Item, Data)
