@@ -1,41 +1,11 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.7.1
-# ignores vulnerabilities until expiry date; change duration by modifying expiry date
-ignore:
-  'npm:debug:20170905':
-    - jscoverage > debug:
-        reason: None given
-        expires: '2017-10-31T10:09:39.636Z'
-  'npm:ejs:20161128':
-    - ejs:
-        reason: None given
-        expires: '2017-10-31T10:09:39.636Z'
-    - jscoverage > ejs:
-        reason: None given
-        expires: '2017-10-31T10:09:39.636Z'
-  'npm:ejs:20161130':
-    - ejs:
-        reason: None given
-        expires: '2017-10-31T10:09:39.636Z'
-    - jscoverage > ejs:
-        reason: None given
-        expires: '2017-10-31T10:09:39.636Z'
-  'npm:ejs:20161130-1':
-    - ejs:
-        reason: None given
-        expires: '2017-10-31T10:09:39.636Z'
-    - jscoverage > ejs:
-        reason: None given
-        expires: '2017-10-31T10:09:39.636Z'
+ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
-  'npm:uglify-js:20150824':
-    - jade > transformers > uglify-js:
-        patched: '2017-10-01T10:13:18.785Z'
-    - jscoverage > uglify-js:
-        patched: '2017-10-01T10:08:31.277Z'
   'npm:uglify-js:20151024':
     - jade > transformers > uglify-js:
-        patched: '2017-10-01T10:13:18.785Z'
-    - jscoverage > uglify-js:
-        patched: '2017-10-01T10:08:31.277Z'
+        patched: '2017-10-01T10:23:45.150Z'
+  'npm:uglify-js:20150824':
+    - jade > transformers > uglify-js:
+        patched: '2017-10-01T10:23:45.150Z'
