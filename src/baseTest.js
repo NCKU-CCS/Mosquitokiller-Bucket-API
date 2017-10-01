@@ -8,19 +8,19 @@ let server = require('../app')
 chai.use(chaiHttp)
 const agent = chai.request.agent(server)
 
-const loginAuth = (agent, next) => {
-  return agent
-    .post('/login')
-    .set('content-type', 'application/x-www-form-urlencoded')
-    .send({'email': 'sirius@ccns.ncku.edu.tw', 'password': 'sample1234'})
-    .end((err, res) => {
-      if (err) next(err)
-      agent.get('/login').then((res) => {
-        res.should.have.status(200)
-        next()
-      })
-    })
-}
+// const loginAuth = (agent, next) => {
+//   return agent
+//     .post('/login')
+//     .set('content-type', 'application/x-www-form-urlencoded')
+//     .send({'email': 'sirius@ccns.ncku.edu.tw', 'password': 'sample1234'})
+//     .end((err, res) => {
+//       if (err) next(err)
+//       agent.get('/login').then((res) => {
+//         res.should.have.status(200)
+//         next()
+//       })
+//     })
+// }
 
 const Test = (Item, Data) => {
   const name = Item.name
@@ -59,10 +59,12 @@ const Test = (Item, Data) => {
           .post(`/apis/${name}`)
           .send(createDataWrong)
           .end((err, res) => {
-            res.should.have.status(400)
-            res.should.be.json
-            res.body.should.have.property('errors')
-            done()
+            if (err) {
+              res.should.have.status(400)
+              res.should.be.json
+              res.body.should.have.property('errors')
+              done()
+            }
           })
       })
     })
@@ -104,9 +106,11 @@ const Test = (Item, Data) => {
         agent
           .get(`/apis/${name}/${ID}`)
           .end((err, res) => {
-            res.should.have.status(404)
-            res.should.be.json
-            done()
+            if (err) {
+              res.should.have.status(404)
+              res.should.be.json
+              done()
+            }
         })
       })
       it('should Not return single ${name} With NaN ID', (done) => {
@@ -114,9 +118,11 @@ const Test = (Item, Data) => {
         agent
           .get(`/apis/${name}/${ID}`)
           .end((err, res) => {
-            res.should.have.status(404)
-            res.should.be.json
-            done()
+            if (err) {
+              res.should.have.status(404)
+              res.should.be.json
+              done()
+            }
         })
       })
     })
