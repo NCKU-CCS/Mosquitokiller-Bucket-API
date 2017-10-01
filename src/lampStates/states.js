@@ -1,5 +1,3 @@
-const { body } = require('express-validator/check')
-
 const { BaseController } = require('../baseController')
 const StatesModel = require('./statesModel')
 
@@ -8,8 +6,8 @@ class StatesController extends BaseController {
     super(Model, modelName)
 
     this.ValidateCreateKeys = [
-      body('lamp_id', 'lamp_id illegal').exists(),
-      body('lamp_state', 'lamp_states illegal').exists()
+      this.check.body('lamp_id', 'lamp_id illegal').exists(),
+      this.check.body('lamp_state', 'lamp_states illegal').exists()
     ]
   }
 }

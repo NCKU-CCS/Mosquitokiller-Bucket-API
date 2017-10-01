@@ -1,4 +1,3 @@
-const {body, param} = require('express-validator/check')
 const {sanitizeBody} = require('express-validator/filter')
 //
 // Generate Sha-1
@@ -15,12 +14,12 @@ class LampsController extends BaseController {
   constructor (Model, modelName) {
     super(Model, modelName)
     // block illegal or null request
-    this.ValidateIdParams = [param('id', 'not exist').exists()]
+    this.ValidateIdParams = [this.check.param('id', 'not exist').exists()]
 
     this.ValidateCreateKeys = [
-      body('lamp_id', 'lamp_id should not be null').exists(),
-      body('lamp_location', 'lamp_location should not be null').exists(),
-      body('place_id', 'place_id should not be null').exists(),
+      this.check.body('lamp_id', 'lamp_id should not be null').exists(),
+      this.check.body('lamp_location', 'lamp_location should not be null').exists(),
+      this.check.body('place_id', 'place_id should not be null').exists(),
       sanitizeBody('place_id').toInt()
     ]
     this.create = this.create.bind(this)

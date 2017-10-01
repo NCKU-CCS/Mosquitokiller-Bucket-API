@@ -2,6 +2,7 @@
 Dengue Lamps & Minimal covering circle API
 
 ![Build Status](https://travis-ci.org/Sirius207/Bucket-API.svg?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/sirius207/bucket-api/badge.svg)](https://snyk.io/test/github/sirius207/bucket-api)
 
 ## Outline
 - [ChangeLog](https://github.com/Sirius207/Bucket-API#changelog)

@@ -1,5 +1,3 @@
-const { body } = require('express-validator/check')
-
 const { BaseController } = require('../baseController')
 const CountsModel = require('./countsModel')
 
@@ -11,8 +9,8 @@ class CountsController extends BaseController {
     super(Model, modelName)
 
     this.ValidateCreateKeys = [
-      body('lamp_id', 'lamp_id illegal').exists(),
-      body('counts', 'counts illegal').exists()
+      this.check.body('lamp_id', 'lamp_id illegal').exists(),
+      this.check.body('counts', 'counts illegal').exists()
     ]
     // Bind Private function
     this._setupDateItem = this._setupDateItem.bind(this)

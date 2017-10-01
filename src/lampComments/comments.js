@@ -1,5 +1,3 @@
-const { body } = require('express-validator/check')
-
 const { BaseController } = require('../baseController')
 const CommentsModel = require('./commentsModel')
 
@@ -8,8 +6,8 @@ class CommentsController extends BaseController {
     super(Model, modelName)
 
     this.ValidateCreateKeys = [
-      body('lamp_id', 'lamp_id illegal').exists(),
-      body('comment_content', 'comment_content illegal').exists()
+      this.check.body('lamp_id', 'lamp_id illegal').exists(),
+      this.check.body('comment_content', 'comment_content illegal').exists()
     ]
   }
 }

@@ -1,4 +1,4 @@
-const { param, validationResult } = require('express-validator/check')
+const { body, param, validationResult } = require('express-validator/check')
 const { matchedData, sanitize } = require('express-validator/filter')
 //
 // API BASE CLASS
@@ -9,7 +9,9 @@ exports.BaseController = class {
     this.Model = Model
     // with key: singular, plural, id
     this.modelName = modelName
-
+    // check method
+    this.check = {body, param}
+    //
     this.ValidateIdParams = [
       param('id', 'id should be a int').custom(id => {
         if (!Number.isInteger(Number(id))) {
