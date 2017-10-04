@@ -10,6 +10,8 @@
     "test": "snyk test && mocha src/**/*.test.js --timeout 3000 --recursive",
     "travisTest": "mocha src/**/*.test.js --timeout 3000 --recursive",
     "prod": "NODE_ENV=production && node ./bin/www",
+    "cover": "istanbul cover _mocha src/**/*.test.js --recursive",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
     "prepublish": "npm run snyk-protect"
@@ -34,7 +36,10 @@
   "devDependencies": {
     "chai": "4.1.2",
     "chai-http": "3.0.0",
-    "mocha": "3.5.3"
+    "coveralls": "^3.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "3.5.3",
+    "mocha-lcov-reporter": "^1.3.0"
   },
   "snyk": true
 }

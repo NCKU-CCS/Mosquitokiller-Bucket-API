@@ -4,6 +4,7 @@ Dengue Lamps & Minimal covering circle API
 ![Build Status](https://travis-ci.org/Sirius207/Bucket-API.svg?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/sirius207/bucket-api/badge.svg)](https://snyk.io/test/github/sirius207/bucket-api)
 [![Code Climate](https://codeclimate.com/github/Sirius207/Bucket-API/badges/gpa.svg)](https://codeclimate.com/github/Sirius207/Bucket-API)
+[![Coverage Status](https://coveralls.io/repos/github/Sirius207/Bucket-API/badge.svg?branch=master)](https://coveralls.io/github/Sirius207/Bucket-API?branch=master)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Outline

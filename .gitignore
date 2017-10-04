@@ -66,3 +66,6 @@ mqttSub/config.py
 
 # data
 fake/
+
+# coverage report
+coverage/

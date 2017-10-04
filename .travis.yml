@@ -23,5 +23,8 @@ before_script:
 script:
   - npm run travisTest
 
+after_script: 
+  - npm run coveralls
+
 addons:
   postgresql: "9.4"
