@@ -6,10 +6,6 @@ const Roles = global.SEQUELIZE.define('roles', {
     allowNull: false,
     primaryKey: true
   },
-  role_name: {
-    type: Sequelize.STRING(15),
-    allowNull: false
-  },
   role_description: {
     type: Sequelize.TEXT,
     allowNull: false

@@ -19,12 +19,13 @@ const usersRoles = global.SEQUELIZE.define('users_roles', {
     }
   },
   role_id: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING(25),
     references: {
       model: Roles,
       key: 'role_id',
       deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
-    }
+    },
+    defaultValue: 'SUBSCRIBER'
   }
 }, {
   indexes: [

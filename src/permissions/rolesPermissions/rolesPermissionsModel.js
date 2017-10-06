@@ -11,7 +11,7 @@ const rolesPermissions = global.SEQUELIZE.define('roles_permissions', {
     autoIncrement: true
   },
   role_id: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING(25),
     references: {
       model: Roles,
       key: 'role_id',

@@ -322,7 +322,7 @@ $ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.h
 | ---------- | --------- | ---- | --- | ------- | -------------- | ------- |
 | id         | int2      |      | PRI |         | auto_increment |         |
 | user_id    | int2      |      | IND |         |                |         |
-| role_id    | int2      |      | IND |    2    |                |2為使用者        |
+| role_id    | varchar(25)|      | IND | SUBSCRIBER |                |        |
 | created_at | timestamp |      |     |         |                |         |
 | updated_at | timestamp |      |     |         |                |         |
 
@@ -342,8 +342,7 @@ $ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.h
 
 | Field            | Type        | Null | Key | Default | Extra          | Remarks          |
 | ---------------- | ----------- | ---- | --- | ------- | -------------- | ---------------- |
-| role_id          | int2        |      | PRI |         | auto_increment |                  |
-| role_name        | varchar(15) |      |     |         |                | e.g. admin, user |
+| role_id          | varchar(25)       |      | PRI |         |   |                  |
 | role_description | TEXT        |      |     |         |                |                  |
 | created_at       | timestamp   |      |     |         |                |                  |
 | updated_at       | timestamp   |      |     |         |                |                  |
@@ -361,8 +360,8 @@ $ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.h
 | Field         | Type        | Null | Key | Default | Extra          | Remarks |
 | ------------- | ----------- | ---- | --- | ------- | -------------- | ------- |
 | id            | int2        |      | PRI |         | auto_increment |         |
-| role_id       | int2        |      | IND |         |                |         |
-| permission_id | varchar(15) |      | IND |         |                |         |
+| role_id       | varchar(25)       |      | IND |         |                |         |
+| permission_id | varchar(25) |      | IND |         |                |         |
 | created_at    | timestamp   |      |     |         |                |         |
 | updated_at    | timestamp   |      |     |         |                |         |
 
@@ -379,7 +378,7 @@ $ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.h
 
 | Field                  | Type        | Null | Key | Default | Extra   | Remarks                                            |
 | ---------------------- | ----------- | ---- | --- | ------- | ------- | -------------------------------------------------- |
-| permission_id          | varchar(15) |      | PRI |         | uuid.v4 | e.g. USER\_READ, USER\_WRITE|
+| permission_id          | varchar(25) |      | PRI |         |         | e.g. USER\_READ, USER\_WRITE|
 | permission_description | TEXT        |      |     |         |         |                                                    |
 | created_at             | timestamp   |      |     |         |         |                                                    |
 | updated_at             | timestamp   |      |     |         |         |                                                    |
