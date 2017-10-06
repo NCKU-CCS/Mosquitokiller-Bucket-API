@@ -5,7 +5,7 @@ global.CONFIG = (process.env.RESET_PROD_DB === 'TRUE')
 
 const CONFIG = global.CONFIG
 
-global.SEQUELIZE = require('./connection/lampsConnect.js')
+global.SEQUELIZE = require('../connection/lampsConnect.js')
 
 // Import Model
 const basePath = '../src/lampAPI'
@@ -17,19 +17,24 @@ const Rules = require(`${basePath}/lampMccRules/rulesModel.js`)
 const Mcc = require(`${basePath}/lampMcc/mccModel.js`)
 const Comments = require(`${basePath}/lampComments/commentsModel.js`)
 
+// Import user model
+const accountsPath = '../src/accounts'
+const Permissions = require(`${accountsPath}/permissions/permissionsModel.js`)
+const Roles = require(`${accountsPath}/roles/rolesModel.js`)
+const Users = require(`${accountsPath}/users/usersModel.js`)
+const RolesPermissions = require(`${accountsPath}/rolesPermissions/rolesPermissionsModel.js`)
+const UsersRoles = require(`${accountsPath}/usersRoles/usersRolesModel.js`)
+
 // use force_remove = true only in dev db
 // default force_remove = false in prod db
 const FORCE_REMOVE = CONFIG['force']
 
-const DBInitialize = async() => {
+const DBInitialize = async (tables) => {
   try {
-    await Places.sync(FORCE_REMOVE)
-    await Lamps.sync(FORCE_REMOVE)
-    await Counts.sync(FORCE_REMOVE)
-    await States.sync(FORCE_REMOVE)
-    await Rules.sync(FORCE_REMOVE)
-    await Mcc.sync(FORCE_REMOVE)
-    await Comments.sync(FORCE_REMOVE)
+    for (let table of tables) {
+      console.log(table)
+      await table.sync(FORCE_REMOVE)
+    }
     console.log(`\n\n ${CONFIG['database']} Initialize success \n\n`)
   } catch (error) {
     console.log(`DB Initialize error:\n${error}`)
@@ -87,8 +92,15 @@ const DataInitialize = async () => {
 }
 
 const initialize = async () => {
-  await DBInitialize()
+  // Initialize Data Tables
+  const DATA_TABLES = [Places, Lamps, Counts, States, Rules, Mcc, Comments]
+  await DBInitialize(DATA_TABLES)
   await DataInitialize()
+
+  // Initialize Users Tables
+  const USER_TABLES = [Permissions, Roles, Users, UsersRoles, RolesPermissions]
+  await DBInitialize(USER_TABLES)
+
   process.exit()
 }
 
