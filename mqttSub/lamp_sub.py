@@ -220,7 +220,10 @@ def on_message(client, userdata, msg):
             print(LampDict[lampId])
         else:
             LampDict[lampId]["Count"] += 1
-            LampDict[lampId][Time] += 1
+            if UpdatedAt != str(datetime.date.today()):
+                LampDict[lampId][Time] = 1
+            else:
+                LampDict[lampId][Time] += 1
             ## Activate lamp
             if LampDict[lampId]["Count"] >= ACTIVE_LIMIT and not LampDict[lampId]["Active"]:
                 LampDict[lampId]["Active"] = True
