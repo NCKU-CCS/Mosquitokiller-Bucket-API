@@ -82,7 +82,7 @@ const initialize = async () => {
   await DataInitialize()
 
   // // Initialize Users Tables
-  const USER_TABLES = Object.keys(Models.accounts)
+  const USER_TABLES = Object.values(Models.accounts)
   await DBInitialize(USER_TABLES)
 
   process.exit()
