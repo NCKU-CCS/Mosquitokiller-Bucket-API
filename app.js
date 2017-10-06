@@ -54,10 +54,10 @@ app.use('/', cors(corsOptions))      // support cors request
 // const index = require('./routes/index')
 // app.use('/api', index)
 
-const apis = require('./src/api.js')
+const apis = require('./src/lampAPI/api')
 app.use('/apis', apis)
 
-const accounts = require('./src/account')
+const accounts = require('./src/accounts/api')
 app.use('/accounts', accounts)
 
 // catch 404 and forward to error handler

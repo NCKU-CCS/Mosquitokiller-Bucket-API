@@ -1,5 +1,4 @@
-const basePath = './accounts'
-const Permissions = require(`${basePath}/permissions/permissions`)
+const Permissions = require('./permissions/permissions')
 
 const express = require('express')
 const router = express.Router()
