@@ -53,6 +53,11 @@ exports.BaseController = class {
     return filterRules
   }
 
+  _sendErrorResponse (err, res) {
+    (err.name === 'SequelizeForeignKeyConstraintError') ? res.status(400).json({error: 'id not found'})
+                                                        : res.status(500).json({error: err})
+  }
+
   async getAll (req, res) {
     try {
       const Items = await this.Model.findAll({where: req.query})
@@ -92,7 +97,7 @@ exports.BaseController = class {
       res.set('location', `${req.path}/${newItem[this.modelId]}`)
       res.status(201).json(newItem)
     } catch (err) {
-      res.status(500).json({error: err})
+      this._sendErrorResponse(err, res)
     }
   }
 
@@ -106,8 +111,7 @@ exports.BaseController = class {
         res.status(404).json({error: 'not found'})
       }
     } catch (err) {
-      console.log(err)
-      res.status(500).json({error: err})
+      this._sendErrorResponse(err, res)
     }
   }
 

@@ -36,7 +36,7 @@ class LampsController extends BaseController {
       res.set('location', `${req.path}/${newItem[this.modelId]}`)
       res.status(201).json(newItem)
     } catch (err) {
-      res.status(500).json({error: err})
+      this._sendErrorResponse(err, res)
     }
   }
 }
