@@ -209,8 +209,8 @@ $ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.h
 | state_id          | integer     |      | PRI |         | auto_increment |                               |
 | lamp_id           | varchar(25) |      | IND |         |                |                               |
 | lamp_state        | integer     |      | IND |         |                | 捕蚊燈狀態: 2: 檢查中, 1: 異常待查, 0: 正常 |
-| lamp_check_date   | date        | YES  |     | NULL    |                | 檢查日期                          |
-| lamp_check_person | varchar(10) | YES  |     | NULL    |                | 檢查者                           |
+| lamp_check\_date   | date        | YES  |     | NULL    |                | 檢查日期                          |
+| lamp_check\_person | varchar(10) | YES  |     | NULL    |                | 檢查者                           |
 | state_description | text        | YES  |     | NULL    |                | 異常狀況                          |
 | state_reason      | text        | YES  |     | NULL    |                | 異常原因                          |
 | created_at        | timestamp   |      |     |         |                |                               |
@@ -289,6 +289,114 @@ $ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.h
 | ---------- | ------- | ---------- |
 | comment_id | PRIMARY | comment_id |
 | lamp_id    | INDEX   | lamp_id    |
+
+
+## Permissions
+
+
+### users
+
+| Field             | Type        | Null | Key | Default | Remarks          |
+| ----------------- | ----------- | ---- | --- | ------- | ---------------- |
+| user_id           | varchar(15) |      | PRI |         |                  |
+| email             | varchar(64) |      |     |         |                  |
+| password          | varchar(40) |      |     |         | Bcrypt with Salt |
+| first_name        | varchar(15) | YES  |     | NULL    |                  |
+| last_name         | varchar(15) | YES  |     | NULL    |                  |
+| phone             | varchar(25) | YES  |     | NULL    |                  |
+| mail_subscription | boolean     |      |     | TRUE    |                  |
+| created_at        | timestamp   |      |     |         |                  |
+| updated_at        | timestamp   |      |     |         |                  |
+
+
+### Index
+
+| Keyname | Type    | Field   |
+| ------- | ------- | ------- |
+| user_id | PRIMARY | user_id |
+
+
+### users_roles
+
+| Field      | Type      | Null | Key | Default | Extra          | Remarks |
+| ---------- | --------- | ---- | --- | ------- | -------------- | ------- |
+| id         | int2      |      | PRI |         | auto_increment |         |
+| user_id    | int2      |      | IND |         |                |         |
+| role_id    | int2      |      | IND |    2    |                |2為使用者        |
+| created_at | timestamp |      |     |         |                |         |
+| updated_at | timestamp |      |     |         |                |         |
+
+
+### Index
+
+| Keyname | Type    | Field   |
+| ------- | ------- | ------- |
+| id      | PRIMARY | id      |
+| user_id | INDEX   | user_id |
+| role_id | INDEX   | role_id |
+
+
+
+
+### roles
+
+| Field            | Type        | Null | Key | Default | Extra          | Remarks          |
+| ---------------- | ----------- | ---- | --- | ------- | -------------- | ---------------- |
+| role_id          | int2        |      | PRI |         | auto_increment |                  |
+| role_name        | varchar(15) |      |     |         |                | e.g. admin, user |
+| role_description | TEXT        |      |     |         |                |                  |
+| created_at       | timestamp   |      |     |         |                |                  |
+| updated_at       | timestamp   |      |     |         |                |                  |
+
+
+### Index
+
+| Keyname | Type    | Field   |
+| ------- | ------- | ------- |
+| role_id | PRIMARY | user_id |
+
+
+### roles_permissions
+
+| Field         | Type        | Null | Key | Default | Extra          | Remarks |
+| ------------- | ----------- | ---- | --- | ------- | -------------- | ------- |
+| id            | int2        |      | PRI |         | auto_increment |         |
+| role_id       | int2        |      | IND |         |                |         |
+| permission_id | varchar(15) |      | IND |         |                |         |
+| created_at    | timestamp   |      |     |         |                |         |
+| updated_at    | timestamp   |      |     |         |                |         |
+
+### Index
+
+| Keyname       | Type    | Field         |
+| ------------- | ------- | ------------- |
+| id            | PRIMARY | id            |
+| role_id       | INDEX   | role_id       |
+| permission_id | INDEX   | permission_id |
+
+
+### permissions
+
+| Field                  | Type        | Null | Key | Default | Extra   | Remarks                                            |
+| ---------------------- | ----------- | ---- | --- | ------- | ------- | -------------------------------------------------- |
+| permission_id          | varchar(15) |      | PRI |         | uuid.v4 | e.g. USER\_READ, USER\_WRITE|
+| permission_description | TEXT        |      |     |         |         |                                                    |
+| created_at             | timestamp   |      |     |         |         |                                                    |
+| updated_at             | timestamp   |      |     |         |         |                                                    |
+
+### Index
+
+| Keyname       | Type    | Field         |
+| ------------- | ------- | ------------- |
+| permission_id | PRIMARY | permission_id |
+
+
+
+
+
+
+
+
 
 ## License
 
