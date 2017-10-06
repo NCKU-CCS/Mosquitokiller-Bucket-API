@@ -13,9 +13,15 @@ const cors = require('cors')
 
 const app = express()
 
+// ###################################
+// Global variables
+// ###################################
 global.CONFIG = (process.env.NODE_ENV === 'production')
 ? require('./config/lampProdConfig.js')
 : require('./config/lampDevConfig.js')
+
+global.ROOT_PATH = path.resolve(__dirname)
+global.SEQUELIZE = require('./connection/lampsConnect.js')
 
 // set up cors config
 const corsOptions = {
@@ -23,8 +29,6 @@ const corsOptions = {
   optionsSuccessCode: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true
 }
-
-global.ROOT_PATH = path.resolve(__dirname)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

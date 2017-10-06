@@ -1,4 +1,4 @@
-const TEST = require('../baseTest')
+const TEST = require('../../baseTest')
 
 const createDataCorrect = {
   timeline_upper_limit: 3,

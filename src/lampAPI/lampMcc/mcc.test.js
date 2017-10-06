@@ -1,4 +1,4 @@
-const TEST = require('../baseTest')
+const TEST = require('../../baseTest')
 
 const createDataCorrect = {
   mcc_keys: ['TEST01', 'TEST02'],

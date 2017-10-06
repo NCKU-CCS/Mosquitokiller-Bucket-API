@@ -1,4 +1,4 @@
-const TEST = require('../baseTest')
+const TEST = require('../../baseTest')
 
 const createDataCorrect = {
   lamp_id: Math.random().toString(),

@@ -1,8 +1,8 @@
-const TEST = require('../baseTest')
+const TEST = require('../../baseTest')
 
 const createDataCorrect = {
   lamp_id: 'TEST01',
-  lamp_state: 1
+  comment_content: '我不會用'
 }
 
 const createDataWrong = {
@@ -11,12 +11,11 @@ const createDataWrong = {
 
 const updateData = {
   lamp_id: 'TEST01',
-  lamp_state: 2,
-  state_description: '不會亮'
+  comment_content: '我真的不會用'
 }
 
 const Data = {createDataCorrect, createDataWrong, updateData}
 
-const Item = {name: 'states', id: 'state_id'}
+const Item = {name: 'comments', id: 'comment_id'}
 
 TEST(Item, Data)

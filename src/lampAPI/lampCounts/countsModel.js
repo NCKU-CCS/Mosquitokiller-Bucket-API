@@ -1,10 +1,9 @@
 const Sequelize = require('sequelize')
-const sequelize = require('../../connection/lampsConnect.js')
 // import lamp_id foreign key
 const Lamps = require('../lamps/lampsModel.js')
 
-const Comments = sequelize.define('lamp_comments', {
-  comment_id: {
+const Counts = global.SEQUELIZE.define('lamp_counts', {
+  count_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -18,23 +17,29 @@ const Comments = sequelize.define('lamp_comments', {
       deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
-  comment_content: {
-    type: Sequelize.TEXT,
+  counts: {
+    type: Sequelize.INTEGER,
     allowNull: false
   }
 }, {
   indexes: [
     {
-      name: 'comments_lamp_id_index',
+      name: 'counts_lamp_id_index',
       unique: false,
       method: 'BTREE',
       fields: ['lamp_id']
     },
     {
-      name: 'comments_created_at_index',
+      name: 'counts_created_at_index',
       unique: false,
       method: 'BTREE',
       fields: ['created_at']
+    },
+    {
+      name: 'counts_lamp_id_created_at_index',
+      unique: false,
+      method: 'BTREE',
+      fields: ['created_at', 'lamp_id']
     }
   ],
   timestamps: true,
@@ -42,4 +47,4 @@ const Comments = sequelize.define('lamp_comments', {
   updatedAt: false
 })
 
-module.exports = Comments
+module.exports = Counts

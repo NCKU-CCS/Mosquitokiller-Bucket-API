@@ -7,7 +7,7 @@ const SECRET = global.CONFIG['sha256Secret']
 //
 // Controller Model
 //
-const {BaseController} = require('../baseController')
+const { BaseController } = require('../../baseController')
 
 class LampsController extends BaseController {
   constructor (Model) {

@@ -5,14 +5,17 @@ global.CONFIG = (process.env.RESET_PROD_DB === 'TRUE')
 
 const CONFIG = global.CONFIG
 
+global.SEQUELIZE = require('./connection/lampsConnect.js')
+
 // Import Model
-const Places = require('../src/lampPlaces/placesModel.js')
-const Lamps = require('../src/lamps/lampsModel.js')
-const Counts = require('../src/lampCounts/countsModel.js')
-const States = require('../src/lampStates/statesModel.js')
-const Rules = require('../src/lampMccRules/rulesModel.js')
-const Mcc = require('../src/lampMcc/mccModel.js')
-const Comments = require('../src/lampComments/commentsModel.js')
+const basePath = '../src/lampAPI'
+const Places = require(`${basePath}/lampPlaces/placesModel.js`)
+const Lamps = require(`${basePath}/lamps/lampsModel.js`)
+const Counts = require(`${basePath}/lampCounts/countsModel.js`)
+const States = require(`${basePath}/lampStates/statesModel.js`)
+const Rules = require(`${basePath}/lampMccRules/rulesModel.js`)
+const Mcc = require(`${basePath}/lampMcc/mccModel.js`)
+const Comments = require(`${basePath}/lampComments/commentsModel.js`)
 
 // use force_remove = true only in dev db
 // default force_remove = false in prod db

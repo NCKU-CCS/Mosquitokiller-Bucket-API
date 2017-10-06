@@ -1,10 +1,8 @@
 const Sequelize = require('sequelize')
-// DB Connection
-const sequelize = require('../../connection/lampsConnect.js')
 // import place_id foreign key
 const Places = require('../lampPlaces/placesModel.js')
 
-const Lamps = sequelize.define('lamps', {
+const Lamps = global.SEQUELIZE.define('lamps', {
   lamp_id: {
     type: Sequelize.STRING(25),
     allowNull: false,

@@ -1,21 +1,21 @@
-const TEST = require('../baseTest')
+const TEST = require('../../baseTest')
 
 const createDataCorrect = {
   lamp_id: 'TEST01',
-  comment_content: '我不會用'
+  counts: 1
 }
 
 const createDataWrong = {
-  lamp_id: 'TEST01'
+  counts: 1
 }
 
 const updateData = {
   lamp_id: 'TEST01',
-  comment_content: '我真的不會用'
+  counts: 10
 }
 
 const Data = {createDataCorrect, createDataWrong, updateData}
 
-const Item = {name: 'comments', id: 'comment_id'}
+const Item = {name: 'counts', id: 'count_id'}
 
 TEST(Item, Data)

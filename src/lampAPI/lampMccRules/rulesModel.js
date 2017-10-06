@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize')
-const sequelize = require('../../connection/lampsConnect.js')
 
-const Rules = sequelize.define('lamp_mcc_rules', {
+const Rules = global.SEQUELIZE.define('lamp_mcc_rules', {
   rule_id: {
     type: Sequelize.INTEGER,
     allowNull: false,

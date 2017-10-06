@@ -1,4 +1,4 @@
-const { BaseController } = require('../baseController')
+const { BaseController } = require('../../baseController')
 
 const moment = require('moment')
 const Sequelize = require('sequelize')

@@ -1,4 +1,4 @@
-const { BaseController } = require('../baseController')
+const { BaseController } = require('../../baseController')
 
 class StatesController extends BaseController {
   constructor (Model) {
