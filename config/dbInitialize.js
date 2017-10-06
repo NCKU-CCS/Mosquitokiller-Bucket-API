@@ -77,12 +77,12 @@ const DataInitialize = async () => {
 
 const initialize = async () => {
   // Initialize Data Tables
-  const DATA_TABLES = Object.values(Models.apis)
+  const DATA_TABLES = Object.values(Models.apisModel)
   await DBInitialize(DATA_TABLES)
   await DataInitialize()
 
   // // Initialize Users Tables
-  const USER_TABLES = Object.values(Models.accounts)
+  const USER_TABLES = Object.values(Models.accountsModel)
   await DBInitialize(USER_TABLES)
 
   process.exit()
