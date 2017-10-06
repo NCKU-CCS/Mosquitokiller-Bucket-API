@@ -1,4 +1,4 @@
-const Permissions = require('./permissions/permissions')
+const Permissions = require('./permissions')
 
 const express = require('express')
 const router = express.Router()

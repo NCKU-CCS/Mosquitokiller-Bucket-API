@@ -1,12 +1,12 @@
-const Places = require('./lampPlaces/places')
-const Lamps = require('./lamps/lamps')
-const Counts = require('./lampCounts/counts')
-const States = require('./lampStates/states')
+const Places = require('./lampPlaces')
+const Lamps = require('./lamps')
+const Counts = require('./lampCounts')
+const States = require('./lampStates')
 
-const Rules = require('./lampMccRules/rules')
-const Mcc = require('./lampMcc/mcc')
+const Rules = require('./lampMccRules')
+const Mcc = require('./lampMcc')
 
-const Comments = require('./lampComments/comments')
+const Comments = require('./lampComments')
 
 const express = require('express')
 const router = express.Router()
