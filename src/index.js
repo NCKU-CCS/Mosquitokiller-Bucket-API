@@ -1,4 +1,4 @@
 module.exports = {
-  'apis': require('./lampAPI'),
-  'accounts': require('./accounts')
+  'apisModel': require('./lampAPI'),
+  'accountsModel': require('./accounts')
 }
