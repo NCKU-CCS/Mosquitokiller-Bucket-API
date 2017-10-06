@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 const Roles = require('../roles/rolesModel')
-const Permissions = require('../permissionsModel')
+const Permissions = require('../permissions/permissionsModel')
 
 const rolesPermissions = global.SEQUELIZE.define('roles_permissions', {
   id: {

@@ -4,8 +4,7 @@ const Users = global.SEQUELIZE.define('users', {
   user_id: {
     type: Sequelize.STRING(15),
     allowNull: false,
-    primaryKey: true,
-    autoIncrement: true
+    primaryKey: true
   },
   email: {
     type: Sequelize.STRING(64),
