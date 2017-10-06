@@ -25,6 +25,7 @@ const agent = chai.request.agent(server)
 const Test = (Item, Data) => {
   const name = Item.name
   const itemId = Item.id
+  const route = Item.route || '/apis'
   const {createDataCorrect, createDataWrong, updateData} = Data
 
   describe(`${name} -- `, () => {
@@ -41,7 +42,7 @@ const Test = (Item, Data) => {
     describe(`/POST ${name} -- `, () => {
       it(`new ${name} data should be create`, (done) => {
         agent
-          .post(`/apis/${name}`)
+          .post(`${route}/${name}`)
           .send(createDataCorrect)
           .end((err, res) => {
             if (err) return done(err)
@@ -56,7 +57,7 @@ const Test = (Item, Data) => {
 
       it(`new ${name} without ${name} name should NOT be create`, (done) => {
         agent
-          .post(`/apis/${name}`)
+          .post(`${route}/${name}`)
           .send(createDataWrong)
           .end((err, res) => {
             if (err) {
@@ -75,7 +76,7 @@ const Test = (Item, Data) => {
     describe(`/Get All ${name} -- `, () => {
       it(`should return all ${name}`, (done) => {
         agent
-          .get(`/apis/${name}`)
+          .get(`${route}/${name}`)
           .end((err, res) => {
             if (err) return done(err)
             res.should.have.status(200)
@@ -92,7 +93,7 @@ const Test = (Item, Data) => {
     describe(`/Get ${name} By ID -- `, () => {
       it(`should return single ${name} With Correct ID`, (done) => {
         agent
-          .get(`/apis/${name}/${ID}`)
+          .get(`${route}/${name}/${ID}`)
           .end((err, res) => {
             if (err) return done(err)
             res.should.have.status(200)
@@ -104,7 +105,7 @@ const Test = (Item, Data) => {
       it('should Not return single ${name} With Wrong ID', (done) => {
         const ID = 0
         agent
-          .get(`/apis/${name}/${ID}`)
+          .get(`${route}/${name}/${ID}`)
           .end((err, res) => {
             if (err) {
               res.should.have.status(404)
@@ -116,7 +117,7 @@ const Test = (Item, Data) => {
       it('should Not return single ${name} With NaN ID', (done) => {
         const ID = 'e'
         agent
-          .get(`/apis/${name}/${ID}`)
+          .get(`${route}/${name}/${ID}`)
           .end((err, res) => {
             if (err) {
               res.should.have.status(404)
@@ -133,7 +134,7 @@ const Test = (Item, Data) => {
     describe(`/Put ${name} -- `, () => {
       it(`${name} data should be update`, (done) => {
         agent
-          .put(`/apis/${name}/${ID}`)
+          .put(`${route}/${name}/${ID}`)
           .send(updateData)
           .end((err, res) => {
             if (err) return done(err)
@@ -149,7 +150,7 @@ const Test = (Item, Data) => {
     describe(`/Delete ${name} -- `, () => {
       it(`${name} data should be delete`, (done) => {
         agent
-          .delete(`/apis/${name}/${ID}`)
+          .delete(`${route}/${name}/${ID}`)
           .end((err, res) => {
             if (err) return done(err)
             res.should.have.status(204)

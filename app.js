@@ -57,6 +57,9 @@ app.use('/', cors(corsOptions))      // support cors request
 const apis = require('./src/api.js')
 app.use('/apis', apis)
 
+const accounts = require('./src/account')
+app.use('/accounts', accounts)
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found')
