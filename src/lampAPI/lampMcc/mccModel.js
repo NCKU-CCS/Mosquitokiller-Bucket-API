@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const Rules = require('../lampMccRules/rulesModel.js')
+const Rules = require('../lampMccRules/rulesModel')
 
 const Mcc = global.SEQUELIZE.define('lamp_mcc', {
   mcc_id: {

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 // import lamp_id foreign key
-const Lamps = require('../lamps/lampsModel.js')
+const Lamps = require('../lamps/lampsModel')
 
 const States = global.SEQUELIZE.define('lamp_states', {
   state_id: {
