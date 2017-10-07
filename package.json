@@ -17,6 +17,7 @@
     "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.18.2",
     "compression": "1.7.1",
     "connect-flash": "^0.1.1",
