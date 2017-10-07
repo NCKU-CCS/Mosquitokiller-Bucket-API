@@ -10,7 +10,8 @@ const Users = global.SEQUELIZE.define('users', {
   },
   email: {
     type: Sequelize.STRING(64),
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   password: {
     type: Sequelize.STRING(64),

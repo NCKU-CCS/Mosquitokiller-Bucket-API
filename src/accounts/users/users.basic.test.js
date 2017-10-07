@@ -1,19 +1,17 @@
 const TEST = require('../../baseTest')
 
 const createDataCorrect = {
-  user_id: 'tester',
-  email: 'oceanus11034@gmail.com',
+  user_id: 'TEST',
+  email: 'test@ccns.ncku.edu.com',
   password: 'test*11034',
   first_name: 'Po Chun',
   last_name: 'Lu',
-  phone: '0910-xxxxxx',
-  mail_subscription: true,
-  role_id: 'ADMIN'
+  phone: '0910-xxxxxx'
 }
 
 const createDataWrong = {
   user_id: 'admin',
-  email: 'oceanus11034@gmail.com'
+  email: 'oceanus1103@gmail.com'
 }
 
 const updateData = {

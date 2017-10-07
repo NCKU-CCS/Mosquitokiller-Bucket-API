@@ -299,7 +299,7 @@ $ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.h
 | Field             | Type        | Null | Key | Default | Remarks          |
 | ----------------- | ----------- | ---- | --- | ------- | ---------------- |
 | user_id           | varchar(15) |      | PRI |         |                  |
-| email             | varchar(64) |      |     |         |                  |
+| email             | varchar(64) |      | UNI |         |                  |
 | password          | varchar(64) |      |     |         | Bcrypt with Salt |
 | first_name        | varchar(15) | YES  |     | NULL    |                  |
 | last_name         | varchar(15) | YES  |     | NULL    |                  |
