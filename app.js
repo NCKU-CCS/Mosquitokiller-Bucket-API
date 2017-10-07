@@ -1,17 +1,16 @@
 const express = require('express')
 const path = require('path')                      // path of directory
-const favicon = require('serve-favicon')
+// const favicon = require('serve-favicon')          // favicon
 const logger = require('morgan')                  // log
 const cookieParser = require('cookie-parser')     // use in session token
 const bodyParser = require('body-parser')         // Parse Request
 const compression = require('compression')        // Gzip
 const cors = require('cors')
+// Auth
+const passport = require('passport')
+const session = require('express-session')
 
-// ###################################
-// EXPRESS SETUP
-// ###################################
-
-const app = express()
+// require('./config/passport')(passport)            // pass passport for configuration
 
 // ###################################
 // Global variables
@@ -30,6 +29,12 @@ const corsOptions = {
   credentials: true
 }
 
+// ###################################
+// EXPRESS SETUP
+// ###################################
+
+const app = express()
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -41,9 +46,15 @@ app.set('view engine', 'ejs')
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 app.use(logger('dev'))
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+
+app.use(session(global.CONFIG.session))
+app.use(passport.initialize())
+app.use(passport.session())
+
 // app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(compression())               // enable Gzip
@@ -52,11 +63,9 @@ app.use('/', cors(corsOptions))      // support cors request
 // ###################################
 // Route SETUP
 // ###################################
-// const index = require('./routes/index')
-// app.use('/api', index)
 
 // back-end rout
-require('./routes')(app)
+require('./routes')(app, passport)
 
 const apis = require('./src/lampAPI/api')
 app.use('/apis', apis)

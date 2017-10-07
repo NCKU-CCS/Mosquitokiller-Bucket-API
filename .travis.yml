@@ -18,6 +18,7 @@ before_script:
   - export LAMPS_USER_DEV=postgres
   - export LAMPS_PW_DEV=""
   - export LAMPS_SECRET_DEV=Dev
+  - export SESSION_SECRET_DEV=session
   - node config/dbInitialize.js
 
 script:

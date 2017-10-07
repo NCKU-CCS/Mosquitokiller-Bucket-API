@@ -6,5 +6,13 @@ module.exports = {
   'cors': {
     'url': ['http://localhost:3000']
   },
-  'sha256Secret': process.env.LAMPS_SECRET_DEV
+  'sha256Secret': process.env.LAMPS_SECRET_DEV,
+  'session': {
+    'secret': process.env.SESSION_SECRET_DEV,
+    'resave': false,
+    'saveUninitialized': false,
+    'cookie': {
+      maxAge: 2592000000
+    }
+  }
 }
