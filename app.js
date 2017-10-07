@@ -9,8 +9,7 @@ const cors = require('cors')
 // Auth
 const passport = require('passport')
 const session = require('express-session')
-
-// require('./config/passport')(passport)            // pass passport for configuration
+const flash = require('connect-flash')
 
 // ###################################
 // Global variables
@@ -51,9 +50,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
+require('./src/authentication')(passport)       // pass passport for configuration
 app.use(session(global.CONFIG.session))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
 
 // app.use(express.static(path.join(__dirname, 'public')))
 

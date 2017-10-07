@@ -37,6 +37,10 @@ class UsersController extends BaseController {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
   }
 
+  validPassword (input, password) {
+    return bcrypt.compareSync(input, password)
+  }
+
   async create (req, res) {
     try {
       const status = await this._validateRequest(req, res)
