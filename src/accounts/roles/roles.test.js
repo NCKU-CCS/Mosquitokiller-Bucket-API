@@ -1,7 +1,7 @@
 const TEST = require('../../baseTest')
 
 const createDataCorrect = {
-  role_id: 'ADMIN',
+  role_id: 'TEST',
   role_description: '除改動留言外之所有權限',
   role_permissions: JSON.stringify({
     'READ': ['Users', 'Roles', 'Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules', 'Comments'],
@@ -16,7 +16,6 @@ const createDataWrong = {
 }
 
 const updateData = {
-  role_id: 'ADMIN',
   role_description: '網頁系統管理員'
 }
 
