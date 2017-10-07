@@ -32,13 +32,14 @@ const corsOptions = {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'jade')
+app.set('view engine', 'ejs')
 
 // ###################################
 // EXPRESS MIDDLEWARE
 // ###################################
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -53,6 +54,9 @@ app.use('/', cors(corsOptions))      // support cors request
 // ###################################
 // const index = require('./routes/index')
 // app.use('/api', index)
+
+// back-end rout
+require('./routes')(app)
 
 const apis = require('./src/lampAPI/api')
 app.use('/apis', apis)
