@@ -13,7 +13,7 @@ const Users = global.SEQUELIZE.define('users', {
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING(40),
+    type: Sequelize.STRING(64),
     allowNull: true,
     defaultValue: null
   },

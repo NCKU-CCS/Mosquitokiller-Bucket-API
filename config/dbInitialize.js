@@ -75,6 +75,54 @@ const DataInitialize = async () => {
   }
 }
 
+const AccountInitialize = async () => {
+  try {
+    await Models.accountsModel.Roles.create({
+      role_id: 'ADMIN',
+      role_description: '除改動留言外之所有權限',
+      role_permissions: JSON.stringify({
+        'READ': ['Users', 'Roles', 'Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules', 'Comments'],
+        'CREATE': ['Users', 'Roles', 'Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules', 'Comments'],
+        'UPDATE': ['Users', 'Roles', 'Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules'],
+        'DELETE': ['Users', 'Roles', 'Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules']
+      })
+    })
+    await Models.accountsModel.Roles.create({
+      role_id: 'EDITOR',
+      role_description: '除使用者相關與改動留言外之所有權限',
+      role_permissions: JSON.stringify({
+        'READ': ['Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules', 'Comments'],
+        'CREATE': ['Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules', 'Comments'],
+        'UPDATE': ['Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules'],
+        'DELETE': ['Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules']
+      })
+    })
+    await Models.accountsModel.Roles.create({
+      role_id: 'SUBSCRIBER',
+      role_description: '僅有除留言外之基本資料閱讀權限',
+      role_permissions: JSON.stringify({
+        'READ': ['Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules'],
+        'CREATE': [],
+        'UPDATE': [],
+        'DELETE': []
+      })
+    })
+    await Models.accountsModel.Users.create({
+      user_id: 'admin',
+      email: 'oceanus11034@gmail.com',
+      password: 'test*11034',
+      first_name: 'Po Chun',
+      last_name: 'Lu',
+      phone: '0910-xxxxxx',
+      mail_subscription: true,
+      role_id: 'ADMIN'
+    })
+    console.log(`\n\n ${CONFIG['database']} Initialize Accounts success \n\n`)
+  } catch (error) {
+    console.log('Accounts: ', error)
+  }
+}
+
 const initialize = async () => {
   // Initialize Data Tables
   const DATA_TABLES = Object.values(Models.apisModel)
@@ -84,6 +132,7 @@ const initialize = async () => {
   // // Initialize Users Tables
   const USER_TABLES = Object.values(Models.accountsModel)
   await DBInitialize(USER_TABLES)
+  await AccountInitialize()
 
   process.exit()
 }

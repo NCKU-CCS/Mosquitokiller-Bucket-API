@@ -2,12 +2,12 @@ const TEST = require('../../baseTest')
 
 const createDataCorrect = {
   role_id: 'ADMIN',
-  role_description: '系統管理員',
+  role_description: '除改動留言外之所有權限',
   role_permissions: JSON.stringify({
-    'READ': '*',
-    'CREATE': '*',
-    'UPDATE': '*',
-    'DELETE': '*'
+    'READ': ['Users', 'Roles', 'Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules', 'Comments'],
+    'CREATE': ['Users', 'Roles', 'Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules', 'Comments'],
+    'UPDATE': ['Users', 'Roles', 'Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules'],
+    'DELETE': ['Users', 'Roles', 'Places', 'Lamps', 'States', 'Counts', 'Mcc', 'Rules']
   })
 }
 
