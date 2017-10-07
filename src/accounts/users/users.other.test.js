@@ -19,7 +19,7 @@ const createDataWrongEmail = {
 
 const createDataExistEmail = {
   user_id: 'tester',
-  email: 'oceanus1103@gmail.com',
+  email: 'oceanus11034@gmail.com',
   password: 'test*11034'
 }
 
@@ -47,7 +47,7 @@ describe(`${name} -- `, () => {
           }
         })
     })
-    it(`new ${name} with exist user_id should NOT be create`, (done) => {
+    it(`new ${name} with exist email should NOT be create`, (done) => {
       agent
         .post(`${route}/${name}`)
         .send(createDataExistEmail)
@@ -60,7 +60,7 @@ describe(`${name} -- `, () => {
           }
         })
     })
-    it(`new ${name} with exist email should NOT be create`, (done) => {
+    it(`new ${name} with exist id should NOT be create`, (done) => {
       agent
         .post(`${route}/${name}`)
         .send(createDataExistID)
