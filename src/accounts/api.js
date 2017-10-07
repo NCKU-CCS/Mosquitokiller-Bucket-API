@@ -1,15 +1,15 @@
-const Permissions = require('./permissions')
+const Roles = require('./roles')
 
 const express = require('express')
 const router = express.Router()
 
 //
-// Permissions API
+// Roles API
 //
-router.get('/permissions', Permissions.getAll)
-router.get('/permissions/:id', Permissions.ValidateIdParams, Permissions.getById)
-router.post('/permissions', Permissions.ValidateCreateKeys, Permissions.create)
-router.put('/permissions/:id', Permissions.update)
-router.delete('/permissions/:id', Permissions.delete)
+router.get('/roles', Roles.getAll)
+router.get('/roles/:id', Roles.ValidateIdParams, Roles.getById)
+router.post('/roles', Roles.ValidateCreateKeys, Roles.create)
+router.put('/roles/:id', Roles.update)
+router.delete('/roles/:id', Roles.delete)
 
 module.exports = router

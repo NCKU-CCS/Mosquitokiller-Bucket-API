@@ -9,6 +9,10 @@ const Roles = global.SEQUELIZE.define('roles', {
   role_description: {
     type: Sequelize.TEXT,
     allowNull: false
+  },
+  role_permissions: {
+    type: Sequelize.TEXT,
+    allowNull: false
   }
 }, {
   timestamps: true,

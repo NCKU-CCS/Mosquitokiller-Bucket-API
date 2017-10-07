@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 
+const Roles = require('../roles/rolesModel')
+
 const Users = global.SEQUELIZE.define('users', {
   user_id: {
     type: Sequelize.STRING(15),
@@ -33,6 +35,14 @@ const Users = global.SEQUELIZE.define('users', {
   mail_subscription: {
     type: Sequelize.BOOLEAN,
     allowNull: false
+  },
+  role_id: {
+    type: Sequelize.STRING(25),
+    references: {
+      model: Roles,
+      key: 'role_id',
+      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+    }
   }
 }, {
   timestamps: true,
