@@ -3,7 +3,7 @@ const TEST = require('../../baseTest')
 const createDataCorrect = {
   user_id: 'TEST',
   email: 'test@ccns.ncku.edu.com',
-  password: 'test*11034',
+  password: 'test11034',
   first_name: 'Po Chun',
   last_name: 'Lu',
   phone: '0910-xxxxxx'

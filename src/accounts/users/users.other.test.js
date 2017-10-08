@@ -29,6 +29,24 @@ const createDataExistID = {
   password: 'test*11034'
 }
 
+const createDataWrongPwShort = {
+  user_id: 'tester',
+  email: 'oceanus@gmail.com',
+  password: 'test'
+}
+
+const createDataWrongPwOnlyEng = {
+  user_id: 'tester',
+  email: 'oceanus@gmail.com',
+  password: 'tesetsetstetset'
+}
+
+const createDataWrongPwOnlyNum = {
+  user_id: 'tester',
+  email: 'oceanus@gmail.com',
+  password: '123213133233'
+}
+
 describe(`${name} -- `, () => {
   // =========================
   // Create New Item
@@ -64,6 +82,45 @@ describe(`${name} -- `, () => {
       agent
         .post(`${route}/${name}`)
         .send(createDataExistID)
+        .end((err, res) => {
+          if (err) {
+            res.should.have.status(400)
+            res.should.be.json
+            res.body.should.have.property('errors')
+            done()
+          }
+        })
+    })
+    it(`new ${name} with <8 length pw should NOT be create`, (done) => {
+      agent
+        .post(`${route}/${name}`)
+        .send(createDataWrongPwShort)
+        .end((err, res) => {
+          if (err) {
+            res.should.have.status(400)
+            res.should.be.json
+            res.body.should.have.property('errors')
+            done()
+          }
+        })
+    })
+    it(`new ${name} with full eng pw should NOT be create`, (done) => {
+      agent
+        .post(`${route}/${name}`)
+        .send(createDataWrongPwOnlyEng)
+        .end((err, res) => {
+          if (err) {
+            res.should.have.status(400)
+            res.should.be.json
+            res.body.should.have.property('errors')
+            done()
+          }
+        })
+    })
+    it(`new ${name} with full num should NOT be create`, (done) => {
+      agent
+        .post(`${route}/${name}`)
+        .send(createDataWrongPwOnlyNum)
         .end((err, res) => {
           if (err) {
             res.should.have.status(400)

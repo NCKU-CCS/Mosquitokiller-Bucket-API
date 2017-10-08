@@ -30,6 +30,7 @@ class UsersController extends BaseController {
         .trim().normalizeEmail(),
 
       this.check.body('password', 'PW_INVALID').exists()
+        .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
     ]
   }
 
