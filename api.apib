@@ -304,15 +304,17 @@ Represents Count Details
 - created_at `(Timestamps)` : -- .
 
 ---
-## Count Collection [/counts{?formatBy}]
+## Count Collection [/counts{?formatBy,lampID}]
 
 ### List all counts [GET]
 
 + Parameters
     + formatBy (optional, String, `date`) ... use '?formatBy=date' <=  Return data Group By date & lamp_id
-
+    + lampID (optional, String, `9b3814`) ... use '?formatBy=hour&lampID=9b3814' <=  Return one lamp data Group By date & hour
 
 + Response 200 (application/json)
+
+        use /counts will return
 
         [
               {
@@ -328,6 +330,71 @@ Represents Count Details
               }
         ]
 
++ Response 200 (application/json)
+
+        use /counts?formatBy=date will return
+
+        {
+            "2017-10-05": {
+                "KG0915-02": {
+                "lamp_id": "KG0915-02",
+                "sum": "30",
+                "date": "2017-10-05",
+                "size": 0
+                },
+                "KG0915-03": {
+                "lamp_id": "KG0915-03",
+                "sum": "95",
+                "date": "2017-10-05",
+                "size": 0
+                }
+            },
+            "2017-10-06": {
+                "KG0915-02": {
+                "lamp_id": "KG0915-02",
+                "sum": "51",
+                "date": "2017-10-06",
+                "size": 0
+                },
+                "KG0915-03": {
+                "lamp_id": "KG0915-03",
+                "sum": "92",
+                "date": "2017-10-06",
+                "size": 0
+                }
+            }
+        }
+
++ Response 200 (application/json)
+
+        use /counts?formatBy=hour&lampID=9b3814 will return
+
+        {
+            "2017-10-05": {
+                "8": {
+                    "sum": "30",
+                    "date": "2017-10-05",
+                    "hour": "8"
+                },
+                "9": {
+                    "sum": "30",
+                    "date": "2017-10-05",
+                    "hour": "9"
+                }
+            },
+            "2017-10-06": {
+                "1": {
+                    "sum": "30",
+                    "date": "2017-10-05",
+                    "hour": "8"
+                },
+                "2": {
+                    "sum": "30",
+                    "date": "2017-10-05",
+                    "hour": "9"
+                }
+            }
+        }
 
 + Response 404 (application/json)
 

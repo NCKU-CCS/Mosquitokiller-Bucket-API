@@ -237,21 +237,82 @@ DELETE  : To delete resource
 </li>
 </ul>
 <hr>
-</section></div><div class="middle"><div id="count-count-collection" class="resource"><h3 class="resource-heading">Count Collection <a href="#count-count-collection" class="permalink">&para;</a></h3></div></div><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">http://140.116.249.228:3000/apis</span>/counts?<span class="hljs-attribute">formatBy=</span><span class="hljs-literal">date</span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span><span class="tab-button">404</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
+</section></div><div class="middle"><div id="count-count-collection" class="resource"><h3 class="resource-heading">Count Collection <a href="#count-count-collection" class="permalink">&para;</a></h3></div></div><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">http://140.116.249.228:3000/apis</span>/counts?<span class="hljs-attribute">formatBy=</span><span class="hljs-literal">date</span>&<span class="hljs-attribute">lampID=</span><span class="hljs-literal">9b3814</span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span><span class="tab-button">200</span><span class="tab-button">200</span><span class="tab-button">404</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>use /counts will <span class="hljs-keyword">return</span>
+
+[
       {
-        "<span class="hljs-attribute">count_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
-        "<span class="hljs-attribute">lamp_id</span>": <span class="hljs-value"><span class="hljs-string">"TEST01"</span></span>,
-        "<span class="hljs-attribute">counts</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
-        "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-09-24T11:14:56.035Z"</span></span>,
+        <span class="hljs-string">"count_id"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-string">"lamp_id"</span>: <span class="hljs-string">"TEST01"</span>,
+        <span class="hljs-string">"counts"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-string">"created_at"</span>: <span class="hljs-string">"2017-09-24T11:14:56.035Z"</span>,
       }, {
-        "<span class="hljs-attribute">count_id</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
-        "<span class="hljs-attribute">lamp_id</span>": <span class="hljs-value"><span class="hljs-string">"TEST01"</span></span>,
-        "<span class="hljs-attribute">counts</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
-        "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-09-24T11:14:56.044Z"</span></span>,
+        <span class="hljs-string">"count_id"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-string">"lamp_id"</span>: <span class="hljs-string">"TEST01"</span>,
+        <span class="hljs-string">"counts"</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-string">"created_at"</span>: <span class="hljs-string">"2017-09-24T11:14:56.044Z"</span>,
       }
-]</code></pre><div style="height: 1px;"></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+]</code></pre><div style="height: 1px;"></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>use /counts?formatBy=date will <span class="hljs-keyword">return</span>
+
+{
+    <span class="hljs-string">"2017-10-05"</span>: {
+        <span class="hljs-string">"KG0915-02"</span>: {
+        <span class="hljs-string">"lamp_id"</span>: <span class="hljs-string">"KG0915-02"</span>,
+        <span class="hljs-string">"sum"</span>: <span class="hljs-string">"30"</span>,
+        <span class="hljs-string">"date"</span>: <span class="hljs-string">"2017-10-05"</span>,
+        <span class="hljs-string">"size"</span>: <span class="hljs-number">0</span>
+        },
+        <span class="hljs-string">"KG0915-03"</span>: {
+        <span class="hljs-string">"lamp_id"</span>: <span class="hljs-string">"KG0915-03"</span>,
+        <span class="hljs-string">"sum"</span>: <span class="hljs-string">"95"</span>,
+        <span class="hljs-string">"date"</span>: <span class="hljs-string">"2017-10-05"</span>,
+        <span class="hljs-string">"size"</span>: <span class="hljs-number">0</span>
+        }
+    },
+    <span class="hljs-string">"2017-10-06"</span>: {
+        <span class="hljs-string">"KG0915-02"</span>: {
+        <span class="hljs-string">"lamp_id"</span>: <span class="hljs-string">"KG0915-02"</span>,
+        <span class="hljs-string">"sum"</span>: <span class="hljs-string">"51"</span>,
+        <span class="hljs-string">"date"</span>: <span class="hljs-string">"2017-10-06"</span>,
+        <span class="hljs-string">"size"</span>: <span class="hljs-number">0</span>
+        },
+        <span class="hljs-string">"KG0915-03"</span>: {
+        <span class="hljs-string">"lamp_id"</span>: <span class="hljs-string">"KG0915-03"</span>,
+        <span class="hljs-string">"sum"</span>: <span class="hljs-string">"92"</span>,
+        <span class="hljs-string">"date"</span>: <span class="hljs-string">"2017-10-06"</span>,
+        <span class="hljs-string">"size"</span>: <span class="hljs-number">0</span>
+        }
+    }
+}</code></pre><div style="height: 1px;"></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>use /counts?formatBy=hour&amp;lampID=<span class="hljs-number">9</span>b3814 will <span class="hljs-keyword">return</span>
+
+{
+    <span class="hljs-string">"2017-10-05"</span>: {
+        <span class="hljs-string">"8"</span>: {
+            <span class="hljs-string">"sum"</span>: <span class="hljs-string">"30"</span>,
+            <span class="hljs-string">"date"</span>: <span class="hljs-string">"2017-10-05"</span>,
+            <span class="hljs-string">"hour"</span>: <span class="hljs-string">"8"</span>
+        },
+        <span class="hljs-string">"9"</span>: {
+            <span class="hljs-string">"sum"</span>: <span class="hljs-string">"30"</span>,
+            <span class="hljs-string">"date"</span>: <span class="hljs-string">"2017-10-05"</span>,
+            <span class="hljs-string">"hour"</span>: <span class="hljs-string">"9"</span>
+        }
+    },
+    <span class="hljs-string">"2017-10-06"</span>: {
+        <span class="hljs-string">"1"</span>: {
+            <span class="hljs-string">"sum"</span>: <span class="hljs-string">"30"</span>,
+            <span class="hljs-string">"date"</span>: <span class="hljs-string">"2017-10-05"</span>,
+            <span class="hljs-string">"hour"</span>: <span class="hljs-string">"8"</span>
+        },
+        <span class="hljs-string">"2"</span>: {
+            <span class="hljs-string">"sum"</span>: <span class="hljs-string">"30"</span>,
+            <span class="hljs-string">"date"</span>: <span class="hljs-string">"2017-10-05"</span>,
+            <span class="hljs-string">"hour"</span>: <span class="hljs-string">"9"</span>
+        }
+    }
+}</code></pre><div style="height: 1px;"></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"not found"</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="count-count-collection-get" class="action get"><h4 class="action-heading"><div class="name">List all counts</div><a href="#count-count-collection-get" class="method get">GET</a><code class="uri">/counts{?formatBy}</code></h4><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>formatBy</dt><dd><code>String</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>date</span></span><p>use ‘?formatBy=date’ &lt;=  Return data Group By date &amp; lamp_id</p>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="count-count-collection-get" class="action get"><h4 class="action-heading"><div class="name">List all counts</div><a href="#count-count-collection-get" class="method get">GET</a><code class="uri">/counts{?formatBy,lampID}</code></h4><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>formatBy</dt><dd><code>String</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>date</span></span><p>use ‘?formatBy=date’ &lt;=  Return data Group By date &amp; lamp_id</p>
+</dd><dt>lampID</dt><dd><code>String</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>9b3814</span></span><p>use ‘?formatBy=hour&amp;lampID=9b3814’ &lt;=  Return one lamp data Group By date &amp; hour</p>
 </dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">http://140.116.249.228:3000/apis</span>/counts</span></div><div class="tabs"><div class="example-names"><span>Requests</span><span class="tab-button">example 1</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
         "<span class="hljs-attribute">lamp_id</span>": <span class="hljs-value"><span class="hljs-string">"TEST01"</span></span>,
         "<span class="hljs-attribute">counts</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
