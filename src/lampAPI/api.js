@@ -71,10 +71,10 @@ router.delete('/rules/:id', Auth.isLoggedIn, Rules.delete)
 //
 // Comments API
 //
-router.get('/comments', Comments.getAll)
-router.get('/comments/:id', Comments.ValidateIdParams, Comments.getById)
+router.get('/comments', Auth.isLoggedIn, Comments.getAll)
+router.get('/comments/:id', Auth.isLoggedIn, Comments.ValidateIdParams, Comments.getById)
 router.post('/comments', Comments.ValidateCreateKeys, Comments.create)
-router.put('/comments/:id', Comments.update)
-router.delete('/comments/:id', Comments.delete)
+router.put('/comments/:id', Auth.isLoggedIn, Comments.update)
+router.delete('/comments/:id', Auth.isLoggedIn, Comments.delete)
 
 module.exports = router
