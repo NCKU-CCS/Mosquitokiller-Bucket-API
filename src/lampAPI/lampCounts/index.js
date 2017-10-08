@@ -61,26 +61,29 @@ class CountsController extends BaseController {
     return size
   }
 
+  _FormatRule (formatByDate, req) {
+    if (formatByDate) {
+      return {
+        attributes: [
+          'lamp_id',
+          [Sequelize.fn('count', Sequelize.col('counts')), 'sum'],
+          [Sequelize.fn('date', Sequelize.col('created_at')), 'date']
+        ],
+        group: ['lamp_id', [Sequelize.fn('date', Sequelize.col('created_at'))]],
+        order: [Sequelize.fn('date', Sequelize.col('created_at'))]
+      }
+    } else {
+      return {where: req.query, order: [['created_at', 'DESC']]}
+    }
+  }
+
   async getAll (req, res) {
     try {
       //
       // QUERY RULE
       //
-      let Rule
       const formatByDate = (req.query.formatBy === 'date')
-      if (formatByDate) {
-        Rule = {
-          attributes: [
-            'lamp_id',
-            [Sequelize.fn('count', Sequelize.col('counts')), 'sum'],
-            [Sequelize.fn('date', Sequelize.col('created_at')), 'date']
-          ],
-          group: ['lamp_id', [Sequelize.fn('date', Sequelize.col('created_at'))]],
-          order: [Sequelize.fn('date', Sequelize.col('created_at'))]
-        }
-      } else {
-        Rule = {where: req.query, order: [['created_at', 'DESC']]}
-      }
+      const Rule = this._FormatRule(formatByDate, req)
       //
       // SELECT DATA
       //

@@ -1,4 +1,4 @@
-const {sanitizeBody} = require('express-validator/filter')
+const {matchedData, sanitizeBody} = require('express-validator/filter')
 //
 // Generate Sha-1
 //
@@ -22,6 +22,29 @@ class LampsController extends BaseController {
       sanitizeBody('place_id').toInt()
     ]
     this.create = this.create.bind(this)
+  }
+
+  async getById (req, res) {
+    try {
+      const status = await this._validateRequest(req, res)
+      if (status === '4xx') return
+
+      // return valid req data
+      const params = await matchedData(req)
+
+      // search by hash or normal id
+      const queryByHash = (req.query.key === 'hash')
+      const singleItem = (queryByHash) ? await this.Model.findOne({where: {lamp_hash_id: {$like: `${params.id}%`}}})
+                                       : await this.Model.findById(params.id)
+      // return Quey Results
+      if (singleItem) {
+        res.json(singleItem)
+      } else {
+        res.status(404).json({error: 'not found'})
+      }
+    } catch (err) {
+      res.status(500).json({error: err})
+    }
   }
 
   async create (req, res) {

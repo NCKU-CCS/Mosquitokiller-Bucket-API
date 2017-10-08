@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://140.116.249.228:3000/
+HOST: http://140.116.249.228:3000/apis
 
 # Lamps API Documentation
 
@@ -110,11 +110,12 @@ Represents Lamp Details
                 "updated_at": "2017-09-24T11:14:56.073Z",
             }
 
-## Lamp [/lamps/{id}]
+## Lamp [/lamps/{id}{?key}]
 A single Lamp object with all its details
 
 + Parameters
-    + id (required, String, `TEST01`) ... `id` of the Lamp to perform action with.          
+    + id (required, String, `TEST01`) ... `id` of the Lamp to perform action with.
+    + key (optional, String, `hash`) ... use '?key=hash' <=  Query by `lamp_hash_id` pre 6 char
 
 
 ### Retrieve a Lamp [GET]
@@ -308,7 +309,7 @@ Represents Count Details
 ### List all counts [GET]
 
 + Parameters
-    + formatBy (optional, String) ... use 'Date' <=  Group By date & lamp_id
+    + formatBy (optional, String, `date`) ... use '?formatBy=date' <=  Return data Group By date & lamp_id
 
 
 + Response 200 (application/json)

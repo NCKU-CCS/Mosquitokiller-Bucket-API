@@ -36,14 +36,14 @@ const DataInitialize = async () => {
 
     await Models.apisModel.Lamps.create({
       lamp_id: 'TEST01',
-      lamp_hash_id: '2346',
+      lamp_hash_id: '9b38140545329e2382c85216f267c9fe06db08232b1b14d2997004d2b25ed606',
       lamp_location: [120.19151248216, 22.9997144678771],
       place_id: 1
     })
 
     await Models.apisModel.Lamps.create({
       lamp_id: 'TEST02',
-      lamp_hash_id: '2345',
+      lamp_hash_id: '84730ce5746494b0cd0b6665fa869d660ffbbec1eba220b342adacbcd04bded3',
       lamp_location: [120.193272644465, 22.9963046536379],
       place_id: 1
     })
