@@ -25,9 +25,20 @@ Dengue Lamps & Minimal covering circle API
 
 ## ChangeLog
 
+- v0.9.3 ()
+	- Add Tables: lamps_meta, notification
+
 - v0.9.2 (Dev Branch)
-	- Add Tables: lamps_meta, user, notification
-	- Add JWT of post, put, delete request
+	- Auth
+		- New Tables: user, roles
+		- New Back-end Manage Page
+		- New Session Auth of post, put, delete request
+
+	- Support
+		- Add get counts format by hour
+		- Add post new comment by hash id
+		- Add get lamp by hash id
+
 
 - v0.9.1 (Master Branch)
 	- With RESTful API of Lamps, Places, Counts, States, Mcc, Rules, Comments
