@@ -113,9 +113,10 @@ $ pm2 logs Lamp_Sub
 
 ### Check [API Document Site](https://sirius207.github.io/Bucket-API/index.html)
 
-### Modify API Document Site
+#### Modify API Document Site
 
-Modify api.apib
+- Modify api.apib
+- Generate api doc site
 
 ```
 $ npm install -g aglio
