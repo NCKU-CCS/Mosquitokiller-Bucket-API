@@ -1,3 +1,4 @@
+const Auth = require('../src/authentication/auth')
 
 module.exports = (app, passport) => {
   // =================================
@@ -15,25 +16,10 @@ module.exports = (app, passport) => {
     failureFlash: true
   }))
 
-  // // =================================
-  // // SIGN UP
-  // // =================================
-  // app.get('/signup', (req, res) => {
-  //   res.render('signup.ejs', {
-  //     message: req.flash('signupMessage')
-  //   })
-  // })
-
-  // app.post('/local-signup', passport.authenticate('local-signup', {
-  //   successRedirect: '/',
-  //   failureRedirect: '/signup',
-  //   failureFlash: true
-  // }))
-
   // =================================
   // INDEX
   // =================================
-  app.get('/', (req, res) => {
+  app.get('/', Auth.isLoggedIn, (req, res) => {
     res.render('index.ejs', {
       title: 'lamps'
     })

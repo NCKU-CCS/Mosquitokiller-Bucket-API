@@ -8,19 +8,19 @@ let server = require('../app')
 chai.use(chaiHttp)
 const agent = chai.request.agent(server)
 
-// const loginAuth = (agent, next) => {
-//   return agent
-//     .post('/login')
-//     .set('content-type', 'application/x-www-form-urlencoded')
-//     .send({'email': 'sirius@ccns.ncku.edu.tw', 'password': 'sample1234'})
-//     .end((err, res) => {
-//       if (err) next(err)
-//       agent.get('/login').then((res) => {
-//         res.should.have.status(200)
-//         next()
-//       })
-//     })
-// }
+const loginAuth = (agent, next) => {
+  return agent
+    .post('/login')
+    .set('content-type', 'application/x-www-form-urlencoded')
+    .send({'email': 'oceanus11034@gmail.com', 'password': 'test11034'})
+    .end((err, res) => {
+      if (err) next(err)
+      agent.get('/login').then((res) => {
+        res.should.have.status(200)
+        next()
+      })
+    })
+}
 
 const Test = (Item, Data) => {
   const name = Item.name
@@ -28,13 +28,13 @@ const Test = (Item, Data) => {
   const route = Item.route || '/apis'
   const {createDataCorrect, createDataWrong, updateData} = Data
 
-  describe(`${name} -- `, () => {
-    // beforeEach((done) => {
-    //   loginAuth(agent, () => {
-    //     done()
-    //   })
-    // })
+  before((done) => {
+    loginAuth(agent, () => {
+      done()
+    })
+  })
 
+  describe(`${name} -- `, () => {
     let ID = 0
     // =========================
     // Create New Item

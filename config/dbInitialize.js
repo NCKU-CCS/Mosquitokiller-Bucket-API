@@ -9,6 +9,8 @@ global.SEQUELIZE = require('../connection/lampsConnect.js')
 
 // import Models
 const Models = require('../src')
+// for crypt default user password
+const bcrypt = require('bcrypt-nodejs')
 
 // use force_remove = true only in dev db
 // default force_remove = false in prod db
@@ -110,7 +112,7 @@ const AccountInitialize = async () => {
     await Models.accountsModel.Users.create({
       user_id: 'admin',
       email: 'oceanus11034@gmail.com',
-      password: 'test*11034',
+      password: bcrypt.hashSync('test11034', bcrypt.genSaltSync(8), null),
       first_name: 'Po Chun',
       last_name: 'Lu',
       phone: '0910-xxxxxx',

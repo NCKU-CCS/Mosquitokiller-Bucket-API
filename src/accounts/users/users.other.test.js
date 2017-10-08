@@ -47,7 +47,29 @@ const createDataWrongPwOnlyNum = {
   password: '123213133233'
 }
 
+const loginAuth = (agent, next) => {
+  return agent
+    .post('/login')
+    .set('content-type', 'application/x-www-form-urlencoded')
+    .send({'email': 'oceanus11034@gmail.com', 'password': 'test11034'})
+    .end((err, res) => {
+      if (err) next(err)
+      agent.get('/login').then((res) => {
+        res.should.have.status(200)
+        next()
+      })
+    })
+}
+
 describe(`${name} -- `, () => {
+  // =========================
+  // Login Before all test
+  // =========================
+  before((done) => {
+    loginAuth(agent, () => {
+      done()
+    })
+  })
   // =========================
   // Create New Item
   // =========================

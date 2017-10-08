@@ -37,19 +37,4 @@ module.exports = function (passport) {
       }
     }
   ))
-  // // ==============================
-  // // Sign up
-  // // ==============================
-  // passport.use(new LocalStrategy(
-  //   async (email, password, done) => {
-  //     try {
-  //       const user = await Users.findUserByEmail(email)
-  //       return (!user) ? done(null, false, { message: 'Incorrect username.' })
-  //       : (!user.validPassword(password)) ? done(null, false, { message: 'Incorrect password.' })
-  //                                         : done(null, user)
-  //     } catch (error) {
-  //       return done(error)
-  //     }
-  //   }
-  // ))
 }
