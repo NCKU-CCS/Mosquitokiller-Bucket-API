@@ -11,6 +11,7 @@ const agent = chai.request.agent(server)
 const name = 'counts'
 const route = '/apis'
 
+const REAL_ID = 'TEST01'
 const HASH_ID = '9b3814'
 const WRONG_HASH_ID = 'eee'
 
@@ -39,9 +40,19 @@ describe(`counts Supports -- `, () => {
           done()
         })
     })
-    it(`should return origin ${name} With Wrong formatBy key`, (done) => {
+    it(`should return sum of all lamp ${name} With formatBy=hour & no lampID`, (done) => {
       agent
-        .get(`${route}/${name}?formatBy=wrong`)
+        .get(`${route}/${name}?formatBy=hour`)
+        .end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(200)
+          res.should.be.json
+          done()
+        })
+    })
+    it(`should return one lamp ${name} With formatBy=date & real lampID`, (done) => {
+      agent
+        .get(`${route}/${name}?formatBy=date&lampID=${REAL_ID}`)
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
@@ -52,9 +63,9 @@ describe(`counts Supports -- `, () => {
   })
 
   describe(`/Get ${name} format By Wrong info Should Not success-- `, () => {
-    it(`should Not return ${name} With formatBy=hour & no lampID`, (done) => {
+    it(`should Not return ${name} With formatBy=hour & Wrong lampID`, (done) => {
       agent
-        .get(`${route}/${name}?formatBy=hour`)
+        .get(`${route}/${name}?formatBy=hour&lampID=${WRONG_HASH_ID}`)
         .end((err, res) => {
           if (err) {
             res.should.have.status(404)
@@ -64,12 +75,12 @@ describe(`counts Supports -- `, () => {
           }
         })
     })
-    it(`should Not return ${name} With formatBy=hour & Wrong lampID`, (done) => {
+    it(`should Not return ${name} With formatBy=wrong`, (done) => {
       agent
-        .get(`${route}/${name}?formatBy=hour&lampID=${WRONG_HASH_ID}`)
+        .get(`${route}/${name}?formatBy=wrong`)
         .end((err, res) => {
           if (err) {
-            res.should.have.status(404)
+            res.should.have.status(400)
             res.should.be.json
             res.body.should.have.property('error')
             done()

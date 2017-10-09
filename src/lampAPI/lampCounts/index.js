@@ -12,8 +12,6 @@ class CountsController extends BaseController {
       this.check.body('lamp_id', 'lamp_id illegal').exists(),
       this.check.body('counts', 'counts illegal').exists()
     ]
-    // Bind Private function
-    this._setupDateItem = this._setupDateItem.bind(this)
 
     this.RATE_PERCENT = {
       '2': 3,
@@ -22,13 +20,58 @@ class CountsController extends BaseController {
       '-2': 0.33
     }
   }
-  // use for return date format
-  _formatItemsByDate (Items, next) {
+
+  // =============================
+  // Setup SELECT Rule
+  // =============================
+
+  _FormatRuleNotExist (formatRule) {
+    const keys = ['hour', 'date']
+    return !keys.includes(formatRule)
+  }
+
+  _setFormatRule (query) {
+    return (({
+      'date': {
+        attributes: [
+          'lamp_id',
+          [Sequelize.fn('count', Sequelize.col('counts')), 'sum'],
+          [Sequelize.fn('date', Sequelize.col('created_at')), 'date']
+        ],
+        group: ['lamp_id', [Sequelize.fn('date', Sequelize.col('created_at'))]],
+        order: [Sequelize.fn('date', Sequelize.col('created_at'))]
+      },
+      'hour': {
+        attributes: [
+          [Sequelize.fn('count', Sequelize.col('counts')), 'sum'],
+          [Sequelize.fn('date', Sequelize.col('created_at')), 'date'],
+          [Sequelize.fn('date_part', 'hour', Sequelize.col('created_at')), 'hour']
+        ],
+        group: ['lamp_id', [Sequelize.fn('date', Sequelize.col('created_at'))], [Sequelize.fn('date_part', 'hour', Sequelize.col('created_at'))]],
+        order: [Sequelize.fn('date', Sequelize.col('created_at'))]
+      }
+    })[query.formatBy] || {order: [['created_at', 'DESC']]})
+  }
+
+  // =============================
+  // Format SELECT Data
+  // =============================
+
+  // use for return diff format
+  _formatItemsBy (formatRule, Items) {
+    const setupItems = this._setupItemsBy(formatRule)
     const itemsFormatData = {}
     Items.forEach((item) => {
-      next(item, itemsFormatData)
+      setupItems(item, itemsFormatData)
     })
     return itemsFormatData
+  }
+
+  _setupItemsBy (formatRule) {
+    return (({
+      'date': this._setupDateItem,
+      'hour': this._setupHourItem
+    })[formatRule])
   }
 
   _setupDateItem (item, itemsFormatData) {
@@ -47,13 +90,6 @@ class CountsController extends BaseController {
     }
   }
 
-  _setupSizeRate (rate) {
-    return (rate >= this.RATE_PERCENT['2']) ? 2
-          : (rate > this.RATE_PERCENT['1']) ? 1
-          : (rate < this.RATE_PERCENT['-2']) ? -2
-          : (rate < this.RATE_PERCENT['-1']) ? -1 : 0
-  }
-
   _setupHourItem (item, itemsFormatData) {
     if (!itemsFormatData[item.dataValues.date]) {
       itemsFormatData[item.dataValues.date] = {}
@@ -61,59 +97,50 @@ class CountsController extends BaseController {
     itemsFormatData[item.dataValues.date][item.dataValues['hour']] = item
   }
 
-  _FormatRule (req) {
-    return (({
-      'date': {
-        attributes: [
-          'lamp_id',
-          [Sequelize.fn('count', Sequelize.col('counts')), 'sum'],
-          [Sequelize.fn('date', Sequelize.col('created_at')), 'date']
-        ],
-        group: ['lamp_id', [Sequelize.fn('date', Sequelize.col('created_at'))]],
-        order: [Sequelize.fn('date', Sequelize.col('created_at'))]
-      },
-      'hour': {
-        attributes: [
-          [Sequelize.fn('count', Sequelize.col('counts')), 'sum'],
-          [Sequelize.fn('date', Sequelize.col('created_at')), 'date'],
-          [Sequelize.fn('date_part', 'hour', Sequelize.col('created_at')), 'hour']
-        ],
-        group: ['lamp_id', [Sequelize.fn('date', Sequelize.col('created_at'))], [Sequelize.fn('date_part', 'hour', Sequelize.col('created_at'))]],
-        order: [Sequelize.fn('date', Sequelize.col('created_at'))],
-        where: {lamp_id: req.query.lamp_id}
-      }
-    })[req.query.formatBy] || {order: [['created_at', 'DESC']]})
+  _setupSizeRate (rate) {
+    return (rate >= this.RATE_PERCENT['2']) ? 2
+          : (rate > this.RATE_PERCENT['1']) ? 1
+          : (rate < this.RATE_PERCENT['-2']) ? -2
+          : (rate < this.RATE_PERCENT['-1']) ? -1 : 0
   }
 
   async getAll (req, res) {
     try {
       //
+      // Check Query Format rule is valid
+      //
+      const formatRule = req.query.formatBy || null
+      if (formatRule && this._FormatRuleNotExist(formatRule)) {
+        res.status(400).json({error: 'query value of formatBy not valid'})
+        return
+      }
+      //
       // QUERY RULE
       //
-      const isFormatByDate = (req.query.formatBy === 'date')
-      const isFormatByHour = (req.query.formatBy === 'hour')
+      const isFormatByHour = (formatRule === 'hour')
 
-      // trans hash_id to real lamp_id
+      // convert hash_id to real lamp_id
       if (isFormatByHour && req.query.lampID) {
         const realLamp = await Lamps.findOne({where: {lamp_hash_id: {$like: `${req.query.lampID}%`}}})
-        // no this hash id, return 404
+        // hash id not exist, return 404
         if (!realLamp) {
           res.status(404).json({error: 'not found'})
           return
         } else {
-          req.query.lamp_id = realLamp.lamp_id
+          req.query.lampID = realLamp.lamp_id
         }
       }
 
-      const Rule = this._FormatRule(req)
+      const Rule = this._setFormatRule(req.query)
+      // return just one lamp data or all lamp data
+      Rule.where = (req.query.lampID) ? {lamp_id: req.query.lampID} : null
       //
       // SELECT DATA
       //
       let Items = await this.Model.findAll(Rule)
       if (Items.length) {
-        Items = (isFormatByDate) ? this._formatItemsByDate(Items, this._setupDateItem)
-              : (isFormatByHour) ? this._formatItemsByDate(Items, this._setupHourItem)
-                                 : Items
+        Items = (formatRule) ? this._formatItemsBy(formatRule, Items)
+                             : Items
         res.json(Items)
       } else {
         res.status(404).json({error: 'not found'})
