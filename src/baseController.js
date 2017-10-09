@@ -60,7 +60,7 @@ exports.BaseController = class {
 
   async getAll (req, res) {
     try {
-      const Items = await this.Model.findAll({where: req.query})
+      const Items = await this.Model.findAll({where: req.query, oreder: [['created_at', 'DESC']]})
       if (Items.length) {
         res.json(Items)
       } else {

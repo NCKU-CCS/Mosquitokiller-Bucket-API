@@ -27,8 +27,12 @@ class LampsController extends BaseController {
   async getAll (req, res) {
     try {
       const attributes = [
-        'lamp_id', 'lamp_hash_id', 'lamp_location', 'lamp_deployed_date', 'place_id'
+        'lamp_id', 'lamp_location', 'lamp_deployed_date', 'place_id'
       ]
+      // login user can check hash id
+      if (req.isAuthenticated()) {
+        attributes.push('lamp_hash_id', 'lamp_wifi_ssid', 'lamp_wifi_password')
+      }
       const Items = await this.Model.findAll({attributes, where: req.query})
       if (Items.length) {
         res.json(Items)
@@ -50,7 +54,7 @@ class LampsController extends BaseController {
 
       // search by hash or normal id
       const attributes = [
-        'lamp_id', 'lamp_hash_id', 'lamp_location', 'lamp_deployed_date', 'place_id'
+        'lamp_id', 'lamp_location', 'lamp_deployed_date', 'place_id'
       ]
       const queryByHash = (req.query.key === 'hash')
       const singleItem = (queryByHash) ? await this.Model.findOne({attributes, where: {lamp_hash_id: {$like: `${params.id}%`}}})

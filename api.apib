@@ -47,24 +47,14 @@ Represents Lamp Details
         [
               {
                 "lamp_id": "TEST01",
-                "lamp_hash_id": "1234",
                 "lamp_location": [120.19151248216, 22.9997144678771],
                 "lamp_deployed_date": null,
-                "lamp_wifi_ssid": null,
-                "lamp_wifi_password": null,
                 "place_id": 1,
-                "created_at": "2017-09-24T11:14:56.035Z",
-                "updated_at": "2017-09-24T11:14:56.035Z"
               }, {
                 "lamp_id": "TEST02",
-                "lamp_hash_id": "2345",
                 "lamp_location": [120.193272644465, 22.9963046536379],
                 "lamp_deployed_date": null,
-                "lamp_wifi_ssid": null,
-                "lamp_wifi_password": null,
                 "place_id": 1,
-                "created_at": "2017-09-24T11:14:56.044Z",
-                "updated_at": "2017-09-24T11:14:56.044Z"
               }
         ]
 
@@ -87,7 +77,7 @@ Represents Lamp Details
             "lamp_deployed_date": "2017-09-26",
             "lamp_wifi_ssid": "ssid",
             "lamp_wifi_password": "sspw",
-            "place_id": 1,
+            "place_id": 1
         }
 
 + Response 201 (application/json)
@@ -100,14 +90,14 @@ Represents Lamp Details
 
             {
                 "lamp_id": "TEST02",
-                "lamp_hash_id": "74b60799f9579f4c9ec3ee5bf620d6a7d75a069c",
+                "lamp_hash_id": "2345",
                 "lamp_location": [120,22],
                 "lamp_deployed_date": "2017-09-26",
                 "lamp_wifi_ssid": "ssid",
                 "lamp_wifi_password": "sspw",
                 "place_id": 1,
-                "created_at": "2017-09-24T11:14:56.073Z",
-                "updated_at": "2017-09-24T11:14:56.073Z",
+                "created_at": "2017-09-24T11:14:56.044Z",
+                "updated_at": "2017-09-24T11:14:56.044Z"
             }
 
 ## Lamp [/lamps/{id}{?key}]
@@ -125,14 +115,9 @@ A single Lamp object with all its details
         
               {
                 "lamp_id": "TEST01",
-                "lamp_hash_id": "1234",
                 "lamp_location": [120.19151248216, 22.9997144678771],
                 "lamp_deployed_date": null,
-                "lamp_wifi_ssid": null,
-                "lamp_wifi_password": null,
                 "place_id": 1,
-                "created_at": "2017-09-24T11:14:56.035Z",
-                "updated_at": "2017-09-24T11:14:56.035Z"
               }
         
 
