@@ -13,7 +13,7 @@ Dengue Lamps & Minimal covering circle API
 - [API Document](https://github.com/Sirius207/Bucket-API#api-document)
 - [Database Diagram](https://github.com/Sirius207/Bucket-API#database-diagram)
 - [Table Overview](https://github.com/Sirius207/Bucket-API#table-overview)
-- [Table Details](https://github.com/Sirius207/Bucket-API#table-details)
+- [API Table Details](https://github.com/Sirius207/Bucket-API#table-details)
 	- [lamps](https://github.com/Sirius207/Bucket-API#table-lamps)
 	- [lamp_places](https://github.com/Sirius207/Bucket-API#table-lamp_places)
 	- [lamp_counts](https://github.com/Sirius207/Bucket-API#table-lamp_counts)
@@ -21,6 +21,9 @@ Dengue Lamps & Minimal covering circle API
 	- [lamp_mcc](https://github.com/Sirius207/Bucket-API#table-lamp_mcc)
 	- [lamp_mcc\_rules](https://github.com/Sirius207/Bucket-API#table-lamp_mcc_rules)
 	- [lamp_comments](https://github.com/Sirius207/Bucket-API#table-lamp_comments)
+- [Permissions](https://github.com/Sirius207/Bucket-API#permissions)
+	- [Users](https://github.com/Sirius207/Bucket-API#users)
+	- [Roles](https://github.com/Sirius207/Bucket-API#roles)
 
 
 ## ChangeLog
