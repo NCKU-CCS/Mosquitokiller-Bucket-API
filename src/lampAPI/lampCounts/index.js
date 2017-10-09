@@ -82,7 +82,7 @@ class CountsController extends BaseController {
 
     // calculate Point Size
     const lastDate = moment(item.dataValues.date, 'YYYY-MM-DD').subtract(1, 'day').format('YYYY-MM-DD')
-    if (itemsFormatData[lastDate] && itemsFormatData[lastDate][item.dataValues[this.modelId]]) {
+    if (itemsFormatData[lastDate] && itemsFormatData[lastDate][item.dataValues['lamp_id']]) {
       const rate = itemsFormatData[item.dataValues.date][item.dataValues['lamp_id']]['sum'] / itemsFormatData[lastDate][item.dataValues['lamp_id']]['sum']
       itemsFormatData[item.dataValues.date][item.dataValues['lamp_id']]['dataValues']['size'] = this._setupSizeRate(rate)
     } else {
