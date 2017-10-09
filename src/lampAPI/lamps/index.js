@@ -24,6 +24,22 @@ class LampsController extends BaseController {
     this.create = this.create.bind(this)
   }
 
+  async getAll (req, res) {
+    try {
+      const attributes = [
+        'lamp_id', 'lamp_hash_id', 'lamp_location', 'lamp_deployed_date', 'place_id'
+      ]
+      const Items = await this.Model.findAll({attributes, where: req.query})
+      if (Items.length) {
+        res.json(Items)
+      } else {
+        res.status(404).json({error: 'not found'})
+      }
+    } catch (err) {
+      res.status(500).json({error: err})
+    }
+  }
+
   async getById (req, res) {
     try {
       const status = await this._validateRequest(req, res)
@@ -33,9 +49,12 @@ class LampsController extends BaseController {
       const params = await matchedData(req)
 
       // search by hash or normal id
+      const attributes = [
+        'lamp_id', 'lamp_hash_id', 'lamp_location', 'lamp_deployed_date', 'place_id'
+      ]
       const queryByHash = (req.query.key === 'hash')
-      const singleItem = (queryByHash) ? await this.Model.findOne({where: {lamp_hash_id: {$like: `${params.id}%`}}})
-                                       : await this.Model.findById(params.id)
+      const singleItem = (queryByHash) ? await this.Model.findOne({attributes, where: {lamp_hash_id: {$like: `${params.id}%`}}})
+                                       : await this.Model.findById(params.id, {attributes})
       // return Quey Results
       if (singleItem) {
         res.json(singleItem)
