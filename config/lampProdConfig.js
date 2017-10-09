@@ -4,7 +4,7 @@ module.exports = {
   'password': process.env.LAMPS_PW_PROD,
   'force': {force: false}, // force: true will drop the table if it already exists
   'cors': {
-    'url': [process.env.LAMPS_CORS_PROD]
+    'url': ['http://localhost:3000']
   },
   'sha256Secret': process.env.LAMPS_SECRET_PROD,
   'session': {

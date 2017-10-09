@@ -25,8 +25,9 @@ Dengue Lamps & Minimal covering circle API
 
 ## ChangeLog
 
-- v0.9.3 ()
+- v0.9.3
 	- Add Tables: lamps_meta, notification
+	- Use pm2 deploy
 
 - 0.9.2.5
 	- Auth
@@ -81,6 +82,8 @@ $ node config/dbInitialize.js
 
 ```
 $ npm start
+// or use pm2 
+$ pm2 start ecosystem.config.js
 ```
 
 ### 5. Run Test
@@ -98,6 +101,8 @@ Use Production Database
 ```
 $ export NODE_ENV=production
 $ npm run prod
+// or 
+$ pm2 start ecosystem.config.js --env production
 ```
 
 ### Run Lamp Mqtt Subscribe
