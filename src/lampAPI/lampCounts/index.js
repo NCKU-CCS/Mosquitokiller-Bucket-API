@@ -19,6 +19,7 @@ class CountsController extends BaseController {
       '-1': 1,
       '-2': 0.33
     }
+    this._setupDateItem = this._setupDateItem.bind(this)
   }
 
   // =============================
