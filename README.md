@@ -28,14 +28,18 @@ Dengue Lamps & Minimal covering circle API
 - v0.9.3 ()
 	- Add Tables: lamps_meta, notification
 
+- 0.9.2.5
+	- Auth
+		- New Back-end Manage Page
+		- lamp data No return Wifi code 
+
 - v0.9.2 (Dev Branch)
 	- Auth
 		- New Tables: user, roles
-		- New Back-end Manage Page
 		- New Session Auth of post, put, delete request
 
 	- Support
-		- Add get counts format by hour
+		- Add get counts format by hour and limit days
 		- Add post new comment by hash id
 		- Add get lamp by hash id
 
