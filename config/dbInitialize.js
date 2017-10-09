@@ -112,7 +112,7 @@ const AccountInitialize = async () => {
     await Models.accountsModel.Users.create({
       user_id: 'admin',
       email: 'oceanus11034@gmail.com',
-      password: bcrypt.hashSync('test11034', bcrypt.genSaltSync(8), null),
+      password: bcrypt.hashSync(process.env.SAMPLE_ADMIM_PW, bcrypt.genSaltSync(8), null),
       first_name: 'Po Chun',
       last_name: 'Lu',
       phone: '0910-xxxxxx',

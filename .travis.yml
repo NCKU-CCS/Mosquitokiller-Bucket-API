@@ -19,6 +19,7 @@ before_script:
   - export LAMPS_PW_DEV=""
   - export LAMPS_SECRET_DEV=Dev
   - export SESSION_SECRET_DEV=session
+  - export SAMPLE_ADMIM_PW=test11034
   - node config/dbInitialize.js
 
 script:
