@@ -56,7 +56,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
-// app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(compression())               // enable Gzip
 app.use('/', cors(corsOptions))      // support cors request

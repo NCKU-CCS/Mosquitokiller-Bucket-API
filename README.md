@@ -29,12 +29,15 @@ Dengue Lamps & Minimal covering circle API
 	- Add Tables: lamps_meta, notification
 	- Use pm2 deploy
 
-- 0.9.2.5
+- v0.9.2.5
 	- Auth
 		- New Back-end Manage Page
 		- lamp data No return Wifi code 
 
-- v0.9.2.1 (Master Branch)
+- v0.9.2.2 (Master Branch)
+	- Add Zapper Front end display
+
+- v0.9.2.1
 	- Fix 0.9.2 formatByDate error
 	- Set sample admin pw to env variable
 
