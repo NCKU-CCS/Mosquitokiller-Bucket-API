@@ -1,4 +1,4 @@
-const { body, param, validationResult } = require('express-validator/check')
+const { body, param, query, validationResult } = require('express-validator/check')
 const { matchedData, sanitize } = require('express-validator/filter')
 //
 // API BASE CLASS
@@ -9,7 +9,7 @@ exports.BaseController = class {
     this.Model = Model.orm
     this.modelId = Model.id
     // check method
-    this.check = {body, param}
+    this.check = {body, param, query}
 
     this.ValidateIdParams = [
       param('id', 'id should be a int').custom(id => {

@@ -134,6 +134,9 @@ class CountsController extends BaseController {
       const Rule = this._setFormatRule(req.query)
       // return just one lamp data or all lamp data
       Rule.where = (req.query.lampID) ? {lamp_id: req.query.lampID} : null
+      Rule.where = (req.query.limit)
+                      ? {created_at: { $gte: moment().subtract(req.query.limit, 'days').toDate().setUTCHours(0, 0, 0, 0) }}
+                      : Rule.where
       //
       // SELECT DATA
       //

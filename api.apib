@@ -304,14 +304,14 @@ Represents Count Details
 - created_at `(Timestamps)` : -- .
 
 ---
-## Count Collection [/counts{?formatBy,lampID}]
+## Count Collection [/counts{?formatBy,lampID,limit}]
 
 ### List all counts [GET]
 
 + Parameters
     + formatBy (optional, String, `date`) ... use '?formatBy=date' <=  Return data Group By date & lamp_id
     + lampID (optional, String, `9b3814`) ... use '?formatBy=hour&lampID=9b3814' <=  Return one lamp data Group By date & hour
-
+    + limit (optional, String, `7`) ... user '?limit=7' <= return past 7 days data. e.g. today 10/8, reutrn data from 10/1 00:00
 + Response 200 (application/json)
 
         use /counts will return

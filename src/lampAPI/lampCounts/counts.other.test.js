@@ -60,6 +60,16 @@ describe(`counts Supports -- `, () => {
           done()
         })
     })
+    it(`should return one lamp ${name} With formatBy=date & real lampID & limit date`, (done) => {
+      agent
+        .get(`${route}/${name}?formatBy=date&lampID=${REAL_ID}&limit=7`)
+        .end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(200)
+          res.should.be.json
+          done()
+        })
+    })
   })
 
   describe(`/Get ${name} format By Wrong info Should Not success-- `, () => {
