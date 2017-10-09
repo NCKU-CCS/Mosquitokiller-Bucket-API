@@ -34,7 +34,11 @@ Dengue Lamps & Minimal covering circle API
 		- New Back-end Manage Page
 		- lamp data No return Wifi code 
 
-- v0.9.2 (Dev Branch)
+- v0.9.2.1 (Master Branch)
+	- Fix 0.9.2 formatByDate error
+	- Set sample admin pw to env variable
+
+- v0.9.2 (found error, use 0.9.2.1)
 	- Auth
 		- New Tables: user, roles
 		- New Session Auth of post, put, delete request
@@ -45,7 +49,7 @@ Dengue Lamps & Minimal covering circle API
 		- Add get lamp by hash id
 
 
-- v0.9.1 (Master Branch)
+- v0.9.1
 	- With RESTful API of Lamps, Places, Counts, States, Mcc, Rules, Comments
 	- With Lamp MQTT message Subscribe
 
