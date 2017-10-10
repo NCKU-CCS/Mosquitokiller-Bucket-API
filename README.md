@@ -38,9 +38,10 @@ Dengue Lamps & Minimal covering circle API
 
 - v0.9.2.2 (Master Branch)
 	- Add Zapper Front end display
-	- lamp data No return Wifi code
+	- Set lamp data No return Wifi code
+	- Set 6 characters lamp hash validation in post comment
 
-- v0.9.2.1 (Tag, )
+- v0.9.2.1 (Tag)
 	- Fix 0.9.2 formatByDate error
 	- Set sample admin pw to env variable
 
@@ -56,7 +57,7 @@ Dengue Lamps & Minimal covering circle API
 
 
 - v0.9.1 (Tag)
-	- With RESTful API of Lamps, Places, Counts, States, Mcc, Rules, Comments
+	- With RESTFul API of Lamps, Places, Counts, States, Mcc, Rules, Comments
 	- With Lamp MQTT message Subscribe
 
 

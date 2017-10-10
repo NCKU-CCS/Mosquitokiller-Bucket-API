@@ -4,6 +4,7 @@ const {matchedData, sanitizeBody} = require('express-validator/filter')
 //
 const crypto = require('crypto')
 const SECRET = global.CONFIG['sha256Secret']
+const BASIC_ATTRIBUTES = ['lamp_id', 'lamp_location', 'lamp_deployed_date', 'place_id']
 //
 // Controller Model
 //
@@ -22,13 +23,12 @@ class LampsController extends BaseController {
       sanitizeBody('place_id').toInt()
     ]
     this.create = this.create.bind(this)
+    // this.getLampDataByHashID = this.getLampDataByHashID.bind(this)
   }
 
   async getAll (req, res) {
     try {
-      const attributes = [
-        'lamp_id', 'lamp_location', 'lamp_deployed_date', 'place_id'
-      ]
+      const attributes = BASIC_ATTRIBUTES
       // login user can check hash id
       if (req.isAuthenticated()) {
         attributes.push('lamp_hash_id', 'lamp_wifi_ssid', 'lamp_wifi_password')
@@ -53,9 +53,7 @@ class LampsController extends BaseController {
       const params = await matchedData(req)
 
       // search by hash or normal id
-      const attributes = [
-        'lamp_id', 'lamp_location', 'lamp_deployed_date', 'place_id'
-      ]
+      const attributes = BASIC_ATTRIBUTES
       const queryByHash = (req.query.key === 'hash')
       const singleItem = (queryByHash) ? await this.Model.findOne({attributes, where: {lamp_hash_id: {$like: `${params.id}%`}}})
                                        : await this.Model.findById(params.id, {attributes})
@@ -67,6 +65,16 @@ class LampsController extends BaseController {
       }
     } catch (err) {
       res.status(500).json({error: err})
+    }
+  }
+
+  async getLampIDByHashID (lampHashId) {
+    const attributes = BASIC_ATTRIBUTES
+    const realLamp = await this.Model.findOne({attributes, where: {lamp_hash_id: {$like: `${lampHashId}%`}}})
+    if (realLamp) {
+      return realLamp.lamp_id
+    } else {
+      throw new Error('404')
     }
   }
 

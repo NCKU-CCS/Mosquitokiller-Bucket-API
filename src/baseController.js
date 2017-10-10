@@ -54,8 +54,10 @@ exports.BaseController = class {
   }
 
   _sendErrorResponse (err, res) {
+    console.log(err.message);
     (err.name === 'SequelizeForeignKeyConstraintError') ? res.status(400).json({error: 'id not found'})
-                                                        : res.status(500).json({error: err})
+    : (err.message === '404') ? res.status(404).json({error: 'not found'})
+                              : res.status(500).json({error: err.message})
   }
 
   async getAll (req, res) {

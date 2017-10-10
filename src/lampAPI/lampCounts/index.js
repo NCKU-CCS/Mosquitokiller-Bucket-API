@@ -1,5 +1,5 @@
 const { BaseController } = require('../../baseController')
-const Lamps = require('../lamps/lampsModel')
+const Lamps = require('../lamps')
 
 const moment = require('moment')
 const Sequelize = require('sequelize')
@@ -122,14 +122,7 @@ class CountsController extends BaseController {
 
       // convert hash_id to real lamp_id
       if (isFormatByHour && req.query.lampID) {
-        const realLamp = await Lamps.findOne({where: {lamp_hash_id: {$like: `${req.query.lampID}%`}}})
-        // hash id not exist, return 404
-        if (!realLamp) {
-          res.status(404).json({error: 'not found'})
-          return
-        } else {
-          req.query.lampID = realLamp.lamp_id
-        }
+        req.query.lampID = await Lamps.getLampIDByHashID(req.query.lampID)
       }
 
       const Rule = this._setFormatRule(req.query)
@@ -150,8 +143,7 @@ class CountsController extends BaseController {
         res.status(404).json({error: 'not found'})
       }
     } catch (err) {
-      console.log(err)
-      res.status(500).json({error: err})
+      this._sendErrorResponse(err, res)
     }
   }
 }
