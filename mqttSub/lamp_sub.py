@@ -244,8 +244,9 @@ def on_message(client, userdata, msg):
             if UpdatedAt != str(datetime.date.today()):
                 # remove expired counts
                 expiredDate = str(datetime.date.today() - datetime.timedelta(TIMELINE))
-                LampDict[lampId]["Count"] -= LampDict[lampId][expiredDate]
-                del LampDict[lampId][expiredDate]
+                if expiredDate in LampDict[lampId]:
+                    LampDict[lampId]["Count"] -= LampDict[lampId][expiredDate]
+                    del LampDict[lampId][expiredDate]
 
                 if LampDict[oldLampId]["Count"] < ACTIVE_LIMIT and LampDict[oldLampId]["Active"]:
                     LampDict[oldLampId]["Active"] = False
