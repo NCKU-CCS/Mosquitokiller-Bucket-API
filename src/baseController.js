@@ -53,8 +53,15 @@ exports.BaseController = class {
     return filterRules
   }
 
+  _returnItemOrNotFound (Item, res) {
+    if (Item) {
+      res.json(Item)
+    } else {
+      throw new Error('404')
+    }
+  }
+
   _sendErrorResponse (err, res) {
-    console.log(err.message);
     (err.name === 'SequelizeForeignKeyConstraintError') ? res.status(400).json({error: 'id not found'})
     : (err.message === '404') ? res.status(404).json({error: 'not found'})
                               : res.status(500).json({error: err.message})
@@ -80,13 +87,9 @@ exports.BaseController = class {
 
       const params = await matchedData(req)
       const singleItem = await this.Model.findById(params.id)
-      if (singleItem) {
-        res.json(singleItem)
-      } else {
-        res.status(404).json({error: 'not found'})
-      }
+      this._returnItemOrNotFound(singleItem, res)
     } catch (err) {
-      res.status(500).json({error: err})
+      this._sendErrorResponse(err, res)
     }
   }
 

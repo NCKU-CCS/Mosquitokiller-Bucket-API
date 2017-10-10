@@ -58,13 +58,9 @@ class LampsController extends BaseController {
       const singleItem = (queryByHash) ? await this.Model.findOne({attributes, where: {lamp_hash_id: {$like: `${params.id}%`}}})
                                        : await this.Model.findById(params.id, {attributes})
       // return Quey Results
-      if (singleItem) {
-        res.json(singleItem)
-      } else {
-        res.status(404).json({error: 'not found'})
-      }
+      this._returnItemOrNotFound(singleItem, res)
     } catch (err) {
-      res.status(500).json({error: err})
+      this._sendErrorResponse(err, res)
     }
   }
 
