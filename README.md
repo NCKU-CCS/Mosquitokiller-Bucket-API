@@ -35,6 +35,8 @@ Dengue Lamps & Minimal covering circle API
 - v0.9.2.5
 	- Auth
 		- New Back-end Manage Page
+	- Refactoring
+		- request validation error handling
 
 - v0.9.2.2 (Master Branch)
 	- Add Zapper Front end display
@@ -140,7 +142,7 @@ $ pm2 logs Lamp_Sub
 
 ```
 $ npm install -g aglio
-$ aglio --theme-variables streak  -i api.apib --theme-template triple -o index.html
+$ npm run doc
 ```
 
 ## Database Diagram
