@@ -14,8 +14,7 @@ class CommentsController extends BaseController {
 
   async create (req, res) {
     try {
-      const status = await this._validateRequest(req, res)
-      if (status === '4xx') return
+      await this._validateRequest(req, res)
 
       // need to recover bot lamp_hash_id to real lamp_id
       const notCreateByRealId = (req.query.key !== 'id')

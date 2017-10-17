@@ -44,8 +44,7 @@ class UsersController extends BaseController {
 
   async create (req, res) {
     try {
-      const status = await this._validateRequest(req, res)
-      if (status === '4xx') return
+      await this._validateRequest(req, res)
 
       // Use Hash
       req.body.password = this._generateHash(req.body.password)

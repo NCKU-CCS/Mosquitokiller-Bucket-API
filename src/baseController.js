@@ -35,13 +35,13 @@ exports.BaseController = class {
       const errors = validationResult(req)
       // check id param valid
       if (errors.mapped().id) {
-        res.status(404).json({ errors: 'not found' })
-        resolve('4xx')
+        throw new Error('404')
       } else if (!errors.isEmpty()) {
-        res.status(400).json({ errors: errors.mapped() })
-        resolve('4xx')
+        const badRequest = new Error('400')
+        badRequest.payload = errors.mapped()
+        throw badRequest
       }
-      resolve('200')
+      resolve()
     })
   }
 
@@ -63,6 +63,7 @@ exports.BaseController = class {
 
   _sendErrorResponse (err, res) {
     (err.name === 'SequelizeForeignKeyConstraintError') ? res.status(400).json({error: 'id not found'})
+    : (err.message === '400') ? res.status(400).json({errors: err.payload})
     : (err.message === '404') ? res.status(404).json({error: 'not found'})
                               : res.status(500).json({error: err.message})
   }
@@ -82,8 +83,7 @@ exports.BaseController = class {
 
   async getById (req, res) {
     try {
-      const status = await this._validateRequest(req, res)
-      if (status === '4xx') return
+      await this._validateRequest(req, res)
 
       const params = await matchedData(req)
       const singleItem = await this.Model.findById(params.id)
@@ -95,8 +95,7 @@ exports.BaseController = class {
 
   async create (req, res) {
     try {
-      const status = await this._validateRequest(req, res)
-      if (status === '4xx') return
+      await this._validateRequest(req, res)
 
       const newItem = await this.Model.create(req.body)
       res.set('location', `${req.path}/${newItem[this.modelId]}`)
