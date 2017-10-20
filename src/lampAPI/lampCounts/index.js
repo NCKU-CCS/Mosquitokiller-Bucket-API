@@ -20,6 +20,7 @@ class CountsController extends BaseController {
       '-2': 0.33
     }
     this._setupDateItem = this._setupDateItem.bind(this)
+    this._setupHourItem = this._setupHourItem.bind(this)
   }
 
   // =============================
@@ -31,7 +32,7 @@ class CountsController extends BaseController {
     return !keys.includes(formatRule)
   }
 
-  _setFormatRule (query) {
+  _setFormatRule (formatBy) {
     return (({
       'date': {
         attributes: [
@@ -44,6 +45,7 @@ class CountsController extends BaseController {
       },
       'hour': {
         attributes: [
+          'lamp_id',
           [Sequelize.fn('count', Sequelize.col('counts')), 'sum'],
           [Sequelize.fn('date', Sequelize.col('created_at')), 'date'],
           [Sequelize.fn('date_part', 'hour', Sequelize.col('created_at')), 'hour']
@@ -51,7 +53,7 @@ class CountsController extends BaseController {
         group: ['lamp_id', [Sequelize.fn('date', Sequelize.col('created_at'))], [Sequelize.fn('date_part', 'hour', Sequelize.col('created_at'))]],
         order: [Sequelize.fn('date', Sequelize.col('created_at'))]
       }
-    })[query.formatBy] || {order: [['created_at', 'DESC']]})
+    })[formatBy] || {order: [['created_at', 'DESC']]})
   }
 
   // =============================
@@ -60,27 +62,42 @@ class CountsController extends BaseController {
 
   // use for return diff format
   _formatItemsBy (formatRule, Items) {
-    const setupItems = this._setupItemsBy(formatRule)
+    const setupItems = this._setupItemsBy(formatRule.formatBy)
     const itemsFormatData = {}
     Items.forEach((item) => {
-      setupItems(item, itemsFormatData)
+      item.dataValues['lamp_id'] = formatRule.lampHashID || item.dataValues['lamp_id'];
+      (setupItems) && setupItems(item, itemsFormatData)
     })
-    return itemsFormatData
+    return (setupItems) ? itemsFormatData : Items
   }
 
-  _setupItemsBy (formatRule) {
+  _setupItemsBy (formatBy) {
     return (({
       'date': this._setupDateItem,
       'hour': this._setupHourItem
-    })[formatRule])
+    })[formatBy] || null)
   }
 
-  _setupDateItem (item, itemsFormatData) {
-    if (!itemsFormatData[item.dataValues.date]) {
-      itemsFormatData[item.dataValues.date] = {}
-    }
-    itemsFormatData[item.dataValues.date][item.dataValues['lamp_id']] = item
+  _InsertNewItemBy (keys, item, itemsFormatData) {
+    return new Promise((resolve, reject) => {
+      if (!itemsFormatData[item.dataValues[keys[0]]]) {
+        itemsFormatData[item.dataValues[keys[0]]] = {}
+      }
+      itemsFormatData[item.dataValues[keys[0]]][item.dataValues[keys[1]]] = item
+      resolve()
+    })
+  }
 
+  async _setupHourItem (item, itemsFormatData) {
+    await this._InsertNewItemBy(['date', 'hour'], item, itemsFormatData)
+  }
+
+  async _setupDateItem (item, itemsFormatData) {
+    await this._InsertNewItemBy(['date', 'lamp_id'], item, itemsFormatData)
+    this._setupPointSize(item, itemsFormatData)
+  }
+
+  _setupPointSize (item, itemsFormatData) {
     // calculate Point Size
     const lastDate = moment(item.dataValues.date, 'YYYY-MM-DD').subtract(1, 'day').format('YYYY-MM-DD')
     if (itemsFormatData[lastDate] && itemsFormatData[lastDate][item.dataValues['lamp_id']]) {
@@ -89,13 +106,6 @@ class CountsController extends BaseController {
     } else {
       itemsFormatData[item.dataValues.date][item.dataValues['lamp_id']]['dataValues']['size'] = 0
     }
-  }
-
-  _setupHourItem (item, itemsFormatData) {
-    if (!itemsFormatData[item.dataValues.date]) {
-      itemsFormatData[item.dataValues.date] = {}
-    }
-    itemsFormatData[item.dataValues.date][item.dataValues['hour']] = item
   }
 
   _setupSizeRate (rate) {
@@ -108,36 +118,36 @@ class CountsController extends BaseController {
   async getAll (req, res) {
     try {
       //
-      // Check Query Format rule is valid
+      // Check Counts Format rule is valid
       //
-      const formatRule = req.query.formatBy || null
-      if (formatRule && this._FormatRuleNotExist(formatRule)) {
+      const formatRule = {}
+      if (req.query.formatBy) { formatRule.formatBy = req.query.formatBy }
+      if (formatRule.formatBy && this._FormatRuleNotExist(formatRule.formatBy)) {
         res.status(400).json({error: 'query value of formatBy not valid'})
         return
       }
-      //
-      // QUERY RULE
-      //
-      const isFormatByHour = (formatRule === 'hour')
 
-      // convert hash_id to real lamp_id
-      if (isFormatByHour && req.query.lampID) {
-        req.query.lampID = await Lamps.getLampIDByHashID(req.query.lampID)
+      // convert hash_id to real lamp_id for query & save lampHashID for convert result
+      if (req.query.lampHashID) {
+        formatRule.lampHashID = req.query.lampHashID
+        req.query.lampID = await Lamps.getLampIDByHashID(req.query.lampHashID)
       }
 
-      const Rule = this._setFormatRule(req.query)
+      //
+      // SET QUERY RULE
+      //
+      const Rule = this._setFormatRule(req.query.formatBy)
       // return just one lamp data or all lamp data
-      Rule.where = (req.query.lampID) ? {lamp_id: req.query.lampID} : null
-      Rule.where = (req.query.limit)
-                      ? {created_at: { $gte: moment().subtract(req.query.limit, 'days').toDate().setUTCHours(0, 0, 0, 0) }}
-                      : Rule.where
+      if (req.query.lampID || req.query.limit) { Rule.where = {} }
+      if (req.query.lampID) { Rule.where.lamp_id = req.query.lampID }
+      if (req.query.limit) { Rule.where.created_at = { $gte: moment().subtract(req.query.limit, 'days').toDate().setUTCHours(0, 0, 0, 0) } }
+
       //
       // SELECT DATA
       //
       let Items = await this.Model.findAll(Rule)
       if (Items.length) {
-        Items = (formatRule) ? this._formatItemsBy(formatRule, Items)
-                             : Items
+        Items = (Object.keys(formatRule).length !== 0) ? this._formatItemsBy(formatRule, Items) : Items
         res.json(Items)
       } else {
         res.status(404).json({error: 'not found'})

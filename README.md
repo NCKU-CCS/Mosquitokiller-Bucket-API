@@ -32,11 +32,19 @@ Dengue Lamps & Minimal covering circle API
 	- Add Tables: lamps_meta, notification
 	- Use pm2 deploy
 
-- v0.9.2.5
-	- Auth
-		- New Back-end Manage Page
+
+- v0.9.2.4
+	- Modify
+		- ORM created_at Time Zone +8
+		- Modify Point Size Function
+	- Add	
+		- get counts just by hour
+
+- v0.9.2.3
 	- Refactoring
 		- request validation error handling
+	- Add
+		- get counts by hashID (formatByDate)
 
 - v0.9.2.2 (Master Branch)
 	- Add Zapper Front end display

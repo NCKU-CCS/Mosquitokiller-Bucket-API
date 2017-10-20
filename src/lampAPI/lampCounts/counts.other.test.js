@@ -20,23 +20,36 @@ describe(`counts Supports -- `, () => {
   // Get Item By ID
   // =========================
   describe(`/Get ${name} Should success-- `, () => {
-    it(`should return ${name} With formatBy=date`, (done) => {
+    it(`should return ${name} With lampHashID=hashID`, (done) => {
       agent
-        .get(`${route}/${name}?formatBy=date`)
+        .get(`${route}/${name}?lampHashID=${HASH_ID}`)
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
+          res.body[0].should.have.property('count_id')
           done()
         })
     })
-    it(`should return ${name} With formatBy=hour&lampID=realID`, (done) => {
+    it(`should return ${name} With limit=7`, (done) => {
       agent
-        .get(`${route}/${name}?formatBy=hour&lampID=${HASH_ID}`)
+        .get(`${route}/${name}?limit=7`)
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
           res.should.be.json
+          res.body[0].should.have.property('count_id')
+          done()
+        })
+    })
+    it(`should return ${name} With lampHashID & limit=7`, (done) => {
+      agent
+        .get(`${route}/${name}?lampHashID=${HASH_ID}&limit=7`)
+        .end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(200)
+          res.should.be.json
+          res.body[0].should.have.property('count_id')
           done()
         })
     })
@@ -50,9 +63,9 @@ describe(`counts Supports -- `, () => {
           done()
         })
     })
-    it(`should return one lamp ${name} With formatBy=date & real lampID`, (done) => {
+    it(`should return ${name} With formatBy=hour&lampHashID=hashID`, (done) => {
       agent
-        .get(`${route}/${name}?formatBy=date&lampID=${REAL_ID}`)
+        .get(`${route}/${name}?formatBy=hour&lampHashID=${HASH_ID}`)
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
@@ -60,9 +73,39 @@ describe(`counts Supports -- `, () => {
           done()
         })
     })
-    it(`should return one lamp ${name} With formatBy=date & real lampID & limit date`, (done) => {
+    it(`should return ${name} With formatBy=hour & lampHashID=hashID & limit`, (done) => {
       agent
-        .get(`${route}/${name}?formatBy=date&lampID=${REAL_ID}&limit=7`)
+        .get(`${route}/${name}?formatBy=hour&lampHashID=${HASH_ID}&limit=7`)
+        .end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(200)
+          res.should.be.json
+          done()
+        })
+    })
+    it(`should return ${name} With formatBy=date`, (done) => {
+      agent
+        .get(`${route}/${name}?formatBy=date`)
+        .end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(200)
+          res.should.be.json
+          done()
+        })
+    })
+    it(`should return one lamp ${name} With formatBy=date & hash lampID`, (done) => {
+      agent
+        .get(`${route}/${name}?formatBy=date&lampHashID=${HASH_ID}`)
+        .end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(200)
+          res.should.be.json
+          done()
+        })
+    })
+    it(`should return one lamp ${name} With formatBy=date & hash lampID & limit date`, (done) => {
+      agent
+        .get(`${route}/${name}?formatBy=date&lampHashID=${HASH_ID}&limit=7`)
         .end((err, res) => {
           if (err) return done(err)
           res.should.have.status(200)
@@ -75,7 +118,7 @@ describe(`counts Supports -- `, () => {
   describe(`/Get ${name} format By Wrong info Should Not success-- `, () => {
     it(`should Not return ${name} With formatBy=hour & Wrong lampID`, (done) => {
       agent
-        .get(`${route}/${name}?formatBy=hour&lampID=${WRONG_HASH_ID}`)
+        .get(`${route}/${name}?formatBy=hour&lampHashID=${WRONG_HASH_ID}`)
         .end((err, res) => {
           if (err) {
             res.should.have.status(404)
@@ -91,6 +134,18 @@ describe(`counts Supports -- `, () => {
         .end((err, res) => {
           if (err) {
             res.should.have.status(400)
+            res.should.be.json
+            res.body.should.have.property('error')
+            done()
+          }
+        })
+    })
+    it(`should Not return ${name} With wrong limit `, (done) => {
+      agent
+        .get(`${route}/${name}?limit=e`)
+        .end((err, res) => {
+          if (err) {
+            res.should.have.status(404)
             res.should.be.json
             res.body.should.have.property('error')
             done()

@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://mosquitokiller.csie.ncku.edu.tw/apis/
+HOST: https://mosquitokiller.csie.ncku.edu.tw/apis
 
 # Lamps API Documentation
 
@@ -289,14 +289,15 @@ Represents Count Details
 - created_at `(Timestamps)` : -- .
 
 ---
-## Count Collection [/counts{?formatBy,lampID,limit}]
+## Count Collection [/counts{?formatBy,lampHashID,limit,lampID}]
 
 ### List all counts [GET]
 
 + Parameters
     + formatBy (optional, String, `date`) ... use '?formatBy=date' <=  Return data Group By date & lamp_id
-    + lampID (optional, String, `9b3814`) ... use '?formatBy=hour&lampID=9b3814' <=  Return one lamp data Group By date & hour
+    + lampHashID (optional, String, `9b3814`) ... use '?formatBy=hour&lampHashID=9b3814' <=  Return one lamp data Group By date & hour
     + limit (optional, String, `7`) ... user '?limit=7' <= return past 7 days data. e.g. today 10/8, reutrn data from 10/1 00:00
+    + lampID (optional, String, `KG0915-01`) ... use '?formatBy=hour&lampID=KG0915-01' <=  Return one lamp data Group By date & hour
 + Response 200 (application/json)
 
         use /counts will return
@@ -317,66 +318,120 @@ Represents Count Details
 
 + Response 200 (application/json)
 
+        use /counts?lampID=TEST01 will return
+
+        [
+            {
+                "count_id": 1,
+                "lamp_id": "TEST01",
+                "counts": 1,
+                "created_at": "2017-09-24T11:14:56.035Z",
+            }
+        ]
+
+
++ Response 200 (application/json)
+
+        use /counts?lampHashID=9b3814 will return
+
+        [
+            {
+                "count_id": 1,
+                "lamp_id": "9b3814",
+                "counts": 1,
+                "created_at": "2017-09-24T11:14:56.035Z",
+            }
+        ]
+
++ Response 200 (application/json)
+
         use /counts?formatBy=date will return
 
         {
             "2017-10-05": {
                 "KG0915-02": {
-                "lamp_id": "KG0915-02",
-                "sum": "30",
-                "date": "2017-10-05",
-                "size": 0
+                    "lamp_id": "KG0915-02",
+                    "sum": "30",
+                    "date": "2017-10-05",
+                    "size": 0
                 },
                 "KG0915-03": {
-                "lamp_id": "KG0915-03",
-                "sum": "95",
-                "date": "2017-10-05",
-                "size": 0
+                    "lamp_id": "KG0915-03",
+                    "sum": "95",
+                    "date": "2017-10-05",
+                    "size": 0
                 }
             },
             "2017-10-06": {
                 "KG0915-02": {
-                "lamp_id": "KG0915-02",
-                "sum": "51",
-                "date": "2017-10-06",
-                "size": 0
+                    "lamp_id": "KG0915-02",
+                    "sum": "51",
+                    "date": "2017-10-06",
+                    "size": 0
                 },
                 "KG0915-03": {
-                "lamp_id": "KG0915-03",
-                "sum": "92",
-                "date": "2017-10-06",
-                "size": 0
+                    "lamp_id": "KG0915-03",
+                    "sum": "92",
+                    "date": "2017-10-06",
+                    "size": 0
                 }
             }
         }
 
 + Response 200 (application/json)
 
-        use /counts?formatBy=hour&lampID=9b3814 will return
+        use /counts?formatBy=date&lampHashID=9b3814 will return
+
+        {
+            "2017-10-05": {
+                "9b3814": {
+                    "lamp_id": "9b3814",
+                    "sum": "30",
+                    "date": "2017-10-05",
+                    "size": 0
+                }
+            },
+            "2017-10-06": {
+                "9b3814": {
+                    "lamp_id": "9b3814",
+                    "sum": "51",
+                    "date": "2017-10-06",
+                    "size": 0
+                }
+            }
+        }
+
++ Response 200 (application/json)
+
+        use /counts?formatBy=hour&lampHashID=9b3814 will return
 
         {
             "2017-10-05": {
                 "8": {
                     "sum": "30",
                     "date": "2017-10-05",
-                    "hour": "8"
+                    "hour": "8",
+                    "lamp_id":"9b3814"
                 },
                 "9": {
                     "sum": "30",
                     "date": "2017-10-05",
-                    "hour": "9"
+                    "hour": "9",
+                    "lamp_id":"9b3814"
                 }
             },
             "2017-10-06": {
                 "1": {
                     "sum": "30",
                     "date": "2017-10-05",
-                    "hour": "8"
+                    "hour": "8",
+                    "lamp_id":"9b3814"
                 },
                 "2": {
                     "sum": "30",
                     "date": "2017-10-05",
-                    "hour": "9"
+                    "hour": "9",
+                    "lamp_id":"9b3814"
                 }
             }
         }
