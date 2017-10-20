@@ -140,17 +140,5 @@ describe(`counts Supports -- `, () => {
           }
         })
     })
-    it(`should Not return ${name} With wrong limit `, (done) => {
-      agent
-        .get(`${route}/${name}?limit=e`)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(404)
-            res.should.be.json
-            res.body.should.have.property('error')
-            done()
-          }
-        })
-    })
   })
 })
