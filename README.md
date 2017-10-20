@@ -40,22 +40,22 @@ Dengue Lamps & Minimal covering circle API
 	- Add	
 		- get counts just by hour
 
-- v0.9.2.3
+- v0.9.2.3 (Master Branch)
 	- Refactoring
 		- request validation error handling
 	- Add
 		- get counts by hashID (formatByDate)
 
-- v0.9.2.2 (Master Branch)
+- v0.9.2.2
 	- Add Zapper Front end display
 	- Set lamp data No return Wifi code
 	- Set 6 characters lamp hash validation in post comment
 
-- v0.9.2.1 (Tag)
+- v0.9.2.1
 	- Fix 0.9.2 formatByDate error
 	- Set sample admin pw to env variable
 
-- v0.9.2 (Tag, found query error, use 0.9.2.1)
+- v0.9.2 (found query error, use 0.9.2.1)
 	- Auth
 		- New Tables: user, roles
 		- New Session Auth of post, put, delete request
@@ -66,7 +66,7 @@ Dengue Lamps & Minimal covering circle API
 		- Add get lamp by hash id
 
 
-- v0.9.1 (Tag)
+- v0.9.1
 	- With RESTFul API of Lamps, Places, Counts, States, Mcc, Rules, Comments
 	- With Lamp MQTT message Subscribe
 
