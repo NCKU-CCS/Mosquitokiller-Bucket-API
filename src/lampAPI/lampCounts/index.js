@@ -94,7 +94,7 @@ class CountsController extends BaseController {
 
   async _setupDateItem (item, itemsFormatData) {
     await this._InsertNewItemBy(['date', 'lamp_id'], item, itemsFormatData)
-    this._setupPointSize(item, itemsFormatData)
+    await this._setupPointSize(item, itemsFormatData)
   }
 
   _setupPointSize (item, itemsFormatData) {
@@ -138,10 +138,11 @@ class CountsController extends BaseController {
       //
       const Rule = this._setFormatRule(req.query.formatBy)
       // return just one lamp data or all lamp data
-      if (req.query.lampID || req.query.limit) { Rule.where = {} }
-      if (req.query.lampID) { Rule.where.lamp_id = req.query.lampID }
-      if (req.query.limit) { Rule.where.created_at = { $gte: moment().subtract(req.query.limit, 'days').toDate().setUTCHours(0, 0, 0, 0) } }
-
+      if (req.query.lampID || req.query.limit) {
+        Rule.where = {}
+        if (req.query.lampID) { Rule.where.lamp_id = req.query.lampID }
+        if (req.query.limit) { Rule.where.created_at = { $gte: moment().subtract(req.query.limit, 'days').toDate().setUTCHours(0, 0, 0, 0) } }
+      }
       //
       // SELECT DATA
       //

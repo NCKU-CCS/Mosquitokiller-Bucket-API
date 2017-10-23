@@ -54,6 +54,11 @@ class LampsController extends BaseController {
       // search by hash or normal id
       const attributes = BASIC_ATTRIBUTES
       const queryByHash = (req.query.key === 'hash')
+
+      if (queryByHash && params.id.length < 6) {
+        throw new Error('404')
+      }
+
       const singleItem = (queryByHash) ? await this.Model.findOne({attributes, where: {lamp_hash_id: {$like: `${params.id}%`}}})
                                        : await this.Model.findById(params.id, {attributes})
       // return Quey Results

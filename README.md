@@ -35,7 +35,6 @@ Dengue Lamps & Minimal covering circle API
 
 - v0.9.2.4
 	- Modify
-		- ORM created_at Time Zone +8
 		- Modify Point Size Function
 	- Add	
 		- get counts just by hour
@@ -45,6 +44,8 @@ Dengue Lamps & Minimal covering circle API
 		- request validation error handling
 	- Add
 		- get counts by hashID (formatByDate)
+	- Fix
+		- cannot Get lamps By too short wrong hashID 
 
 - v0.9.2.2
 	- Add Zapper Front end display
