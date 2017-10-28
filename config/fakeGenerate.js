@@ -41,6 +41,9 @@ const DataImport = async () => {
     // })
 
     for (let i = 1; i <= 50; i++) {
+      Models.apisModel.Counts.create({lamp_id: '171028-2', counts: 1, created_at: '2017-10-28T10:38:56.124Z'})
+    }
+    for (let i = 1; i <= 50; i++) {
       Models.apisModel.Counts.create({lamp_id: '171028-2', counts: 1, created_at: '2017-10-29T10:38:56.124Z'})
     }
 
