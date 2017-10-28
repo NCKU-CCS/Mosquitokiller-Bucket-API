@@ -34,11 +34,15 @@ const DataImport = async () => {
     //   place_id: 1
     // })
 
-    await Events
-    .lamps
-    .forEach((event) => {
-      Models.apisModel.Counts.create({lamp_id: event.id, counts: event.counts, created_at: event.created_at})
-    })
+    // await Events
+    // .lamps
+    // .forEach((event) => {
+    //   Models.apisModel.Counts.create({lamp_id: event.id, counts: event.counts, created_at: event.created_at})
+    // })
+
+    for (let i = 1; i <= 50; i++) {
+      Models.apisModel.Counts.create({lamp_id: '171028-2', counts: 1, created_at: '2017-10-29T10:38:56.124Z'})
+    }
 
     console.log(`\n\n ${CONFIG['database']} Import Data success \n\n`)
   } catch (error) {
