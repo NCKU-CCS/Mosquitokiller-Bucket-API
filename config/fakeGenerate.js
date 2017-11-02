@@ -12,49 +12,43 @@ const Models = require('../src')
 
 const DataImport = async () => {
   try {
-
-    // await Models.apisModel.Lamps.create({
-    //   lamp_id: '171028-1',
-    //   lamp_hash_id: '9b38140545329e2382c85216f267c9fe06db08232b1b14d2997004d2b25',
-    //   lamp_location: [120.19151248216, 22.9997144678771],
-    //   place_id: 1
-    // })
-
-    // await Models.apisModel.Lamps.create({
-    //   lamp_id: '171028-2',
-    //   lamp_hash_id: '74730ce5746494b0cd0b6665fa869d660ffbbec1eba220b342add3',
-    //   lamp_location: [120.193272644465, 22.9963046536379],
-    //   place_id: 1
-    // })
-
-    // await Models.apisModel.Lamps.create({
-    //   lamp_id: '171028-3',
-    //   lamp_hash_id: '764730ce5746494b0cd0b6665fa869d660ffbbec1eba220b342adaed3',
-    //   lamp_location: [120.193272644465, 22.9963046536379],
-    //   place_id: 1
-    // })
-
+    // for (let i = 1; i<=50; j++) {
+    //   await Models.apisModel.Lamps.create({
+    //     lamp_id: `171028-${i}`,
+    //     lamp_hash_id: '9b38140545329e2382c85216f267c9fe06db08232b1b14d2997004d2b25',
+    //     lamp_location: [120.19151248216, 22.9997144678771],
+    //     place_id: 1
+    //   })
+    // }
     // await Events
     // .lamps
     // .forEach((event) => {
     //   Models.apisModel.Counts.create({lamp_id: event.id, counts: event.counts, created_at: event.created_at})
     // })
-
-    for (let i = 1; i <= 50; i++) {
-      Models.apisModel.Counts.create({lamp_id: '171028-2', counts: 1, created_at: '2017-10-28T10:38:56.124Z'})
+    const created_at = '2017-11-01T10:38:56.124Z'
+    for (let i = 1; i <= 45; i++) {
+      for (let j = 1; j <= 9; j++) {
+        await Models.apisModel.Counts.create({lamp_id: `171028-${i}`, counts: 1, created_at: created_at})
+        await Models.apisModel.Counts.create({lamp_id: `171028-${i+1}`, counts: 1, created_at: created_at})
+      }
+      for (let j = 1; j <= 40; j++) {
+        await Models.apisModel.Counts.create({lamp_id: `171028-${i+2}`, counts: 1, created_at: created_at})
+      }
+      for (let j = 1; j <= 60; j++) {
+        await Models.apisModel.Counts.create({lamp_id: `171028-${i+3}`, counts: 1, created_at: created_at})
+      }
+      for (let j = 1; j <= 110; j++) {
+        await Models.apisModel.Counts.create({lamp_id: `171028-${i+4}`, counts: 1, created_at: created_at})
+      }
     }
-    for (let i = 1; i <= 50; i++) {
-      Models.apisModel.Counts.create({lamp_id: '171028-2', counts: 1, created_at: '2017-10-29T10:38:56.124Z'})
-    }
-
     console.log(`\n\n ${CONFIG['database']} Import Data success \n\n`)
   } catch (error) {
     console.log('DATA: ', error)
   }
 }
 
-const initialize = async () => {
+const insertFakeData = async () => {
   await DataImport()
 }
 
-initialize()
+insertFakeData()
