@@ -26,20 +26,24 @@ const DataImport = async () => {
     //   Models.apisModel.Counts.create({lamp_id: event.id, counts: event.counts, created_at: event.created_at})
     // })
     const created_at = '2017-11-01T10:38:56.124Z'
-    for (let i = 1; i <= 45; i++) {
+    for (let i = 1; i <= 10; i+=5) {
       for (let j = 1; j <= 9; j++) {
         await Models.apisModel.Counts.create({lamp_id: `171028-${i}`, counts: 1, created_at: created_at})
         await Models.apisModel.Counts.create({lamp_id: `171028-${i+1}`, counts: 1, created_at: created_at})
       }
+      console.log('finish: 9')
       for (let j = 1; j <= 40; j++) {
         await Models.apisModel.Counts.create({lamp_id: `171028-${i+2}`, counts: 1, created_at: created_at})
       }
+      console.log('finish: 40')
       for (let j = 1; j <= 60; j++) {
         await Models.apisModel.Counts.create({lamp_id: `171028-${i+3}`, counts: 1, created_at: created_at})
       }
+      console.log('finish: 60')
       for (let j = 1; j <= 110; j++) {
         await Models.apisModel.Counts.create({lamp_id: `171028-${i+4}`, counts: 1, created_at: created_at})
       }
+      console.log('finish: 110')
     }
     console.log(`\n\n ${CONFIG['database']} Import Data success \n\n`)
   } catch (error) {
