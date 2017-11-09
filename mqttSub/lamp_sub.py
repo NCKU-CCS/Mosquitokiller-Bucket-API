@@ -94,21 +94,15 @@ def CheckPointInMcc(p, Mcc):
         if Pmax[0]**2 + Pmax[1]**2 <= Base**2:  # degree more than 90
             return True
 
-        CosP = (Pmax[0]**2 + Pmax[1]**2 - Base**2) / (2 * Pmax[0] * Pmax[1])
-        CosB = (Bmax[0]**2 + Bmax[1]**2 - Base**2) / (2 * Bmax[0] * Bmax[1])
+        CosP = calCos(Pmax, Base)
+        CosB = calCos(Bmax, Base)
         if CosP <= CosB:
             return True
         return False
 
-'''
-def GetNewMcc(p,OldMcc):
-    global DistanceDict
-    if len(Mcc) == 2:
-        if DistanceDict[(Mcc[0],p)]**2 + DistanceDict[(Mcc[1],p)]**2 <= DistanceDict[(Mcc[0],Mcc[1])]**2:
-            return OldMcc
-        else:
-'''
-
+def calCos(Max, Base):
+    cos = (Max[0]**2 + Max[1]**2 - Base**2) / (2 * Max[0] * Max[1])
+    return cos
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
@@ -135,22 +129,22 @@ def on_message(client, userdata, msg):
         '''Calculate the center position of Mcc '''
         if len(mcc) == 2:
             center = list()
-            center.append((LampDict[mcc[0]]["Lon"] +
-                           LampDict[mcc[1]]["Lon"]) / 2)
-            center.append((LampDict[mcc[0]]["Lat"] +
-                           LampDict[mcc[1]]["Lat"]) / 2)
-            #print (center)
+            LonCenter = CalPointcenter(LampDict[mcc[0]]["Lon"], LampDict[mcc[1]]["Lon"])
+            LatCenter = CalPointcenter(LampDict[mcc[0]]["Lat"], LampDict[mcc[1]]["Lat"])
+            center.append(LonCenter)
+            center.append(LatCenter)
             return center
         else:
             return CalMccCenterByThreePoints(mcc)
 
+    def CalPointcenter(pointA, pointB):
+        return (pointA + pointB) / 2
+
     def CalMccCenterByThreePoints(mcc):
         '''Calculate Mcc Center By Three Points'''
         center = list()
-        ma = (LampDict[mcc[1]]["Lat"] - LampDict[mcc[0]]["Lat"]) / \
-            (LampDict[mcc[1]]["Lon"] - LampDict[mcc[0]]["Lon"])
-        mb = (LampDict[mcc[2]]["Lat"] - LampDict[mcc[1]]["Lat"]) / \
-            (LampDict[mcc[2]]["Lon"] - LampDict[mcc[1]]["Lon"])
+        ma = CalDistanceSlope(LampDict[mcc[1]], LampDict[mcc[0]])
+        mb = CalDistanceSlope(LampDict[mcc[2]], LampDict[mcc[1]])
         centerLon = (ma * mb * (LampDict[mcc[0]]["Lat"] - LampDict[mcc[2]]["Lat"]) + mb * (LampDict[mcc[0]]["Lon"] + LampDict[mcc[1]]["Lon"])
                      - ma * (LampDict[mcc[1]]["Lon"] + LampDict[mcc[2]]["Lon"])) / (2 * (mb - ma))
 
@@ -161,6 +155,10 @@ def on_message(client, userdata, msg):
         center.append(centerLat)
         # print str(center[1]) + ',' + str(center[0])
         return center
+
+    def CalDistanceSlope(lampA, lampB):
+        slop = (lampA["Lat"] - lampB["Lat"]) / (lampA["Lon"] - lampB["Lon"])
+        return slop
 
     if msg.topic == 'ncku/netdb/test':
         print(str(msg.payload))
@@ -415,8 +413,8 @@ print(Rules)
 print('#########################\n')
 TIMELINE = Rules[0]
 DISTANCE = Rules[1]
-POINT_COUNTS = Rules[2]
-ACTIVE_LIMIT = Rules[3]
+POINT_COUNTS = 2 #Rules[2]
+ACTIVE_LIMIT = 3 #Rules[3]
 
 
 ##############################
