@@ -220,7 +220,7 @@ def on_message(client, userdata, msg):
             print(LampDict[lampId])
         else:
             LampDict[lampId]["Count"] += 1
-            if UpdatedAt != str(datetime.date.today()):
+            if Time not in LampDict[lampId]:
                 LampDict[lampId][Time] = 1
             else:
                 LampDict[lampId][Time] += 1
