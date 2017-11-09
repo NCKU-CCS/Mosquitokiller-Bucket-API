@@ -61,13 +61,13 @@ class CountsController extends BaseController {
   // =============================
 
   // use for return diff format
-  _formatItemsBy (formatRule, Items) {
+  async _formatItemsBy (formatRule, Items) {
     const setupItems = this._setupItemsBy(formatRule.formatBy)
     const itemsFormatData = {}
-    Items.forEach((item) => {
+    for (let item of Items) {
       item.dataValues['lamp_id'] = formatRule.lampHashID || item.dataValues['lamp_id'];
-      (setupItems) && setupItems(item, itemsFormatData)
-    })
+      (setupItems) && await setupItems(item, itemsFormatData)
+    }
     return (setupItems) ? itemsFormatData : Items
   }
 
@@ -148,7 +148,7 @@ class CountsController extends BaseController {
       //
       let Items = await this.Model.findAll(Rule)
       if (Items.length) {
-        Items = (Object.keys(formatRule).length !== 0) ? this._formatItemsBy(formatRule, Items) : Items
+        Items = (Object.keys(formatRule).length !== 0) ? await this._formatItemsBy(formatRule, Items) : Items
         res.json(Items)
       } else {
         res.status(404).json({error: 'not found'})
