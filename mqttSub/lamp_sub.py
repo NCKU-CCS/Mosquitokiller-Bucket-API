@@ -91,7 +91,7 @@ def CheckPointInMcc(p, Mcc):
                     DistanceDict[(Mcc[1], Mcc[2])])
             Base = DistanceDict[(Mcc[0], Mcc[1])]
 
-        if Pmax[0]**2 + Pmax[1]**2 <= Base**2:  # degree more than 90
+        if isObtuseAngle(Pmax[0], Pmax[1], Base):# degree more than 90
             return True
 
         CosP = calCos(Pmax, Base)
@@ -99,6 +99,9 @@ def CheckPointInMcc(p, Mcc):
         if CosP <= CosB:
             return True
         return False
+
+def isObtuseAngle(lineA, lineB, lineC):
+    return (lineA**2 + lineB**2) <= lineC**2
 
 def calCos(Max, Base):
     cos = (Max[0]**2 + Max[1]**2 - Base**2) / (2 * Max[0] * Max[1])
@@ -308,7 +311,7 @@ def on_message(client, userdata, msg):
                         Emin = (a, c)
                         diameter = (y, x)
 
-                    if Emin[0]**2 + Emin[1]**2 <= Emax**2:
+                    if isObtuseAngle(Emin[0], Emin[1], Emax):
                         Mcc[diameter] = set([y, x, lampId])  # 3 point in 2-point Mcc
                     else:
                         S = (a + b + c) / 2
