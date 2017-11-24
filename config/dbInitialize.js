@@ -71,6 +71,21 @@ const DataInitialize = async () => {
       mcc_center: [120.218587, 22.999277],
       rule_id: 1
     })
+
+    await Models.apisModel.States.create({
+      'lamp_id': 'TEST01',
+      'lamp_state': 1,
+      'lamp_check_date': '2017-10-20T16:47:03.609Z',
+      'lamp_check_person': '張同學',
+      'state_description': '無回傳訊息',
+      'state_reason': '光感故障'
+    })
+
+    await Models.apisModel.Comments.create({
+      'lamp_id': 'TEST01',
+      'comment_content': 'OMG',
+    })
+
     console.log(`\n\n ${CONFIG['database']} Initialize Data success \n\n`)
   } catch (error) {
     console.log('DATA: ', error)
