@@ -4,7 +4,7 @@ const {matchedData, sanitizeBody} = require('express-validator/filter')
 //
 const crypto = require('crypto')
 const SECRET = global.CONFIG['sha256Secret']
-const BASIC_ATTRIBUTES = ['lamp_id', 'lamp_location', 'lamp_deployed_date', 'place_id']
+const BASIC_ATTRIBUTES = ['lamp_id', 'lamp_location', 'lamp_deployed_date', 'place_id', 'created_at', 'updated_at']
 //
 // Controller Model
 //
