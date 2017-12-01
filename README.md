@@ -44,8 +44,10 @@ Dengue Lamps & Minimal covering circle API
 		- request validation error handling
 	- Add
 		- get counts by hashID (formatByDate)
+		- Return Body when Put Item
 	- Fix
 		- cannot Get lamps By too short wrong hashID
+		- Return 400 when Post with null value
 
 - v0.9.2.2
 	- Add Zapper Front end display
