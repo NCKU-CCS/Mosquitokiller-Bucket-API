@@ -113,9 +113,9 @@ exports.BaseController = class {
   async update (req, res) {
     try {
       const filterRules = this._setIdFilter(req)
-      const updateItem = await this.Model.update(req.body, {where: filterRules})
-      if (updateItem) {
-        res.status(204).json(updateItem)
+      const updateItem = await this.Model.update(req.body, {where: filterRules, returning: true})
+      if (updateItem[0]) {
+        res.status(200).json(updateItem[1][0])
       } else {
         res.status(404).json({error: 'not found'})
       }

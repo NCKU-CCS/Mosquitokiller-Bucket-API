@@ -152,8 +152,22 @@ const Test = (Item, Data) => {
           .send(updateData)
           .end((err, res) => {
             if (err) return done(err)
-            res.should.have.status(204)
+            res.should.have.status(200)
+            res.body.should.have.property(`${itemId}`)
             done()
+          })
+      })
+      it(`${name} data should not be update with id not found`, (done) => {
+        agent
+          .put(`${route}/${name}/0`)
+          .send(updateData)
+          .end((err, res) => {
+            if (err) {
+              res.should.have.status(404)
+              res.should.be.json
+              res.body.should.have.property('error')
+              done()
+            }
           })
       })
     })

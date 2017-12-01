@@ -142,8 +142,19 @@ A single Lamp object with all its details
             "place_id": 1,
          }
 
-+ Response 204
++ Response 200
 
+        {
+            "lamp_id": "TEST01",
+            "lamp_hash_id": "2345",
+            "lamp_location": [120,22],
+            "lamp_deployed_date": "2017-09-26",
+            "lamp_wifi_ssid": "ssid",
+            "lamp_wifi_password": "sspw",
+            "place_id": 1,
+            "created_at": "2017-09-24T11:14:56.044Z",
+            "updated_at": "2017-09-24T11:14:56.044Z"
+        }
 
 ### Delete a Lamp [DELETE]
 
@@ -268,7 +279,17 @@ A single Place object with all its details
             "place_phone": "09xx-xxxxxx",
          }
 
-+ Response 204
++ Response 200
+
+        {
+            "place_id": 1,
+            "place_name": "成大商家",
+            "place_address": "台南市東區大學路1號",
+            "place_contact_person": "林先生",
+            "place_phone": "09xx-xxxxxx",
+            "created_at": "2017-09-24T11:14:56.035Z",
+            "updated_at": "2017-09-24T11:14:56.035Z"
+        }
 
 
 
@@ -616,10 +637,21 @@ A single State object with all its details
             "lamp_check_person": "張同學",
             "state_description": "燈不會亮",
             "state_reason": "捕蚊燈故障，更換捕蚊燈",
-            "state_description": "09xx-xxxxxx",
          }
 
-+ Response 204
++ Response 200
+
+        {
+            "state_id": 1,
+            "lamp_id": "TEST01",
+            "lamp_state": 2,
+            "lamp_check_date": "2017-09-27",
+            "lamp_check_person": "張同學",
+            "state_description": "燈不會亮",
+            "state_reason": "捕蚊燈故障，更換捕蚊燈",
+            "created_at": "2017-09-24T11:14:56.035Z",
+            "updated_at": "2017-09-24T11:14:56.035Z"
+        }
 
 
 ### Delete a State [DELETE]
@@ -827,14 +859,24 @@ A single Rules object with all its details
 
 + Request (application/json)
 
-         {
+        {
             "timeline_upper_limit": 3,
             "distance_lower_limit": 500,
             "points_lower_limit": 10,
-            "updated_at": "2017-09-24T11:14:56.066Z"
-         }
+        }
 
-+ Response 204
++ Response 200
+
+        {
+            "rule_id": 1,
+            "timeline_upper_limit": 3,
+            "distance_lower_limit": 500,
+            "points_lower_limit": 10,
+            "counts_lower_limit": 20,
+            "created_at": "2017-09-24T11:14:56.066Z",
+            "updated_at": "2017-09-24T11:14:56.066Z"
+        }
+
 
 ### Delete a Rules [DELETE]
 
@@ -935,12 +977,17 @@ A single Comments object with all its details
             "comment_content": "我還是不會用",
          }
 
-+ Response 204
++ Response 200
 
+        {
+            "comments_id": 1,
+            "lamp_id": "TEST01",
+            "comment_content": "我還是不會用",
+            "created_at": "2017-09-24T11:14:56.066Z",
+        }
 
 
 
 ### Delete a Comments [DELETE]
 
 + Response 204
-
