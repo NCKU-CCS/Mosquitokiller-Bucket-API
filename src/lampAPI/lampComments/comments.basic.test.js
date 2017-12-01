@@ -5,9 +5,12 @@ const createDataCorrect = {
   comment_content: '我不會用'
 }
 
-const createDataWrong = {
+const createDataWrong = [{
   lamp_id: '9b3814'
-}
+}, {
+  lamp_id: '9b3814',
+  comment_content: null
+}]
 
 const updateData = {
   lamp_id: 'TEST02',

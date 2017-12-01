@@ -45,7 +45,7 @@ Dengue Lamps & Minimal covering circle API
 	- Add
 		- get counts by hashID (formatByDate)
 	- Fix
-		- cannot Get lamps By too short wrong hashID 
+		- cannot Get lamps By too short wrong hashID
 
 - v0.9.2.2
 	- Add Zapper Front end display

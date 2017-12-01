@@ -58,7 +58,21 @@ const Test = (Item, Data) => {
       it(`new ${name} without ${name} name should NOT be create`, (done) => {
         agent
           .post(`${route}/${name}`)
-          .send(createDataWrong)
+          .send(createDataWrong[0])
+          .end((err, res) => {
+            if (err) {
+              res.should.have.status(400)
+              res.should.be.json
+              res.body.should.have.property('errors')
+              done()
+            }
+          })
+      })
+
+      it(`new ${name} with null required value should NOT be create`, (done) => {
+        agent
+          .post(`${route}/${name}`)
+          .send(createDataWrong[1])
           .end((err, res) => {
             if (err) {
               res.should.have.status(400)

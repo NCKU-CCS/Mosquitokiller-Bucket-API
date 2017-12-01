@@ -6,10 +6,13 @@ const createDataCorrect = {
   place_contact_person: '莊先生'
 }
 
-const createDataWrong = {
+const createDataWrong = [{
   place_address: '70100',
   place_contact_person: '莊先生'
-}
+}, {
+  place_name: null,
+  place_address: '70100',
+}]
 
 const updateData = {
   place_name: 'NETDB_2',

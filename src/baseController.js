@@ -30,6 +30,11 @@ exports.BaseController = class {
     this.delete = this.delete.bind(this)
   }
 
+  _notEmpty (value) {
+    if (value) {return true}
+    return false
+  }
+
   _validateRequest (req, res) {
     return new Promise((resolve, reject) => {
       const errors = validationResult(req)

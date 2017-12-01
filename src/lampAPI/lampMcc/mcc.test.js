@@ -7,11 +7,16 @@ const createDataCorrect = {
   rule_id: 1
 }
 
-const createDataWrong = {
+const createDataWrong = [{
   mcc_points: ['TEST01', 'TEST02'],
   mcc_center: [120, 22],
   rule_id: 1
-}
+}, {
+  mcc_keys: ['TEST01', 'TEST02'],
+  mcc_points: ['TEST01', 'TEST02'],
+  mcc_center: [120, 22],
+  rule_id: null
+}]
 
 const updateData = {
   mcc_points: ['TEST09', 'TEST02'],

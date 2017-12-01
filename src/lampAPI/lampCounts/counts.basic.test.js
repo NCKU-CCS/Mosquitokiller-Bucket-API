@@ -5,9 +5,12 @@ const createDataCorrect = {
   counts: 1
 }
 
-const createDataWrong = {
+const createDataWrong = [{
   counts: 1
-}
+}, {
+  lamp_id: 'TEST01',
+  counts: null
+}]
 
 const updateData = {
   lamp_id: 'TEST01',

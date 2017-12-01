@@ -9,8 +9,8 @@ class CountsController extends BaseController {
     super(Model)
 
     this.ValidateCreateKeys = [
-      this.check.body('lamp_id', 'lamp_id illegal').exists(),
-      this.check.body('counts', 'counts illegal').exists()
+      this.check.body('lamp_id', 'lamp_id illegal').exists().custom(this._notEmpty),
+      this.check.body('counts', 'counts illegal').exists().custom(this._notEmpty)
     ]
 
     this.RATE_PERCENT = {

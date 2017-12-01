@@ -6,10 +6,14 @@ const createDataCorrect = {
   place_id: 1
 }
 
-const createDataWrong = {
+const createDataWrong = [{
   lamp_location: [],
   place_id: 1
-}
+}, {
+  lamp_id: null,
+  lamp_location: [120.203778825737, 22.985508992788],
+  place_id: 1
+}]
 
 const updateData = {
   lamp_deployed_date: '2017-09-26',

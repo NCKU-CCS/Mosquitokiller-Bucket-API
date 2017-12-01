@@ -5,10 +5,10 @@ class MccController extends BaseController {
     super(Model)
 
     this.ValidateCreateKeys = [
-      this.check.body('mcc_keys', 'mcc_key illegal').exists(),
-      this.check.body('mcc_points', 'mcc_points illegal').exists(),
-      this.check.body('mcc_center', 'mcc_center illegal').exists(),
-      this.check.body('rule_id', 'rule_id illegal').exists()
+      this.check.body('mcc_keys', 'mcc_key illegal').exists().custom(this._notEmpty),
+      this.check.body('mcc_points', 'mcc_points illegal').exists().custom(this._notEmpty),
+      this.check.body('mcc_center', 'mcc_center illegal').exists().custom(this._notEmpty),
+      this.check.body('rule_id', 'rule_id illegal').exists().custom(this._notEmpty)
     ]
   }
 }

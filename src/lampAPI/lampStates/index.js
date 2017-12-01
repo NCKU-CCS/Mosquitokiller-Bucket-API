@@ -5,8 +5,8 @@ class StatesController extends BaseController {
     super(Model)
 
     this.ValidateCreateKeys = [
-      this.check.body('lamp_id', 'lamp_id illegal').exists(),
-      this.check.body('lamp_state', 'lamp_states illegal').exists()
+      this.check.body('lamp_id', 'lamp_id illegal').exists().custom(this._notEmpty),
+      this.check.body('lamp_state', 'lamp_states illegal').exists().custom(this._notEmpty)
     ]
   }
 }

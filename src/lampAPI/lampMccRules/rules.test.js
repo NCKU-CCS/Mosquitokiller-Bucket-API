@@ -7,11 +7,16 @@ const createDataCorrect = {
   counts_lower_limit: 50
 }
 
-const createDataWrong = {
+const createDataWrong = [{
   timeline_upper_limit: 3,
   distance_lower_limit: 500,
   points_lower_limit: 5
-}
+}, {
+  timeline_upper_limit: null,
+  distance_lower_limit: 500,
+  points_lower_limit: 5,
+  counts_lower_limit: 50
+}]
 
 const updateData = {
   timeline_upper_limit: 2,
