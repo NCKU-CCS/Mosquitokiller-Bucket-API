@@ -12,10 +12,10 @@ const loginAuth = (agent, next) => {
   return agent
     .post('/login')
     .set('content-type', 'application/x-www-form-urlencoded')
-    .send({'email': 'oceanus11034@gmail.com', 'password': 'test11034'})
+    .send({ email: 'oceanus11034@gmail.com', password: 'test11034' })
     .end((err, res) => {
       if (err) next(err)
-      agent.get('/login').then((res) => {
+      agent.get('/login').then(res => {
         res.should.have.status(200)
         next()
       })
@@ -26,9 +26,9 @@ const Test = (Item, Data) => {
   const name = Item.name
   const itemId = Item.id
   const route = Item.route || '/apis'
-  const {createDataCorrect, createDataWrong, updateData} = Data
+  const { createDataCorrect, createDataWrong, updateData } = Data
 
-  before((done) => {
+  before(done => {
     loginAuth(agent, () => {
       done()
     })
@@ -40,7 +40,7 @@ const Test = (Item, Data) => {
     // Create New Item
     // =========================
     describe(`/POST ${name} -- `, () => {
-      it(`new ${name} data should be create`, (done) => {
+      it(`new ${name} data should be create`, done => {
         agent
           .post(`${route}/${name}`)
           .send(createDataCorrect)
@@ -55,7 +55,7 @@ const Test = (Item, Data) => {
           })
       })
 
-      it(`new ${name} without ${name} name should NOT be create`, (done) => {
+      it(`new ${name} without ${name} name should NOT be create`, done => {
         agent
           .post(`${route}/${name}`)
           .send(createDataWrong[0])
@@ -69,7 +69,7 @@ const Test = (Item, Data) => {
           })
       })
 
-      it(`new ${name} with null required value should NOT be create`, (done) => {
+      it(`new ${name} with null required value should NOT be create`, done => {
         agent
           .post(`${route}/${name}`)
           .send(createDataWrong[1])
@@ -88,16 +88,14 @@ const Test = (Item, Data) => {
     // Get All Item
     // =========================
     describe(`/Get All ${name} -- `, () => {
-      it(`should return all ${name}`, (done) => {
-        agent
-          .get(`${route}/${name}`)
-          .end((err, res) => {
-            if (err) return done(err)
-            res.should.have.status(200)
-            res.should.be.json
-            res.body.should.be.an('array')
-            done()
-          })
+      it(`should return all ${name}`, done => {
+        agent.get(`${route}/${name}`).end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(200)
+          res.should.be.json
+          res.body.should.be.an('array')
+          done()
+        })
       })
     })
 
@@ -105,39 +103,33 @@ const Test = (Item, Data) => {
     // Get Item By ID
     // =========================
     describe(`/Get ${name} By ID -- `, () => {
-      it(`should return single ${name} With Correct ID`, (done) => {
-        agent
-          .get(`${route}/${name}/${ID}`)
-          .end((err, res) => {
-            if (err) return done(err)
-            res.should.have.status(200)
-            res.should.be.json
-            res.body.should.have.property(`${itemId}`)
-            done()
-          })
-      })
-      it('should Not return single ${name} With Wrong ID', (done) => {
-        const ID = 0
-        agent
-          .get(`${route}/${name}/${ID}`)
-          .end((err, res) => {
-            if (err) {
-              res.should.have.status(404)
-              res.should.be.json
-              done()
-            }
+      it(`should return single ${name} With Correct ID`, done => {
+        agent.get(`${route}/${name}/${ID}`).end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(200)
+          res.should.be.json
+          res.body.should.have.property(`${itemId}`)
+          done()
         })
       })
-      it('should Not return single ${name} With NaN ID', (done) => {
+      it('should Not return single ${name} With Wrong ID', done => {
+        const ID = 0
+        agent.get(`${route}/${name}/${ID}`).end((err, res) => {
+          if (err) {
+            res.should.have.status(404)
+            res.should.be.json
+            done()
+          }
+        })
+      })
+      it('should Not return single ${name} With NaN ID', done => {
         const ID = 'e'
-        agent
-          .get(`${route}/${name}/${ID}`)
-          .end((err, res) => {
-            if (err) {
-              res.should.have.status(404)
-              res.should.be.json
-              done()
-            }
+        agent.get(`${route}/${name}/${ID}`).end((err, res) => {
+          if (err) {
+            res.should.have.status(404)
+            res.should.be.json
+            done()
+          }
         })
       })
     })
@@ -146,29 +138,23 @@ const Test = (Item, Data) => {
     // Update A Item
     // =========================
     describe(`/Put ${name} -- `, () => {
-      it(`${name} data should be update`, (done) => {
-        agent
-          .put(`${route}/${name}/${ID}`)
-          .send(updateData)
-          .end((err, res) => {
-            if (err) return done(err)
-            res.should.have.status(200)
-            res.body.should.have.property(`${itemId}`)
-            done()
-          })
+      it(`${name} data should be update`, done => {
+        agent.put(`${route}/${name}/${ID}`).send(updateData).end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(200)
+          res.body.should.have.property(`${itemId}`)
+          done()
+        })
       })
-      it(`${name} data should not be update with id not found`, (done) => {
-        agent
-          .put(`${route}/${name}/0`)
-          .send(updateData)
-          .end((err, res) => {
-            if (err) {
-              res.should.have.status(404)
-              res.should.be.json
-              res.body.should.have.property('error')
-              done()
-            }
-          })
+      it(`${name} data should not be update with id not found`, done => {
+        agent.put(`${route}/${name}/0`).send(updateData).end((err, res) => {
+          if (err) {
+            res.should.have.status(404)
+            res.should.be.json
+            res.body.should.have.property('error')
+            done()
+          }
+        })
       })
     })
 
@@ -176,14 +162,12 @@ const Test = (Item, Data) => {
     // Remove A Item
     // =========================
     describe(`/Delete ${name} -- `, () => {
-      it(`${name} data should be delete`, (done) => {
-        agent
-          .delete(`${route}/${name}/${ID}`)
-          .end((err, res) => {
-            if (err) return done(err)
-            res.should.have.status(204)
-            done()
-          })
+      it(`${name} data should be delete`, done => {
+        agent.delete(`${route}/${name}/${ID}`).end((err, res) => {
+          if (err) return done(err)
+          res.should.have.status(204)
+          done()
+        })
       })
     })
   })

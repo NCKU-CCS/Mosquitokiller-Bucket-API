@@ -83,7 +83,7 @@ const DataInitialize = async () => {
 
     await Models.apisModel.Comments.create({
       'lamp_id': 'TEST01',
-      'comment_content': 'OMG',
+      'comment_content': 'OMG'
     })
 
     console.log(`\n\n ${CONFIG['database']} Initialize Data success \n\n`)

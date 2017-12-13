@@ -61,12 +61,12 @@ class UsersController extends BaseController {
   }
 
   // check email is valid
-  async findUserByEmail (email) {
-    return await this.Model.findOne({where: {'email': email}})
+  findUserByEmail (email) {
+    return this.Model.findOne({where: {'email': email}})
   }
   // check user is valid
-  async findUserByID (id) {
-    return await this.Model.findById(id)
+  findUserByID (id) {
+    return this.Model.findById(id)
   }
 }
 

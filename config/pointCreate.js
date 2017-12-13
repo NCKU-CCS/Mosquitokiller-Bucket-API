@@ -5,54 +5,54 @@
 
 const Data = [
   {
-    "lamp_id": "1710331-1",
-    "place_name": "SAMPLE",
-    "place_address": "SAMPLE2",
-    "place_phone": "0932-826-017",
-    "place_contact_person": ""
+    lamp_id: '1710331-1',
+    place_name: 'SAMPLE',
+    place_address: 'SAMPLE2',
+    place_phone: '0932-826-017',
+    place_contact_person: ''
   },
   {
-    "lamp_id": "1710331-2",
-    "place_name": "SAMPLE",
-    "place_address": "SAMPLE2",
-    "place_phone": "06-2200819",
-    "place_contact_person": ""
+    lamp_id: '1710331-2',
+    place_name: 'SAMPLE',
+    place_address: 'SAMPLE2',
+    place_phone: '06-2200819',
+    place_contact_person: ''
   }
 ]
 
 const URL = 'http://localhost:3001'
 // const URL = 'https://mosquitokiller.csie.ncku.edu.tw'
 const APIkey = '<KEY>'
-const getGeoUrl = (address) => {
+const getGeoUrl = address => {
   return `https://maps.googleapis.com/maps/api/geocode/json?key=${APIkey}&address=${address}`
 }
 
-const postData = async(items, data) => {
-  return await fetch(`${URL}/apis/${items}`, {
+const postData = (items, data) => {
+  return fetch(`${URL}/apis/${items}`, {
     method: 'POST',
     credentials: 'include',
     headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json; charset=utf-8"
+      Accept: 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
     },
-    body: JSON.stringify(data),
-  }).then((data) => data.json())
+    body: JSON.stringify(data)
+  }).then(data => data.json())
 }
 
-const createPlace = async(placeData) => {
-  return await postData('places', placeData)
+const createPlace = placeData => {
+  return postData('places', placeData)
 }
 
-const createLamp = async(lampData) => {
-  return await postData('lamps', lampData)
+const createLamp = async lampData => {
+  return postData('lamps', lampData)
 }
 
-const getLocationByAddress = async(address) => {
+const getLocationByAddress = async address => {
   const data = await fetch(encodeURI(getGeoUrl(address)), {
     headers: {
-      "Accept": "application/json",
+      Accept: 'application/json'
     }
-  }).then((data) => data.json())
+  }).then(data => data.json())
   if (data.status === 'OK') {
     return data.results[0].geometry.location
   } else {
@@ -62,8 +62,7 @@ const getLocationByAddress = async(address) => {
 
 // Insert New Lamp & Place
 
-Data.map( async (lamp) => {
-
+Data.map(async lamp => {
   const placeData = {
     place_name: lamp.place_name,
     place_address: lamp.place_address,
@@ -76,13 +75,11 @@ Data.map( async (lamp) => {
   const place_id = newPlace.place_id
   const location = await getLocationByAddress(newPlace.place_address)
   const lampData = {
-    "lamp_id": lamp.lamp_id,
-    "lamp_location": [location.lng, location.lat],
-    "place_id": place_id
+    lamp_id: lamp.lamp_id,
+    lamp_location: [location.lng, location.lat],
+    place_id: place_id
   }
 
   const newLamp = await createLamp(lampData)
   console.log(newLamp)
-
-  return
-}, this);
+}, this)

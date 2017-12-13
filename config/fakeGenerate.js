@@ -9,7 +9,6 @@ const Events = require('./fakeData.json')
 // import Models
 const Models = require('../src')
 
-
 const DataImport = async () => {
   try {
     // for (let i = 1; i<=50; j++) {

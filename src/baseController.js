@@ -31,7 +31,7 @@ exports.BaseController = class {
   }
 
   _notEmpty (value) {
-    if (value) {return true}
+    if (value) { return true }
     return false
   }
 

@@ -18,30 +18,27 @@ describe(`Lamps Supports -- `, () => {
   // =========================
   const ID = '9b3814'
   describe(`/Get ${name} By Hash ID Should success-- `, () => {
-    it(`should return single ${name} With Correct ID`, (done) => {
-      agent
-        .get(`${route}/${name}/${ID}?key=hash`)
-        .end((err, res) => {
-          if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property(`${itemId}`)
-          done()
-        })
+    it(`should return single ${name} With Correct ID`, done => {
+      agent.get(`${route}/${name}/${ID}?key=hash`).end((err, res) => {
+        if (err) return done(err)
+        res.should.have.status(200)
+        res.should.be.json
+        res.body.should.have.property(`${itemId}`)
+        done()
+      })
     })
   })
+
   describe(`/Get ${name} By Wrong Hash ID Should Not success-- `, () => {
-    it(`should return single ${name} With too short ID`, (done) => {
-      agent
-        .get(`${route}/${name}/9?key=hash`)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(404)
-            res.should.be.json
-            res.body.should.have.property(`error`)
-            done()
-          }
-        })
+    it(`should return single ${name} With too short ID`, done => {
+      agent.get(`${route}/${name}/9?key=hash`).end((err, res) => {
+        if (err) {
+          res.should.have.status(404)
+          res.should.be.json
+          res.body.should.have.property(`error`)
+          done()
+        }
+      })
     })
   })
 })
