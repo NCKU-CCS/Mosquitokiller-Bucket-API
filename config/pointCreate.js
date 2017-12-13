@@ -61,8 +61,8 @@ const getLocationByAddress = async address => {
 }
 
 // Insert New Lamp & Place
-
-Data.map(async lamp => {
+const createPoint = async lamp => {
+  // create new place
   const placeData = {
     place_name: lamp.place_name,
     place_address: lamp.place_address,
@@ -72,6 +72,7 @@ Data.map(async lamp => {
   const newPlace = await createPlace(placeData)
   console.log(newPlace)
 
+  // create new lamp
   const place_id = newPlace.place_id
   const location = await getLocationByAddress(newPlace.place_address)
   const lampData = {
@@ -82,4 +83,12 @@ Data.map(async lamp => {
 
   const newLamp = await createLamp(lampData)
   console.log(newLamp)
-}, this)
+}
+
+const createAllPoints = async Data => {
+  const newPointsArray = Data.map(lamp => createPoint(lamp))
+  return Promise.all(newPointsArray)
+}
+
+// Main
+createAllPoints(Data)
