@@ -31,8 +31,13 @@ exports.BaseController = class {
   }
 
   _notEmpty (value) {
-    if (value) { return true }
-    return false
+    if (value && Array.isArray(value)) {
+      return !value.includes('')
+    } else if (value) {
+      return true
+    } else {
+      return false
+    }
   }
 
   _validateRequest (req, res) {

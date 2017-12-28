@@ -12,6 +12,12 @@ const name = 'lamps'
 const itemId = 'lamp_id'
 const route = '/apis'
 
+const createDataWrong = {
+  lamp_id: Math.random().toString(),
+  lamp_location: [120.203778825737, ''],
+  place_id: 1
+}
+
 describe(`Lamps Supports -- `, () => {
   // =========================
   // Get Item By ID
@@ -39,6 +45,22 @@ describe(`Lamps Supports -- `, () => {
           done()
         }
       })
+    })
+  })
+
+  describe(`/POST ${name} -- `, () => {
+    it(`post location array with empty string should NOT be create`, done => {
+      agent
+        .post(`${route}/${name}`)
+        .send(createDataWrong)
+        .end((err, res) => {
+          if (err) {
+            res.should.have.status(400)
+            res.should.be.json
+            res.body.should.have.property('errors')
+            done()
+          }
+        })
     })
   })
 })
