@@ -63,27 +63,31 @@ describe(`${name} -- `, () => {
       done()
     })
   })
+
+  const checkUserPostError = (done, body) => {
+    checkPostError({agent, done}, `${route}/${name}`, body)
+  }
   // =========================
   // Create New Item
   // =========================
   describe(`/POST ${name} -- `, () => {
     it(`new ${name} with bad email should NOT be create`, (done) => {
-      checkPostError({agent, done}, `${route}/${name}`, createDataWrongEmail)
+      checkUserPostError(done, createDataWrongEmail)
     })
     it(`new ${name} with exist email should NOT be create`, (done) => {
-      checkPostError({agent, done}, `${route}/${name}`, createDataExistEmail)
+      checkUserPostError(done, createDataExistEmail)
     })
     it(`new ${name} with exist id should NOT be create`, (done) => {
-      checkPostError({agent, done}, `${route}/${name}`, createDataExistID)
+      checkUserPostError(done, createDataExistID)
     })
     it(`new ${name} with <8 length pw should NOT be create`, (done) => {
-      checkPostError({agent, done}, `${route}/${name}`, createDataWrongPwShort)
+      checkUserPostError(done, createDataWrongPwShort)
     })
     it(`new ${name} with full eng pw should NOT be create`, (done) => {
-      checkPostError({agent, done}, `${route}/${name}`, createDataWrongPwOnlyEng)
+      checkUserPostError(done, createDataWrongPwOnlyEng)
     })
     it(`new ${name} with full num should NOT be create`, (done) => {
-      checkPostError({agent, done}, `${route}/${name}`, createDataWrongPwOnlyNum)
+      checkUserPostError(done, createDataWrongPwOnlyNum)
     })
   })
 })

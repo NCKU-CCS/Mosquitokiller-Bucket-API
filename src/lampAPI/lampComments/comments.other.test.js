@@ -59,17 +59,7 @@ describe(`Comments Supports -- `, () => {
   })
   describe(`/Post ${name} By Wrong hash ID Should Not success-- `, () => {
     it(`should return single ${name} With Correct ID`, (done) => {
-      agent
-        .post(`${route}/${name}`)
-        .send(createDataWrongHashID)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(404)
-            res.should.be.json
-            res.body.should.have.property('error')
-            done()
-          }
-        })
+      checkPostError({agent, done}, `${route}/${name}`, createDataWrongHashID, 404)
     })
   })
 })

@@ -36,13 +36,13 @@ module.exports = {
       }
     })
   },
-  checkPostError: (tester, checkRoute, body) => {
+  checkPostError: (tester, checkRoute, body, status = 400) => {
     tester.agent
     .post(checkRoute)
     .send(body)
     .end((err, res) => {
       if (err) {
-        res.should.have.status(400)
+        res.should.have.status(status)
         res.should.be.json
         res.body.should.have.property('error')
         tester.done()
