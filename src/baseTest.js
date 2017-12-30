@@ -1,5 +1,7 @@
 process.env.NODE_ENV = 'test'
 
+const Agent = require('./testAgent')
+
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let should = chai.should()
@@ -22,45 +24,9 @@ const loginAuth = (agent, next) => {
     })
 }
 
-const checkGetSuccess = (done, checkRoute, checkID, isArray = false) => {
-  agent.get(checkRoute).end((err, res) => {
-    if (err) return done(err)
-    res.should.have.status(200)
-    res.should.be.json
-    if (isArray) {
-      res.body.should.be.an('array')
-      res.body[0].should.have.property(checkID)
-    } else {
-      res.body.should.have.property(checkID)
-    }
-    done()
-  })
-}
-
-const checkGetError = (done, checkRoute, status) => {
-  agent.get(checkRoute).end((err, res) => {
-    if (err) {
-      res.should.have.status(status)
-      res.should.be.json
-      res.body.should.have.property('error')
-      done()
-    }
-  })
-}
-
-const checkPostError = (done, checkRoute, body) => {
-  agent
-  .post(checkRoute)
-  .send(body)
-  .end((err, res) => {
-    if (err) {
-      res.should.have.status(400)
-      res.should.be.json
-      res.body.should.have.property('errors')
-      done()
-    }
-  })
-}
+const checkGetSuccess = Agent.checkGetSuccess
+const checkGetError = Agent.checkGetError
+const checkPostError = Agent.checkPostError
 
 const Test = (Item, Data) => {
   const name = Item.name
@@ -96,11 +62,11 @@ const Test = (Item, Data) => {
       })
 
       it(`new ${name} without ${name} name should NOT be create`, done => {
-        checkPostError(done, `${route}/${name}`, createDataWrong[0])
+        checkPostError({agent, done}, `${route}/${name}`, createDataWrong[0])
       })
 
       it(`new ${name} with null required value should NOT be create`, done => {
-        checkPostError(done, `${route}/${name}`, createDataWrong[1])
+        checkPostError({agent, done}, `${route}/${name}`, createDataWrong[1])
       })
     })
 
@@ -109,7 +75,7 @@ const Test = (Item, Data) => {
     // =========================
     describe(`/Get All ${name} -- `, () => {  
       it(`should return all ${name}`, done => {
-        checkGetSuccess(done, `${route}/${name}`, itemId, true)
+        checkGetSuccess({agent, done}, `${route}/${name}`, itemId, true)
       })
     })
 
@@ -118,15 +84,15 @@ const Test = (Item, Data) => {
     // =========================
     describe(`/Get ${name} By ID -- `, () => {
       it(`should return single ${name} With Correct ID`, done => {
-        checkGetSuccess(done, `${route}/${name}/${ID}`, itemId)
+        checkGetSuccess({agent, done}, `${route}/${name}/${ID}`, itemId)
       })
       it('should Not return single ${name} With Wrong ID', done => {
         const ID = 0
-        checkGetError(done, `${route}/${name}/${ID}`, 404)
+        checkGetError({agent, done}, `${route}/${name}/${ID}`, 404)
       })
       it('should Not return single ${name} With NaN ID', done => {
         const ID = 'e'
-        checkGetError(done, `${route}/${name}/${ID}`, 404)
+        checkGetError({agent, done}, `${route}/${name}/${ID}`, 404)
       })
     })
 

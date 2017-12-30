@@ -1,9 +1,10 @@
 process.env.NODE_ENV = 'test'
+const Agent = require('../../testAgent')
 
-let chai = require('chai')
-let chaiHttp = require('chai-http')
-let should = chai.should()
-let server = require('../../../app')
+const chai = require('chai')
+const chaiHttp = require('chai-http')
+const should = chai.should()
+const server = require('../../../app')
 
 chai.use(chaiHttp)
 const agent = chai.request.agent(server)
@@ -18,6 +19,10 @@ const createDataWrong = {
   place_id: 1
 }
 
+const checkGetSuccess = Agent.checkGetSuccess
+const checkGetError = Agent.checkGetError
+const checkPostError = Agent.checkPostError
+
 describe(`Lamps Supports -- `, () => {
   // =========================
   // Get Item By ID
@@ -25,42 +30,21 @@ describe(`Lamps Supports -- `, () => {
   const ID = '9b3814'
   describe(`/Get ${name} By Hash ID Should success-- `, () => {
     it(`should return single ${name} With Correct ID`, done => {
-      agent.get(`${route}/${name}/${ID}?key=hash`).end((err, res) => {
-        if (err) return done(err)
-        res.should.have.status(200)
-        res.should.be.json
-        res.body.should.have.property(`${itemId}`)
-        done()
-      })
+      checkGetSuccess({agent, done}, `${route}/${name}/${ID}?key=hash`, itemId)
     })
   })
 
   describe(`/Get ${name} By Wrong Hash ID Should Not success-- `, () => {
     it(`should return single ${name} With too short ID`, done => {
-      agent.get(`${route}/${name}/9?key=hash`).end((err, res) => {
-        if (err) {
-          res.should.have.status(404)
-          res.should.be.json
-          res.body.should.have.property(`error`)
-          done()
-        }
-      })
+      checkGetError({agent, done}, `${route}/${name}/9?key=hash`, 404)
     })
   })
-
+  // =========================
+  // Post Item
+  // =========================
   describe(`/POST ${name} -- `, () => {
     it(`post location array with empty string should NOT be create`, done => {
-      agent
-        .post(`${route}/${name}`)
-        .send(createDataWrong)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(400)
-            res.should.be.json
-            res.body.should.have.property('errors')
-            done()
-          }
-        })
+      checkPostError({agent, done}, `${route}/${name}`, createDataWrong)
     })
   })
 })
