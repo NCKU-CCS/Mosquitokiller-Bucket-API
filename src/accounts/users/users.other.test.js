@@ -1,13 +1,19 @@
 process.env.NODE_ENV = 'test'
 
-let chai = require('chai')
-let chaiHttp = require('chai-http')
-let should = chai.should()
-let server = require(`${global.ROOT_PATH}/app`)
+const Agent = require('../../testAgent')
+const chai = require('chai')
+const chaiHttp = require('chai-http')
+const should = chai.should()
+const server = require(`${global.ROOT_PATH}/app`)
 
 chai.use(chaiHttp)
 const agent = chai.request.agent(server)
 
+const checkPostError = Agent.checkPostError
+
+//
+// Test Data
+//
 const name = 'users'
 const route = '/accounts'
 
@@ -75,82 +81,22 @@ describe(`${name} -- `, () => {
   // =========================
   describe(`/POST ${name} -- `, () => {
     it(`new ${name} with bad email should NOT be create`, (done) => {
-      agent
-        .post(`${route}/${name}`)
-        .send(createDataWrongEmail)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(400)
-            res.should.be.json
-            res.body.should.have.property('errors')
-            done()
-          }
-        })
+      checkPostError({agent, done}, `${route}/${name}`, createDataWrongEmail)
     })
     it(`new ${name} with exist email should NOT be create`, (done) => {
-      agent
-        .post(`${route}/${name}`)
-        .send(createDataExistEmail)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(400)
-            res.should.be.json
-            res.body.should.have.property('errors')
-            done()
-          }
-        })
+      checkPostError({agent, done}, `${route}/${name}`, createDataExistEmail)
     })
     it(`new ${name} with exist id should NOT be create`, (done) => {
-      agent
-        .post(`${route}/${name}`)
-        .send(createDataExistID)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(400)
-            res.should.be.json
-            res.body.should.have.property('errors')
-            done()
-          }
-        })
+      checkPostError({agent, done}, `${route}/${name}`, createDataExistID)
     })
     it(`new ${name} with <8 length pw should NOT be create`, (done) => {
-      agent
-        .post(`${route}/${name}`)
-        .send(createDataWrongPwShort)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(400)
-            res.should.be.json
-            res.body.should.have.property('errors')
-            done()
-          }
-        })
+      checkPostError({agent, done}, `${route}/${name}`, createDataWrongPwShort)
     })
     it(`new ${name} with full eng pw should NOT be create`, (done) => {
-      agent
-        .post(`${route}/${name}`)
-        .send(createDataWrongPwOnlyEng)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(400)
-            res.should.be.json
-            res.body.should.have.property('errors')
-            done()
-          }
-        })
+      checkPostError({agent, done}, `${route}/${name}`, createDataWrongPwOnlyEng)
     })
     it(`new ${name} with full num should NOT be create`, (done) => {
-      agent
-        .post(`${route}/${name}`)
-        .send(createDataWrongPwOnlyNum)
-        .end((err, res) => {
-          if (err) {
-            res.should.have.status(400)
-            res.should.be.json
-            res.body.should.have.property('errors')
-            done()
-          }
-        })
+      checkPostError({agent, done}, `${route}/${name}`, createDataWrongPwOnlyNum)
     })
   })
 })
