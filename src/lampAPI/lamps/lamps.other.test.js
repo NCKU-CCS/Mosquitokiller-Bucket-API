@@ -22,11 +22,17 @@ const createDataWrong = {
   place_id: 1
 }
 
+const loginAuth = Agent.loginAuth
 const checkGetSuccess = Agent.checkGetSuccess
 const checkGetError = Agent.checkGetError
 const checkPostError = Agent.checkPostError
 
 describe(`Lamps Supports -- `, () => {
+  before(done => {
+    loginAuth(agent, () => {
+      done()
+    })
+  })
   // =========================
   // Get Item By ID
   // =========================

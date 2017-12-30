@@ -32,7 +32,6 @@ exports.BaseController = class {
 
   _notEmpty (value) {
     if (value && Array.isArray(value)) {
-      console.log(value)
       return !value.includes('')
     } else if (value) {
       return true
