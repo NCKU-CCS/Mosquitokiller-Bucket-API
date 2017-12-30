@@ -10,20 +10,7 @@ let server = require('../app')
 chai.use(chaiHttp)
 const agent = chai.request.agent(server)
 
-const loginAuth = (agent, next) => {
-  return agent
-    .post('/login')
-    .set('content-type', 'application/x-www-form-urlencoded')
-    .send({ email: 'oceanus11034@gmail.com', password: 'test11034' })
-    .end((err, res) => {
-      if (err) next(err)
-      agent.get('/login').then(res => {
-        res.should.have.status(200)
-        next()
-      })
-    })
-}
-
+const loginAuth = Agent.loginAuth
 const checkGetSuccess = Agent.checkGetSuccess
 const checkGetError = Agent.checkGetError
 const checkPostError = Agent.checkPostError

@@ -9,6 +9,7 @@ const server = require(`${global.ROOT_PATH}/app`)
 chai.use(chaiHttp)
 const agent = chai.request.agent(server)
 
+const loginAuth = Agent.loginAuth
 const checkPostError = Agent.checkPostError
 
 //
@@ -51,20 +52,6 @@ const createDataWrongPwOnlyNum = {
   user_id: 'tester',
   email: 'oceanus@gmail.com',
   password: '123213133233'
-}
-
-const loginAuth = (agent, next) => {
-  return agent
-    .post('/login')
-    .set('content-type', 'application/x-www-form-urlencoded')
-    .send({'email': 'oceanus11034@gmail.com', 'password': 'test11034'})
-    .end((err, res) => {
-      if (err) next(err)
-      agent.get('/login').then((res) => {
-        res.should.have.status(200)
-        next()
-      })
-    })
 }
 
 describe(`${name} -- `, () => {

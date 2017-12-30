@@ -32,7 +32,7 @@ describe(`Lamps Supports -- `, () => {
   // =========================
   const ID = '9b3814'
   describe(`/Get ${name} By Hash ID Should success-- `, () => {
-    it(`should return single ${name} With Correct ID`, done => {
+    it(`should return single ${name} With Correct Hash ID & key parameter`, done => {
       checkGetSuccess({agent, done}, `${route}/${name}/${ID}?key=hash`, itemId)
     })
   })
