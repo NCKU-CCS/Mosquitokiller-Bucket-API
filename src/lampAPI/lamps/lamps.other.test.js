@@ -9,6 +9,9 @@ const server = require('../../../app')
 chai.use(chaiHttp)
 const agent = chai.request.agent(server)
 
+//
+// Test Data
+//
 const name = 'lamps'
 const itemId = 'lamp_id'
 const route = '/apis'
