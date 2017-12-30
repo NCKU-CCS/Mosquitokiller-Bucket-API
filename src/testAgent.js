@@ -44,7 +44,7 @@ module.exports = {
       if (err) {
         res.should.have.status(400)
         res.should.be.json
-        res.body.should.have.property('errors')
+        res.body.should.have.property('error')
         tester.done()
       }
     })
