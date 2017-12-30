@@ -46,6 +46,8 @@ module.exports = {
         res.should.be.json
         res.body.should.have.property('errors')
         tester.done()
+      } else {
+        console.log(res)
       }
     })
   }

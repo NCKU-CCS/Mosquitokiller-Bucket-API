@@ -8,7 +8,7 @@
   "scripts": {
     "start": "NODE_ENV=dev && node ./bin/www",
     "test": "snyk test && mocha src/**/*.test.js --timeout 3000 --recursive",
-    "travisTest": "mocha src/**/*.test.js --timeout 3000 --recursive",
+    "travisTest": "mocha src/lampAPI/lamps/*.test.js --timeout 3000 --recursive",
     "prod": "NODE_ENV=production && node ./bin/www",
     "doc": "aglio --theme-variables streak  -i api.apib --theme-template triple -o index.html",
     "cover": "istanbul cover _mocha src/**/*.test.js --recursive",
