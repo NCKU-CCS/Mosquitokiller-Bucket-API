@@ -21,7 +21,7 @@ const checkSuccess = (done, checkRoute, checkID = null) => {
     res.should.have.status(200)
     res.should.be.json
     if (checkID) {
-      res.body[0].should.have.property('count_id')
+      res.body[0].should.have.property(checkID)
     }
     done()
   })
@@ -45,15 +45,15 @@ describe(`counts Supports -- `, () => {
   describe(`/Get ${name} Should success-- `, () => {
     it(`should return ${name} With lampHashID=hashID`, done => {
       const checkRoute = `${route}/${name}?lampHashID=${HASH_ID}`
-      checkSuccess(done, checkRoute, (checkID = true))
+      checkSuccess(done, checkRoute, (checkID = 'count_id'))
     })
     it(`should return ${name} With limit=7`, done => {
       const checkRoute = `${route}/${name}?limit=7`
-      checkSuccess(done, checkRoute, (checkID = true))
+      checkSuccess(done, checkRoute, (checkID = 'count_id'))
     })
     it(`should return ${name} With lampHashID & limit=7`, done => {
       const checkRoute = `${route}/${name}?lampHashID=${HASH_ID}&limit=7`
-      checkSuccess(done, checkRoute, (checkID = true))
+      checkSuccess(done, checkRoute, (checkID = 'count_id'))
     })
     it(`should return sum of all lamp ${name} With formatBy=hour & no lampID`, done => {
       const checkRoute = `${route}/${name}?formatBy=hour`

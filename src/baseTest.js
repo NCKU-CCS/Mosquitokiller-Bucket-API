@@ -22,6 +22,46 @@ const loginAuth = (agent, next) => {
     })
 }
 
+const checkGetSuccess = (done, checkRoute, checkID, isArray = false) => {
+  agent.get(checkRoute).end((err, res) => {
+    if (err) return done(err)
+    res.should.have.status(200)
+    res.should.be.json
+    if (isArray) {
+      res.body.should.be.an('array')
+      res.body[0].should.have.property(checkID)
+    } else {
+      res.body.should.have.property(checkID)
+    }
+    done()
+  })
+}
+
+const checkGetError = (done, checkRoute, status) => {
+  agent.get(checkRoute).end((err, res) => {
+    if (err) {
+      res.should.have.status(status)
+      res.should.be.json
+      res.body.should.have.property('error')
+      done()
+    }
+  })
+}
+
+const checkPostError = (done, checkRoute, body) => {
+  agent
+  .post(checkRoute)
+  .send(body)
+  .end((err, res) => {
+    if (err) {
+      res.should.have.status(400)
+      res.should.be.json
+      res.body.should.have.property('errors')
+      done()
+    }
+  })
+}
+
 const Test = (Item, Data) => {
   const name = Item.name
   const itemId = Item.id
@@ -56,46 +96,20 @@ const Test = (Item, Data) => {
       })
 
       it(`new ${name} without ${name} name should NOT be create`, done => {
-        agent
-          .post(`${route}/${name}`)
-          .send(createDataWrong[0])
-          .end((err, res) => {
-            if (err) {
-              res.should.have.status(400)
-              res.should.be.json
-              res.body.should.have.property('errors')
-              done()
-            }
-          })
+        checkPostError(done, `${route}/${name}`, createDataWrong[0])
       })
 
       it(`new ${name} with null required value should NOT be create`, done => {
-        agent
-          .post(`${route}/${name}`)
-          .send(createDataWrong[1])
-          .end((err, res) => {
-            if (err) {
-              res.should.have.status(400)
-              res.should.be.json
-              res.body.should.have.property('errors')
-              done()
-            }
-          })
+        checkPostError(done, `${route}/${name}`, createDataWrong[1])
       })
     })
 
     // =========================
     // Get All Item
     // =========================
-    describe(`/Get All ${name} -- `, () => {
+    describe(`/Get All ${name} -- `, () => {  
       it(`should return all ${name}`, done => {
-        agent.get(`${route}/${name}`).end((err, res) => {
-          if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.be.an('array')
-          done()
-        })
+        checkGetSuccess(done, `${route}/${name}`, itemId, true)
       })
     })
 
@@ -104,33 +118,15 @@ const Test = (Item, Data) => {
     // =========================
     describe(`/Get ${name} By ID -- `, () => {
       it(`should return single ${name} With Correct ID`, done => {
-        agent.get(`${route}/${name}/${ID}`).end((err, res) => {
-          if (err) return done(err)
-          res.should.have.status(200)
-          res.should.be.json
-          res.body.should.have.property(`${itemId}`)
-          done()
-        })
+        checkGetSuccess(done, `${route}/${name}/${ID}`, itemId)
       })
       it('should Not return single ${name} With Wrong ID', done => {
         const ID = 0
-        agent.get(`${route}/${name}/${ID}`).end((err, res) => {
-          if (err) {
-            res.should.have.status(404)
-            res.should.be.json
-            done()
-          }
-        })
+        checkGetError(done, `${route}/${name}/${ID}`, 404)
       })
       it('should Not return single ${name} With NaN ID', done => {
         const ID = 'e'
-        agent.get(`${route}/${name}/${ID}`).end((err, res) => {
-          if (err) {
-            res.should.have.status(404)
-            res.should.be.json
-            done()
-          }
-        })
+        checkGetError(done, `${route}/${name}/${ID}`, 404)
       })
     })
 
