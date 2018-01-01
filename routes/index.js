@@ -10,6 +10,11 @@ module.exports = (app, passport) => {
     })
   })
 
+  app.get('/logout', (req, res) => {
+    req.logout()
+    res.redirect('/login')
+  })
+
   app.post('/login', passport.authenticate('local-login', {
     successRedirect: '/',
     failureRedirect: '/login',
