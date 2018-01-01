@@ -26,6 +26,11 @@ const createDataWrong = [
     lamp_id: Math.random().toString(),
     lamp_location: [120.203778825737, 22],
     place_id: 0
+  },
+  {
+    lamp_id: 'TEST01',
+    lamp_location: [120.203778825737, 22],
+    place_id: 1
   }
 ]
 
@@ -64,6 +69,9 @@ describe(`Lamps Supports -- `, () => {
     })
     it(`post with not exist foreign id should NOT be create`, done => {
       checkPostError({agent, done}, `${route}/${name}`, createDataWrong[1])
+    })
+    it(`post with exist primary key id should NOT be create`, done => {
+      checkPostError({agent, done}, `${route}/${name}`, createDataWrong[2])
     })
   })
 })
