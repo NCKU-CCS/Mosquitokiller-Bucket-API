@@ -16,11 +16,18 @@ const name = 'lamps'
 const itemId = 'lamp_id'
 const route = '/apis'
 
-const createDataWrong = {
-  lamp_id: Math.random().toString(),
-  lamp_location: [120.203778825737, ''],
-  place_id: 1
-}
+const createDataWrong = [
+  {
+    lamp_id: Math.random().toString(),
+    lamp_location: [120.203778825737, ''],
+    place_id: 1
+  },
+  {
+    lamp_id: Math.random().toString(),
+    lamp_location: [120.203778825737, 22],
+    place_id: 0
+  }
+]
 
 const loginAuth = Agent.loginAuth
 const checkGetSuccess = Agent.checkGetSuccess
@@ -51,9 +58,12 @@ describe(`Lamps Supports -- `, () => {
   // =========================
   // Post Item
   // =========================
-  describe(`/POST ${name} -- `, () => {
+  describe(`/POST ${name} -- Should Fail`, () => {
     it(`post location array with empty string should NOT be create`, done => {
-      checkPostError({agent, done}, `${route}/${name}`, createDataWrong)
+      checkPostError({agent, done}, `${route}/${name}`, createDataWrong[0])
+    })
+    it(`post with not exist foreign id should NOT be create`, done => {
+      checkPostError({agent, done}, `${route}/${name}`, createDataWrong[1])
     })
   })
 })

@@ -72,7 +72,13 @@ exports.BaseController = class {
   }
 
   _sendErrorResponse (err, res) {
-    (err.name === 'SequelizeForeignKeyConstraintError') ? res.status(400).json({error: 'violates foreign key constraint'})
+    console.log(err)
+    return (err.name === 'SequelizeForeignKeyConstraintError')
+    ? res.status(400).json({
+      error: 'violates foreign key constraint',
+      detail: err.original.detail,
+      constraint: err.original.constraint
+    })
     : (err.message === '400') ? res.status(400).json({error: err.payload})
     : (err.message === '404') ? res.status(404).json({error: 'not found'})
                               : res.status(500).json({error: err.message})
