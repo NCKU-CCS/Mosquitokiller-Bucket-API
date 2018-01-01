@@ -17,9 +17,9 @@ class LampsController extends BaseController {
     this.ValidateIdParams = [this.check.param('id', 'not exist').exists()]
 
     this.ValidateCreateKeys = [
-      this.check.body('lamp_id', 'lamp_id should not be null').exists().custom(this._notEmpty),
-      this.check.body('lamp_location', 'lamp_location should not be null').exists().custom(this._notEmpty),
-      this.check.body('place_id', 'place_id should not be null').exists().custom(this._notEmpty),
+      this.check.body('lamp_id', 'lamp_id should be string').exists().custom(this._notEmpty),
+      this.check.body('lamp_location', 'lamp_location should be number').exists().custom(this._notEmpty),
+      this.check.body('place_id', 'place_id should be number').exists().custom(this._notEmpty),
       sanitizeBody('place_id').toInt()
     ]
     this.create = this.create.bind(this)

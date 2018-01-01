@@ -85,9 +85,9 @@ exports.BaseController = class {
   }
 
   _sendErrorResponse (err, res) {
-    console.log(err)
-    return (err.name === 'SequelizeForeignKeyConstraintError') ? res.status(400).json(this._getConstraintErrorMsg(err))
-        : (err.name === 'SequelizeUniqueConstraintError') ? res.status(400).json(this._getConstraintErrorMsg(err))
+    const SequelizeErrors = ['SequelizeForeignKeyConstraintError', 'SequelizeUniqueConstraintError']
+
+    return (SequelizeErrors.includes(err.name)) ? res.status(400).json(this._getConstraintErrorMsg(err))
         : (err.message === '400') ? res.status(400).json({error: err.payload})
         : (err.message === '404') ? res.status(404).json({error: 'not found'})
                                   : res.status(500).json({error: err.message})
