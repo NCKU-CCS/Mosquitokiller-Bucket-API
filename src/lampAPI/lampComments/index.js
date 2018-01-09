@@ -7,7 +7,7 @@ class CommentsController extends BaseController {
     super(Model)
 
     this.ValidateCreateKeys = [
-      this.check.body('lamp_id', 'lamp_id illegal').exists().isLength({ min: 6 }),
+      this.check.body('lamp_id', 'lamp_id length should large than six').exists().isLength({ min: 6 }),
       this.check.body('comment_content', 'comment_content illegal').exists().custom(this._notEmpty)
     ]
   }
