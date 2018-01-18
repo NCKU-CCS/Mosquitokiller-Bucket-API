@@ -159,6 +159,7 @@ $ npm run doc
 ## Database Diagram
 
 ![Database diagram](./diagram.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSirius207%2FBucket-API.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FSirius207%2FBucket-API?ref=badge_shield)
 
 ## Table Overview
 
@@ -385,3 +386,6 @@ $ npm run doc
 MIT © [Pochun](./LICENSE)
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSirius207%2FBucket-API.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FSirius207%2FBucket-API?ref=badge_large)
