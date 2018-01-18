@@ -5,6 +5,7 @@ Dengue Lamps & Minimal covering circle API
 [![Known Vulnerabilities](https://snyk.io/test/github/sirius207/bucket-api/badge.svg)](https://snyk.io/test/github/sirius207/bucket-api)
 [![Code Climate](https://codeclimate.com/github/Sirius207/Bucket-API/badges/gpa.svg)](https://codeclimate.com/github/Sirius207/Bucket-API)
 [![Coverage Status](https://coveralls.io/repos/github/Sirius207/Bucket-API/badge.svg?branch=master)](https://coveralls.io/github/Sirius207/Bucket-API?branch=master)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSirius207%2FBucket-API.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FSirius207%2FBucket-API?ref=badge_shield)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Outline
@@ -159,7 +160,7 @@ $ npm run doc
 ## Database Diagram
 
 ![Database diagram](./diagram.png)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSirius207%2FBucket-API.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FSirius207%2FBucket-API?ref=badge_shield)
+
 
 ## Table Overview
 
@@ -385,7 +386,6 @@ $ npm run doc
 
 MIT © [Pochun](./LICENSE)
 
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
-
-
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSirius207%2FBucket-API.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FSirius207%2FBucket-API?ref=badge_large)
+
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
