@@ -1,3 +1,4 @@
+const path = require('path')
 const Auth = require('../src/authentication/auth')
 
 module.exports = (app, passport) => {
@@ -25,8 +26,9 @@ module.exports = (app, passport) => {
   // INDEX
   // =================================
   app.get('/', Auth.isLoggedIn, (req, res) => {
-    res.render('index.ejs', {
-      title: 'lamps'
-    })
+    res.redirect('/admin/places')
+  })
+  app.get('/admin/*', Auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname + '/../public/admin/index.html'))
   })
 }
