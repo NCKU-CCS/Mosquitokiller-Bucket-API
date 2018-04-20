@@ -4,7 +4,7 @@ module.exports = {
   'password': process.env.LAMPS_PW_PROD,
   'force': {force: false}, // force: true will drop the table if it already exists
   'cors': {
-    'url': ['http://localhost:3000']
+    'url': ['http://140.116.249.228', 'http://localhost:3000', 'http://localhost:8000', 'http://mosquitokiller.csie.ncku.edu.tw', 'https://mosquitokiller.csie.ncku.edu.tw', '23.22.134.98']
   },
   'sha256Secret': process.env.LAMPS_SECRET_PROD,
   'session': {
