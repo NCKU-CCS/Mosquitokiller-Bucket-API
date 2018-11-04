@@ -28,7 +28,7 @@ class LampsController extends BaseController {
 
   async getAll (req, res) {
     try {
-      const attributes = BASIC_ATTRIBUTES
+      const attributes = BASIC_ATTRIBUTES.slice()
       // login user can check hash id
       if (req.isAuthenticated()) {
         attributes.push('lamp_hash_id', 'lamp_wifi_ssid', 'lamp_wifi_password')
@@ -52,7 +52,7 @@ class LampsController extends BaseController {
       const params = await matchedData(req)
 
       // search by hash or normal id
-      const attributes = BASIC_ATTRIBUTES
+      const attributes = BASIC_ATTRIBUTES.slice()
       const queryByHash = (req.query.key === 'hash')
 
       if (queryByHash && params.id.length < 6) {
@@ -69,7 +69,7 @@ class LampsController extends BaseController {
   }
 
   async getLampIDByHashID (lampHashId) {
-    const attributes = BASIC_ATTRIBUTES
+    const attributes = BASIC_ATTRIBUTES.slice()
     const realLamp = await this.Model.findOne({attributes, where: {lamp_hash_id: {$like: `${lampHashId}%`}}})
     if (realLamp) {
       return realLamp.lamp_id
