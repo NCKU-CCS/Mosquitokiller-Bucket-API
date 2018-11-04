@@ -49,6 +49,7 @@ Dengue Lamps & Minimal covering circle API
 	- Fix
 		- cannot Get lamps By too short wrong hashID
 		- Return 400 when Post with null value
+		- change GET Lamps attributes constantly
 
 - v0.9.2.2
 	- Add Zapper Front end display
