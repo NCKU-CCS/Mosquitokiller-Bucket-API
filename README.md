@@ -9,32 +9,32 @@ Dengue Lamps & Minimal covering circle API
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Outline
-- [ChangeLog](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#changelog)
-- [Setup](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#setup)
-- [API Document](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#api-document)
-- [Database Diagram](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#database-diagram)
-- [Table Overview](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#table-overview)
-- [API Table Details](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#table-details)
-	- [lamps](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#table-lamps)
-	- [lamp_places](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#table-lamp_places)
-	- [lamp_counts](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#table-lamp_counts)
-	- [lamp_states](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#table-lamp_states)
-	- [lamp_mcc](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#table-lamp_mcc)
-	- [lamp_mcc\_rules](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#table-lamp_mcc_rules)
-	- [lamp_comments](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#table-lamp_comments)
-- [Permissions](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#permissions)
-	- [Users](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#users)
-	- [Roles](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API#roles)
+- [ChangeLog](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#changelog)
+- [Setup](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#setup)
+- [API Document](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#api-document)
+- [Database Diagram](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#database-diagram)
+- [Table Overview](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#table-overview)
+- [API Table Details](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#table-details)
+	- [lamps](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#table-lamps)
+	- [lamp_places](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#table-lamp_places)
+	- [lamp_counts](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#table-lamp_counts)
+	- [lamp_states](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#table-lamp_states)
+	- [lamp_mcc](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#table-lamp_mcc)
+	- [lamp_mcc\_rules](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#table-lamp_mcc_rules)
+	- [lamp_comments](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#table-lamp_comments)
+- [Permissions](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#permissions)
+	- [Users](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#users)
+	- [Roles](https://github.com/NCKU-CCS/Mosquitokiller-Bucket-API#roles)
 
 
 ## ChangeLog
 
-- v0.9.3
+- v0.9.3 (Todo Features)
 	- Add Tables: lamps_meta, notification
 	- Use pm2 deploy
 
 
-- v0.9.2.4
+- v0.9.2.4 (Todo Features)
 	- Modify
 		- Modify Point Size Function
 	- Add
@@ -107,7 +107,7 @@ $ node config/dbInitialize.js
 
 ```
 $ npm start
-// or use pm2
+// or use pm2 
 $ pm2 start ecosystem.config.js
 ```
 
@@ -126,7 +126,7 @@ Use Production Database
 ```
 $ export NODE_ENV=production
 $ npm run prod
-// or
+// or 
 $ pm2 start ecosystem.config.js --env production
 ```
 
@@ -145,7 +145,7 @@ $ pm2 logs Lamp_Sub
 
 ## API Document
 
-### Check [API Document Site](https://ncku-ccs.github.io/Mosquitokiller-Bucket-API/ndex.html)
+### Check [API Document Site](https://sirius207.github.io/Bucket-API/index.html)
 
 #### Modify API Document Site
 
